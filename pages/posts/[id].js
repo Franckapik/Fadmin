@@ -5,7 +5,7 @@ const Post = ({ data }) => {
   const router = useRouter();
   console.table(data);
 
-  return <p>Post: {data[0].name}</p>;
+  return <p>Post: {data.title}</p>;
 };
 
 export default Post;
@@ -32,11 +32,26 @@ export default Post;
 }
  */
 
-export async function getStaticProps() {
+/* export async function getStaticProps() {
   const allUsers = await prisma.user.findMany({
     include: {
       posts: true,
       profile: true,
+    },
+  });
+
+  console.log(allUsers);
+  const data = JSON.parse(JSON.stringify(allUsers)); //issue with Date from PSQL with NextJS
+
+  return {
+    props: { data },
+  };
+} */
+
+export async function getServerSideProps({ params }) {
+  const allUsers = await prisma.post.findUnique({
+    where: {
+      id: Number(params?.id) || -1,
     },
   });
 
