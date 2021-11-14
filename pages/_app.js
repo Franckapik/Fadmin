@@ -1,9 +1,11 @@
 // add bootstrap css
+
 import "bootstrap/dist/css/bootstrap.css";
+import "../public/styles/qualyn.css";
+
 import Head from "next/head";
 // own css files here
-/* import "../css/customcss.css";
- */
+
 function MyApp({ Component, pageProps }) {
   return (
     <>
