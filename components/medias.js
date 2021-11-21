@@ -6,7 +6,18 @@ export const Medias = ({ medias }) => {
     <ul>
       {medias && medias.length
         ? medias.map((a, i) => {
-            return <li key={i}>{a.media_title}</li>;
+            return (
+              <li key={i}>
+                <Link
+                  href={{
+                    pathname: "/medias/[media]",
+                    query: { media: a.media_id },
+                  }}
+                >
+                  <a>{a.media_title}</a>
+                </Link>
+              </li>
+            );
           })
         : null}{" "}
     </ul>

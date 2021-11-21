@@ -28,3 +28,7 @@ column-span: all;
 
 //api/authors/[id] => authors by id
 //api/authors/ => all authors
+
+//apporter le wtransfer du pc portable vers le pc de dev.
+
+Etant donné le temps impartit, se focaliser dabord sur l'affichage puis ensuite sur les performances après premiere livraison

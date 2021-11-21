@@ -3,7 +3,6 @@ import prisma from "../../prisma/prisma";
 
 const Post = ({ data }) => {
   const router = useRouter();
-  console.table(data);
 
   return (
     <p>
