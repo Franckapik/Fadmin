@@ -29,7 +29,7 @@ export default function Home() {
                 ? data.map((a, i) => {
                     return (
                       <li key={i}>
-                        <Link href="/authors/eyal">
+                        <Link href={`/authors/${a.author_id}`}>
                           <a>{a.author_name}</a>
                         </Link>
                       </li>
