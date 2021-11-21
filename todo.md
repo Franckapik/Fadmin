@@ -32,3 +32,7 @@ column-span: all;
 //apporter le wtransfer du pc portable vers le pc de dev.
 
 Etant donné le temps impartit, se focaliser dabord sur l'affichage puis ensuite sur les performances après premiere livraison
+
+les questions ?
+-faire un map lors d'un dossier d'images sur le caroussel ?
+-en fonction du type du media, plutot gallerie ou video youtube
