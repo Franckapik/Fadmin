@@ -5,6 +5,17 @@ const prisma = new PrismaClient();
 async function main() {
   //create data => db
 
+  await prisma.author.create({
+    data: {
+      name: "Alice",
+      email: "alice@prisma.io",
+      categories: [1, 2],
+      art: "Sound",
+      biography: "voici ma biographie",
+      draft: true,
+    },
+  });
+
   /*   await prisma.user.create({
     data: {
       name: "Alice",
@@ -20,7 +31,7 @@ async function main() {
 
   //update data => db
 
-  const post = await prisma.post.update({
+  /*  const post = await prisma.post.update({
     where: { id: 1 },
     data: { published: true },
   });
@@ -34,7 +45,7 @@ async function main() {
       profile: true,
     },
   });
-  console.dir(allUsers, { depth: null });
+  console.dir(allUsers, { depth: null });*/
 }
 
 main()

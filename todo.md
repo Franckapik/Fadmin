@@ -11,7 +11,7 @@ structure db à faire selon le plan donné par mail
 
 Author : Name, Category ID, Job, Biography, Draft
 Category : Name, Page Id, Description, Draft
-Page : Name, Medias,
+Page : Name, templates_id,
 Media : Title, Category ID, Message, Photo, Link, share, draft...
 //Path
 
@@ -23,3 +23,8 @@ letter-spacing: 0.075em;
 text-transform: uppercase;
 text-align: center;
 column-span: all;
+
+//Add the maximum of reading database. (add media) and use query/params with link.
+
+//api/authors/[id] => authors by id
+//api/authors/ => all authors

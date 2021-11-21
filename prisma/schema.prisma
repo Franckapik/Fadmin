@@ -7,27 +7,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(255)
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  content   String?
-  published Boolean  @default(false)
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+model author {
+  author_id        Int        @id @default(autoincrement()) @db.SmallInt
+  author_name      String     @db.VarChar(20)
+  author_art       String?    @db.VarChar(20)
+  author_biography String?
+  author_draft     Boolean
+  author_email     String?    @db.VarChar(20)
+  category         category[]
 }
 
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  userId Int     @unique
-  user   User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+model category {
+  category_id          Int     @id @default(autoincrement())
+  category_name        String  @db.VarChar(50)
+  category_page_id     Int
+  category_description String?
+  category_draft       Boolean
+  category_author      Int?    @db.SmallInt
+  author               author? @relation(fields: [category_author], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "category_author_fkey")
+  page                 page    @relation(fields: [category_page_id], references: [page_id], onDelete: NoAction, onUpdate: NoAction, map: "page_id_fkey")
+  media                media[]
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  name    String?  @db.VarChar(255)
-  email   String   @unique @db.VarChar(255)
-  posts   Post[]
-  profile Profile?
+model media {
+  media_id          Int       @id @default(autoincrement())
+  media_title       String    @db.VarChar(80)
+  media_photo       String?   @db.VarChar(100)
+  media_video       String?   @db.VarChar(100)
+  media_content     String?
+  media_link        String?   @db.VarChar(100)
+  media_share       String?   @db.VarChar(100)
+  media_author_name String?   @db.VarChar(50)
+  media_created     DateTime? @db.Date
+  media_number      Int?      @db.SmallInt
+  media_category_id Int?
+  category          category? @relation(fields: [media_category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "category_fkey")
+}
+
+model page {
+  page_id                Int        @id @default(autoincrement())
+  page_name              String     @db.VarChar(40)
+  page_media_title       Boolean?
+  page_media_photo       Boolean?
+  page_media_content     Boolean?
+  page_media_link        Boolean?
+  page_media_share       Boolean?
+  page_media_author_name Boolean?
+  page_media_created     Boolean?
+  page_media_number      Boolean?
+  page_media_video       Boolean?
+  page_media_category    Boolean?
+  category               category[]
 }
