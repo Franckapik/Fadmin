@@ -1,6 +1,9 @@
 import { useRouter } from "next/router";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+import fs from "fs";
+import path from "path";
+import getConfig from "next/config";
 
 const Media = ({ media }) => {
   const router = useRouter();
@@ -108,6 +111,19 @@ export async function getServerSideProps({ params, query }) {
       media_id: Number(query?.id) || -1,
     },
   });
+
+  fs.readdir(
+    path.join(
+      getConfig().serverRuntimeConfig.PROJECT_ROOT,
+      "/public/medias/2/01"
+    ),
+    (err, files) => {
+      console.log(files);
+      /*     files.forEach((file) => {
+      console.log(file);
+    }); */
+    }
+  );
 
   const media = JSON.parse(JSON.stringify(media0)); //issue with Date from PSQL with NextJS
 
