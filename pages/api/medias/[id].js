@@ -8,5 +8,6 @@ export default async function handle(req, res) {
       media_id: Number(id) || -1,
     },
   });
+
   res.json(data_media);
 }

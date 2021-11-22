@@ -36,3 +36,6 @@ Etant donné le temps impartit, se focaliser dabord sur l'affichage puis ensuite
 les questions ?
 -faire un map lors d'un dossier d'images sur le caroussel ?
 -en fonction du type du media, plutot gallerie ou video youtube
+
+aparemment peu utile d'utiliser lapi interne ds getServer. Autant importer la function.
+useSWR semble possible dans getServer mais cela a peut de sens.
