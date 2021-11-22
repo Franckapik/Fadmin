@@ -39,3 +39,8 @@ les questions ?
 
 aparemment peu utile d'utiliser lapi interne ds getServer. Autant importer la function.
 useSWR semble possible dans getServer mais cela a peut de sens.
+
+//rendre dynamic le path sur chaque media_id pour la lecture de tous les dossiers.
+//ajouter le back
+//ajouter le header sur la page media.
+// s'approcher du css de lalaland.

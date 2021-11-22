@@ -2,132 +2,93 @@ import { useRouter } from "next/router";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 import fs from "fs";
+const fsPromises = fs.promises;
 import path from "path";
 import getConfig from "next/config";
+import Carousel from "react-bootstrap/Carousel";
+import Image from "next/image";
+import { useState } from "react";
 
-const Media = ({ media }) => {
+function Media({ media, filesTri }) {
+  const [index, setIndex] = useState(0);
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
   const router = useRouter();
-  const id = router.query.id;
-  return (
-    <>
-      {media && media.media_id ? (
-        <div
-          id="carouselExampleCaptions"
-          className="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div className="carousel-indicators">
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="0"
-              className="active"
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-            ></button>
-          </div>
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              {media.media_photo ? (
-                <img
-                  src={"/" + media.media_photo}
-                  className="d-block w-100"
-                  alt="..."
-                ></img>
-              ) : null}
-              <div className="carousel-caption d-none d-md-block">
-                <h5>{media.media_title}</h5>
-                <p>{media.media_content}</p>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img src="..." className="d-block w-100" alt="..."></img>
-              <div className="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
-                <p>
-                  Some representative placeholder content for the second slide.
-                </p>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <img src="..." className="d-block w-100" alt="..."></img>
-              <div className="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
-                <p>
-                  Some representative placeholder content for the third slide.
-                </p>
-              </div>
-            </div>
-          </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div>
-      ) : (
-        "Pas de media"
-      )}
-    </>
-  );
-};
 
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-md-6 mx-auto">
+          <span onClick={() => router.back()}>Back</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <Carousel activeIndex={index} onSelect={handleSelect}>
+            {filesTri.map((slide, i) => {
+              return (
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={"/medias/2/01/" + slide}
+                    alt="slider image"
+                  />
+                  <Carousel.Caption>
+                    <h3>Exemple de caption</h3>
+                    <p>{slide.description}</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              );
+            })}
+          </Carousel>
+        </div>
+      </div>
+      <div className="row">
+        <div class="col-md-6 mx-auto">
+          PHOTOGRAPHY {media.media_title} {String(index).padStart(2, "0")} /{" "}
+          {String(filesTri.length - 1).padStart(2, "0")}{" "}
+          {media.category.category_name}
+        </div>
+      </div>
+    </div>
+  );
+}
 export default Media;
 
 export async function getServerSideProps({ params, query }) {
+  const id = query.id;
+
   const media0 = await prisma.media.findUnique({
     where: {
-      media_id: Number(query?.id) || -1,
+      media_id: Number(id) || -1,
+    },
+    include: {
+      category: true,
     },
   });
 
-  fs.readdir(
-    path.join(
-      getConfig().serverRuntimeConfig.PROJECT_ROOT,
-      "/public/medias/2/01"
-    ),
-    (err, files) => {
-      console.log(files);
-      /*     files.forEach((file) => {
-      console.log(file);
-    }); */
-    }
-  );
-
   const media = JSON.parse(JSON.stringify(media0)); //issue with Date from PSQL with NextJS
 
+  console.log(media);
+  const EXTENSION = [".jpeg", ".jpg", ".png"];
+
+  const filesList = await fsPromises.readdir(
+    path.join(
+      getConfig().serverRuntimeConfig.PROJECT_ROOT,
+      `/public/medias/${id}/${media.media_folder}`
+    )
+  );
+
+  const filesTri = filesList.filter((file) => {
+    const fileExt = path.extname(file).toLowerCase();
+    return EXTENSION.includes(fileExt);
+  });
+
+  console.log("ici", filesTri);
+
   return {
-    props: { media },
+    props: { media, filesTri },
   };
 }

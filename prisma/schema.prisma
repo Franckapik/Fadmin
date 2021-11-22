@@ -41,6 +41,7 @@ model media {
   media_created     DateTime? @db.Date
   media_number      Int?      @db.SmallInt
   media_category_id Int?
+  media_folder      String?   @db.VarChar(30)
   category          category? @relation(fields: [media_category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "category_fkey")
 }
 
