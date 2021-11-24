@@ -16,6 +16,9 @@ export const Categories = ({ categories }) => {
 
   return (
     <ul>
+      <li key={"overview"}>
+        <a onClick={() => addQuery("categ", 0)}>OVERVIEW</a>
+      </li>
       {categories && categories.length
         ? categories.map((a, i) => {
             return (

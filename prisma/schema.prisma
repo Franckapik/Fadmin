@@ -31,7 +31,7 @@ model category {
 
 model media {
   media_id          Int       @id @default(autoincrement())
-  media_title       String    @db.VarChar(80)
+  media_title       String?   @db.VarChar(80)
   media_photo       String?   @db.VarChar(100)
   media_video       String?   @db.VarChar(100)
   media_content     String?
@@ -42,6 +42,7 @@ model media {
   media_number      Int?      @db.SmallInt
   media_category_id Int?
   media_folder      String?   @db.VarChar(30)
+  media_subtitle    String    @db.VarChar(50)
   category          category? @relation(fields: [media_category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "category_fkey")
 }
 
