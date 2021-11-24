@@ -1,13 +1,12 @@
+import fs from "fs";
+import getConfig from "next/config";
 import { useRouter } from "next/router";
+import path from "path";
+import { useState } from "react";
+import Carousel from "react-bootstrap/Carousel";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-import fs from "fs";
 const fsPromises = fs.promises;
-import path from "path";
-import getConfig from "next/config";
-import Carousel from "react-bootstrap/Carousel";
-import Image from "next/image";
-import { useState } from "react";
 
 function Media({ media, filesTri }) {
   const [index, setIndex] = useState(0);
