@@ -2,6 +2,10 @@ import Link from "next/link";
 
 export const Categories = ({ categories }) => {
   console.log("cat", categories);
+  let pathname = "";
+  if (typeof window !== "undefined") {
+    pathname = window.location.pathname;
+  }
 
   return (
     <ul>
@@ -11,7 +15,7 @@ export const Categories = ({ categories }) => {
               <li key={i}>
                 <Link
                   href={{
-                    pathname: window.location.pathname,
+                    pathname: pathname,
                     query: { categ: a.category_id },
                   }}
                 >

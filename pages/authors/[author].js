@@ -14,7 +14,12 @@ import getConfig from "next/config";
 const prisma = new PrismaClient();
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-export default function Home({ db_authors, medias, db_category }) {
+export default function Home({
+  db_authors,
+  mediasFiles,
+  db_category,
+  db_medias,
+}) {
   const router = useRouter();
 
   return (
@@ -29,7 +34,7 @@ export default function Home({ db_authors, medias, db_category }) {
         Cat
         <Categories categories={db_category}></Categories>
         Med
-        <Medias medias={medias}></Medias>
+        <Medias mediasFiles={mediasFiles} db_medias={db_medias}></Medias>
       </main>
 
       <footer>Qualyn Footer</footer>
@@ -54,9 +59,7 @@ export async function getServerSideProps({ params, query }) {
 
   const db_authors = await prisma.author.findMany();
 
-  console.log(db_authors);
-
-  const medias = await Promise.all(
+  const mediasFiles = await Promise.all(
     db_medias.map((a, i) => {
       return fsPromises
         .readdir(
@@ -80,6 +83,6 @@ export async function getServerSideProps({ params, query }) {
   });
 
   return {
-    props: { db_authors, medias, db_category },
+    props: { db_authors, mediasFiles, db_medias, db_category },
   };
 }

@@ -1,16 +1,21 @@
 import Link from "next/link";
 
-export const Medias = ({ medias }) => {
-  console.log("med", medias);
+export const Medias = ({ mediasFiles, db_medias }) => {
+  console.log("med", db_medias, mediasFiles);
+  let pathname = "";
+  if (typeof window !== "undefined") {
+    pathname = window.location.pathname;
+  }
+
   return (
     <ul>
-      {medias && medias.length
-        ? medias.map((a, i) => {
+      {db_medias && db_medias.length
+        ? db_medias.map((a, i) => {
             return (
               <li key={i}>
                 <Link
                   href={{
-                    pathname: "/medias/[media]",
+                    pathname: pathname,
                     query: { media: a.media_id },
                   }}
                 >
