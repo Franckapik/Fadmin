@@ -8,7 +8,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const fsPromises = fs.promises;
 
-function Media({ media, filesTri }) {
+function Caroussel({ media, filesTri }) {
   const [index, setIndex] = useState(0);
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
@@ -54,7 +54,7 @@ function Media({ media, filesTri }) {
     </div>
   );
 }
-export default Media;
+export default Caroussel;
 
 export async function getServerSideProps({ params, query }) {
   const id = query.id;

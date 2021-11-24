@@ -1,11 +1,18 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export const Categories = ({ categories }) => {
-  console.log("cat", categories);
   let pathname = "";
   if (typeof window !== "undefined") {
     pathname = window.location.pathname;
   }
+
+  const router = useRouter();
+
+  const addQuery = (key, value) => {
+    router.query[key] = value;
+    router.push(router);
+  };
 
   return (
     <ul>
@@ -13,14 +20,9 @@ export const Categories = ({ categories }) => {
         ? categories.map((a, i) => {
             return (
               <li key={i}>
-                <Link
-                  href={{
-                    pathname: pathname,
-                    query: { categ: a.category_id },
-                  }}
-                >
-                  <a>{a.category_name}</a>
-                </Link>
+                <a onClick={() => addQuery("categ", a.category_id)}>
+                  {a.category_name}
+                </a>
               </li>
             );
           })

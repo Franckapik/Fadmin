@@ -1,26 +1,32 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
-export const Medias = ({ mediasFiles, db_medias }) => {
-  console.log("med", db_medias, mediasFiles);
-  let pathname = "";
-  if (typeof window !== "undefined") {
-    pathname = window.location.pathname;
-  }
+export const Medias = ({ mediasFiles, setShow, show }) => {
+  const router = useRouter();
+
+  const addQuery = (key, value) => {
+    setShow(!show);
+    router.query[key] = value;
+    router.push(router);
+  };
 
   return (
     <ul>
-      {db_medias && db_medias.length
-        ? db_medias.map((a, i) => {
+      {mediasFiles && mediasFiles != 0
+        ? mediasFiles.map((a, i) => {
+            const path_client_img = a.folder_path.substr(7) + "/" + a.files[0];
             return (
               <li key={i}>
-                <Link
-                  href={{
-                    pathname: pathname,
-                    query: { media: a.media_id },
-                  }}
-                >
-                  <a>{a.media_title}</a>
-                </Link>
+                <a onClick={() => addQuery("media", a.media_id)}>
+                  {a.media_title}{" "}
+                  <img
+                    src={path_client_img}
+                    alt="..."
+                    width="500"
+                    height="200"
+                  />
+                </a>
               </li>
             );
           })
