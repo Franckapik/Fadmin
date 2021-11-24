@@ -14,16 +14,8 @@ import getConfig from "next/config";
 const prisma = new PrismaClient();
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-export default function Home({ author, medias }) {
+export default function Home({ db_authors, medias, db_category }) {
   const router = useRouter();
-
-  const { data, error } = useSWR("/api/authors/", fetcher);
-  const { data: categories, error: categories_error } = useSWR(
-    `${server}/api/categories/${author.author_id}`,
-    fetcher
-  );
-  if (error) return <div>An error occured.</div>;
-  if (!data) return <div>Loading ...</div>;
 
   return (
     <div className="container">
@@ -32,10 +24,10 @@ export default function Home({ author, medias }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header authors={data}></Header>
+      <Header authors={db_authors}></Header>
       <main>
         Cat
-        <Categories categories={categories}></Categories>
+        <Categories categories={db_category}></Categories>
         Med
         <Medias medias={medias}></Medias>
       </main>
@@ -60,6 +52,10 @@ export async function getServerSideProps({ params, query }) {
     },
   });
 
+  const db_authors = await prisma.author.findMany();
+
+  console.log(db_authors);
+
   const medias = await Promise.all(
     db_medias.map((a, i) => {
       return fsPromises
@@ -77,15 +73,13 @@ export async function getServerSideProps({ params, query }) {
     })
   );
 
-  console.log(medias);
+  const db_category = await prisma.category.findMany({
+    where: {
+      category_author: Number(params?.author) || -1,
+    },
+  });
 
   return {
-    props: { author, medias },
+    props: { db_authors, medias, db_category },
   };
 }
-
-/* 
-    const filesTri = filesList.filter((file) => {
-      const fileExt = path.extname(file).toLowerCase();
-      return EXTENSION.includes(fileExt);
-    }); */
