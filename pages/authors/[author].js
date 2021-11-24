@@ -65,19 +65,28 @@ export default function Home({ db_authors, mediasFiles, db_category }) {
 }
 
 export async function getServerSideProps({ params, query }) {
+  console.log(query.categ);
   const db_author = await prisma.author.findUnique({
     where: {
       author_id: Number(params?.author) || -1,
     },
   });
 
-  const author = JSON.parse(JSON.stringify(db_author)); //issue with Date from PSQL with NextJS
+  let db_medias = [];
 
-  const db_medias = await prisma.media.findMany({
-    where: {
-      media_category_id: Number(query?.categ) || -1,
-    },
-  });
+  if (query?.categ == 0 || typeof query["categ"] === "undefined") {
+    db_medias = await prisma.media.findMany({
+      where: {
+        media_author_id: Number(params?.author) || -1,
+      },
+    });
+  } else {
+    db_medias = await prisma.media.findMany({
+      where: {
+        media_category_id: Number(query?.categ) || -1,
+      },
+    });
+  }
 
   const db_authors = await prisma.author.findMany();
 
@@ -106,8 +115,6 @@ export async function getServerSideProps({ params, query }) {
       }
     })
   );
-
-  console.log(mediasFiles);
 
   const db_category = await prisma.category.findMany({
     where: {

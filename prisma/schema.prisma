@@ -15,6 +15,7 @@ model author {
   author_draft     Boolean
   author_email     String?    @db.VarChar(20)
   category         category[]
+  media            media[]
 }
 
 model category {
@@ -37,12 +38,13 @@ model media {
   media_content     String?
   media_link        String?   @db.VarChar(100)
   media_share       String?   @db.VarChar(100)
-  media_author_name String?   @db.VarChar(50)
   media_created     DateTime? @db.Date
   media_number      Int?      @db.SmallInt
   media_category_id Int?
   media_folder      String?   @db.VarChar(30)
   media_subtitle    String    @db.VarChar(50)
+  media_author_id   Int?      @db.SmallInt
+  author            author?   @relation(fields: [media_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "author_id_fkey")
   category          category? @relation(fields: [media_category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "category_fkey")
 }
 

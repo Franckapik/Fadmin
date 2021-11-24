@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 
 export const Medias = ({ mediasFiles, setShow, show }) => {
   const router = useRouter();
