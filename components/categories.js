@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Nav } from "react-bootstrap";
 
 export const Categories = ({ categories }) => {
   let pathname = "";
@@ -15,21 +16,36 @@ export const Categories = ({ categories }) => {
   };
 
   return (
-    <ul>
-      <li key={"overview"}>
-        <a onClick={() => addQuery("categ", 0)}>OVERVIEW</a>
-      </li>
-      {categories && categories.length
-        ? categories.map((a, i) => {
-            return (
-              <li key={i}>
-                <a onClick={() => addQuery("categ", a.category_id)}>
-                  {a.category_name}
-                </a>
-              </li>
-            );
-          })
-        : null}{" "}
-    </ul>
+    <>
+      <Nav className="justify-content-center" activeKey="0">
+        <Nav.Item>
+          <Nav.Link active eventKey="0" onClick={() => addQuery("categ", 0)}>
+            OVERVIEW
+          </Nav.Link>
+        </Nav.Item>
+        {categories && categories.length
+          ? categories.map((a, i) => {
+              return (
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey={i}
+                    onClick={() => addQuery("categ", a.category_id)}
+                  >
+                    {a.category_name}
+                  </Nav.Link>
+                </Nav.Item>
+              );
+            })
+          : null}{" "}
+      </Nav>
+      <Nav className="justify-content-center" activeKey="0">
+        <Nav.Item>
+          <Nav.Link>Contact</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link>Insta @Eyal.Mix</Nav.Link>
+        </Nav.Item>
+      </Nav>
+    </>
   );
 };

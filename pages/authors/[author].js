@@ -1,66 +1,56 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { Categories, Main } from "../../components/categories";
-import useSWR from "swr";
-import { Header } from "../../components/header";
-const { PrismaClient } = require("@prisma/client");
-import { server } from "../../config";
-import { Medias } from "../../components/medias";
-const fsPromises = fs.promises;
 import fs from "fs";
-import path from "path";
 import getConfig from "next/config";
-import CarouselComp from "../../components/carousel";
-import { Modal } from "react-bootstrap";
+import Head from "next/head";
+import path from "path";
 import { useState } from "react";
+import { Container, Modal } from "react-bootstrap";
+import CarouselComp from "../../components/carousel";
+import { Categories } from "../../components/categories";
+import { Header } from "../../components/header";
+import { Medias } from "../../components/medias";
+const { PrismaClient } = require("@prisma/client");
+const fsPromises = fs.promises;
 
 const prisma = new PrismaClient();
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Home({ db_authors, mediasFiles, db_category }) {
-  const router = useRouter();
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
 
-  function handleShow(breakpoint) {
-    setFullscreen(breakpoint);
-    setShow(true);
-  }
-
   return (
-    <div className="container">
+    <Container>
       <Head>
         <title>Qualyn</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <section>
+        <Header authors={db_authors}></Header>
+        <main>
+          <Categories categories={db_category}></Categories>
+          Med
+          <Medias
+            mediasFiles={mediasFiles}
+            setShow={setShow}
+            show={show}
+          ></Medias>
+          <Modal
+            show={show}
+            fullscreen={fullscreen}
+            onHide={() => setShow(false)}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Modal</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {" "}
+              <CarouselComp mediasFiles={mediasFiles}></CarouselComp>
+            </Modal.Body>
+          </Modal>
+        </main>
 
-      <Header authors={db_authors}></Header>
-      <main>
-        Cat
-        <Categories categories={db_category}></Categories>
-        Med
-        <Medias
-          mediasFiles={mediasFiles}
-          setShow={setShow}
-          show={show}
-        ></Medias>
-        <Modal
-          show={show}
-          fullscreen={fullscreen}
-          onHide={() => setShow(false)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Modal</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {" "}
-            <CarouselComp mediasFiles={mediasFiles}></CarouselComp>
-          </Modal.Body>
-        </Modal>
-      </main>
-
-      <footer>Qualyn Footer</footer>
-    </div>
+        <footer>Qualyn Footer</footer>
+      </section>
+    </Container>
   );
 }
 
