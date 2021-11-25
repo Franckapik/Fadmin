@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { Nav } from "react-bootstrap";
 
@@ -43,7 +44,9 @@ export const Categories = ({ categories }) => {
           <Nav.Link>Contact</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link>Insta @Eyal.Mix</Nav.Link>
+          <Nav.Link>
+            <FontAwesomeIcon icon={faInstagram} width="1.5em" />
+          </Nav.Link>
         </Nav.Item>
       </Nav>
     </>
