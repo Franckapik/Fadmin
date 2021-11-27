@@ -27,7 +27,7 @@ export default function Home({ db_authors, mediasFiles, db_category }) {
         <Header authors={db_authors}></Header>
         <main>
           <Categories categories={db_category}></Categories>
-          Med
+
           <Medias
             mediasFiles={mediasFiles}
             setShow={setShow}
@@ -38,8 +38,8 @@ export default function Home({ db_authors, mediasFiles, db_category }) {
             fullscreen={fullscreen}
             onHide={() => setShow(false)}
           >
-            <Modal.Header closeButton>
-              <Modal.Title>Modal</Modal.Title>
+            <Modal.Header closeButton className="cursor">
+              Back
             </Modal.Header>
             <Modal.Body>
               {" "}
@@ -48,14 +48,13 @@ export default function Home({ db_authors, mediasFiles, db_category }) {
           </Modal>
         </main>
 
-        <footer>Qualyn Footer</footer>
+        <footer className="text-center p-2">Qualyn</footer>
       </section>
     </Container>
   );
 }
 
 export async function getServerSideProps({ params, query }) {
-  console.log(query.categ);
   const db_author = await prisma.author.findUnique({
     where: {
       author_id: Number(params?.author) || -1,
@@ -69,14 +68,22 @@ export async function getServerSideProps({ params, query }) {
       where: {
         media_author_id: Number(params?.author) || -1,
       },
+      include: {
+        author: true,
+      },
     });
   } else {
     db_medias = await prisma.media.findMany({
       where: {
         media_category_id: Number(query?.categ) || -1,
       },
+      include: {
+        author: true,
+      },
     });
   }
+
+  console.log(db_medias);
 
   const db_authors = await prisma.author.findMany();
 
@@ -87,7 +94,6 @@ export async function getServerSideProps({ params, query }) {
         getConfig().serverRuntimeConfig.PROJECT_ROOT,
         pathFolder
       );
-      console.log(absoluteFolder);
       if (fs.existsSync(absoluteFolder)) {
         const data2 = await fsPromises.readdir(absoluteFolder);
         const data3 = data2.filter((f) =>

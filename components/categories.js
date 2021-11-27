@@ -18,16 +18,16 @@ export const Categories = ({ categories }) => {
 
   return (
     <>
-      <Nav className="justify-content-center" activeKey="0">
-        <Nav.Item>
-          <Nav.Link active eventKey="0" onClick={() => addQuery("categ", 0)}>
+      <Nav className="justify-content-center">
+        <Nav.Item key="0">
+          <Nav.Link eventKey="0" onClick={() => addQuery("categ", 0)}>
             OVERVIEW
           </Nav.Link>
         </Nav.Item>
         {categories && categories.length
           ? categories.map((a, i) => {
               return (
-                <Nav.Item>
+                <Nav.Item key={i + 1}>
                   <Nav.Link
                     eventKey={i}
                     onClick={() => addQuery("categ", a.category_id)}
@@ -40,10 +40,10 @@ export const Categories = ({ categories }) => {
           : null}{" "}
       </Nav>
       <Nav className="justify-content-center" activeKey="0">
-        <Nav.Item>
+        <Nav.Item key="contact">
           <Nav.Link>Contact</Nav.Link>
         </Nav.Item>
-        <Nav.Item>
+        <Nav.Item key="insta">
           <Nav.Link>
             <FontAwesomeIcon icon={faInstagram} width="1.5em" />
           </Nav.Link>

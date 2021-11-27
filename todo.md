@@ -40,6 +40,6 @@ les questions ?
 aparemment peu utile d'utiliser lapi interne ds getServer. Autant importer la function.
 useSWR semble possible dans getServer mais cela a peut de sens.
 
-//ajouter filelist au medias sur la page author puis ensuite passer les donnees aux comp childs media.
-
-// s'approcher du css de lalaland.
+Questions : Qu'en est-il du coté du site ? Retirer captions ?
+Faire les encadré active et hover link
+retirer les captions fleches si pas de gallery

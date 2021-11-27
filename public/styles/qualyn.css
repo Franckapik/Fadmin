@@ -22,19 +22,40 @@ h2 {
   letter-spacing: 0.11em;
 }
 
-.authors {
+.nav-authors {
+  width: 200px;
   font-size: 15px;
   letter-spacing: 0.11em;
   font-weight: 800;
 }
 
+.nav-authors:focus {
+  color: inherit;
+  border:1px solid rgb(0, 0, 0);  
+
+}
+
 a, .nav-link {  
+  color: black;
   text-decoration: none;
-  color: inherit; 
+  border:1px solid white;  
+  padding-top: 2.7px;
+  padding-bottom: 2.7px;
+  padding-left: 5.4px;
+  padding-right: 5.4px;
+  margin: 6px;
 }
 
 a:hover, .nav-link:hover {
   color: inherit;
+  border:1px solid rgb(167, 166, 166);  
+
+}
+
+a:focus, .nav-link:focus {
+  color: inherit;
+  border:1px solid rgb(0, 0, 0);  
+
 }
 
 .thin {
@@ -45,3 +66,25 @@ a:hover, .nav-link:hover {
   font-size: 12px;
   font-weight: 600;
 }
+
+.cursor {
+  cursor: pointer;
+}
+
+footer {
+  font-size: 12px;
+  font-weight: 600;
+
+}
+
+.modal-header {
+  border: 0;
+}
+
+
+.list-group-item {
+  padding : 0;
+  margin : 5px;
+  border: 0;
+}
+

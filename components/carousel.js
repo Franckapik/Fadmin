@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { ListGroup } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 
 export default function CarouselComp({ mediasFiles }) {
@@ -13,8 +14,6 @@ export default function CarouselComp({ mediasFiles }) {
   const mediaSelected = mediasFiles.filter(
     (a) => a.media_id == router.query.media
   );
-
-  console.log(mediaSelected);
 
   return (
     <>
@@ -46,13 +45,26 @@ export default function CarouselComp({ mediasFiles }) {
             </div>
           </div>
           <div className="row">
-            <div class="col-md-6 mx-auto">
-              PHOTOGRAPHY {mediaSelected.media_title}{" "}
-              {String(index).padStart(2, "0")} /{" "}
-              {String(mediaSelected[0]?.files.length - 1).padStart(2, "0")}{" "}
-              {/*               {mediaSelected[0].category.category_name}
-               */}{" "}
-            </div>
+            <ListGroup horizontal className="mt-5 justify-content-center">
+              <ListGroup.Item>
+                {mediaSelected[0].media_subtitle}{" "}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {" "}
+                <strong>{mediaSelected[0].author.author_name}</strong>
+              </ListGroup.Item>
+              {mediaSelected[0].files.length === 1 ? (
+                <ListGroup.Item>{mediaSelected[0].media_title}</ListGroup.Item>
+              ) : (
+                <ListGroup.Item>
+                  {" "}
+                  {String(index).padStart(2, "0") +
+                    "/" +
+                    String(mediaSelected[0]?.files.length - 1).padStart(2, "0")}
+                </ListGroup.Item>
+              )}
+              <ListGroup.Item>{mediaSelected[0].media_content}</ListGroup.Item>
+            </ListGroup>
           </div>
         </div>
       ) : null}
