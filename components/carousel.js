@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { ListGroup } from "react-bootstrap";
+import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 
 export default function CarouselComp({ mediasFiles }) {
@@ -18,10 +18,16 @@ export default function CarouselComp({ mediasFiles }) {
   return (
     <>
       {mediaSelected && mediaSelected[0] ? (
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 mx-auto">
-              <Carousel activeIndex={index} onSelect={handleSelect}>
+        <Container fluid>
+          <Row>
+            <Col className="mx-auto">
+              <Carousel
+                variant="dark"
+                activeIndex={index}
+                onSelect={handleSelect}
+                className="carousel-media"
+                controls={mediaSelected[0].files.length - 1}
+              >
                 {mediaSelected &&
                   mediaSelected[0].files.map((a, i) => {
                     const path_client_img =
@@ -29,22 +35,20 @@ export default function CarouselComp({ mediasFiles }) {
 
                     return (
                       <Carousel.Item key={i}>
-                        <img
-                          className="d-block w-100"
-                          src={path_client_img}
-                          alt="slider image"
-                        />
-                        <Carousel.Caption>
-                          <h3>Exemple de caption</h3>
-                          <p>{a.description}</p>
-                        </Carousel.Caption>
+                        <div class="d-flex justify-content-center">
+                          <img
+                            className="d-block media-view"
+                            src={path_client_img}
+                            alt="slider image"
+                          />
+                        </div>
                       </Carousel.Item>
                     );
                   })}
               </Carousel>
-            </div>
-          </div>
-          <div className="row">
+            </Col>
+          </Row>
+          <Row>
             <ListGroup horizontal className="mt-5 justify-content-center">
               <ListGroup.Item>
                 {mediaSelected[0].media_subtitle}{" "}
@@ -65,8 +69,8 @@ export default function CarouselComp({ mediasFiles }) {
               )}
               <ListGroup.Item>{mediaSelected[0].media_content}</ListGroup.Item>
             </ListGroup>
-          </div>
-        </div>
+          </Row>
+        </Container>
       ) : null}
     </>
   );

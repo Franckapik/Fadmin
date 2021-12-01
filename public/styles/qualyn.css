@@ -46,13 +46,13 @@ a, .nav-link {
   margin: 6px;
 }
 
-a:hover, .nav-link:hover {
+ .nav-link:hover {
   color: inherit;
   border:1px solid rgb(167, 166, 166);  
 
 }
 
-a:focus, .nav-link:focus {
+ .nav-link:focus {
   color: inherit;
   border:1px solid rgb(0, 0, 0);  
 
@@ -79,6 +79,7 @@ footer {
 
 .modal-header {
   border: 0;
+  padding-bottom: 0;
 }
 
 
@@ -87,4 +88,21 @@ footer {
   margin : 5px;
   border: 0;
 }
+
+.modal-body {
+  align-items: center;
+}
+
+.media-view {
+  height: 75vh;
+}
+
+.carousel-indicators {
+  position: relative;
+  top: -20px;
+}
+
+
+
+
 

@@ -41,5 +41,4 @@ aparemment peu utile d'utiliser lapi interne ds getServer. Autant importer la fu
 useSWR semble possible dans getServer mais cela a peut de sens.
 
 Questions : Qu'en est-il du coté du site ? Retirer captions ?
-Faire les encadré active et hover link
 retirer les captions fleches si pas de gallery

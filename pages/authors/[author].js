@@ -18,7 +18,7 @@ export default function Home({ db_authors, mediasFiles, db_category }) {
   const [show, setShow] = useState(false);
 
   return (
-    <Container>
+    <Container fluid>
       <Head>
         <title>Qualyn</title>
         <link rel="icon" href="/favicon.ico" />
@@ -39,7 +39,7 @@ export default function Home({ db_authors, mediasFiles, db_category }) {
             onHide={() => setShow(false)}
           >
             <Modal.Header closeButton className="cursor">
-              Back
+              <span onClick={() => setShow(!show)}>Back</span>
             </Modal.Header>
             <Modal.Body>
               {" "}

@@ -21,16 +21,18 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
             return (
               <Card
                 border="0"
-                className="m-2 cursor"
+                className="cursor"
                 style={{
-                  width: 350,
-                  height: 280,
+                  margin: "2vw",
+                  width: "20vw",
+                  height: "20vw",
                   backgroundImage: `url(${
                     a.folder_path.substr(7) + "/" + a.files[0]
                   })`,
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center center",
                   backgroundSize: "cover",
+                  flexBasis: "21%",
                 }}
                 onClick={() => addQuery("media", a.media_id)}
                 key={i}

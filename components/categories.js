@@ -18,7 +18,7 @@ export const Categories = ({ categories }) => {
 
   return (
     <>
-      <Nav className="justify-content-center">
+      <Nav className="justify-content-center  align-items-center">
         <Nav.Item key="0">
           <Nav.Link eventKey="0" onClick={() => addQuery("categ", 0)}>
             OVERVIEW
@@ -39,7 +39,7 @@ export const Categories = ({ categories }) => {
             })
           : null}{" "}
       </Nav>
-      <Nav className="justify-content-center" activeKey="0">
+      <Nav className="justify-content-center  align-items-center" activeKey="0">
         <Nav.Item key="contact">
           <Nav.Link>Contact</Nav.Link>
         </Nav.Item>

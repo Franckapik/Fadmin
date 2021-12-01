@@ -8,7 +8,7 @@ export const Header = ({ authors }) => {
         <h1>QUALYN</h1>
       </Row>
       <Row className="justify-content-md-center pb-2">
-        <Nav className="justify-content-center  ">
+        <Nav className="justify-content-center">
           {authors && authors.length
             ? authors.map((a, i) => {
                 return (
