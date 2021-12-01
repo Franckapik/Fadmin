@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { Nav } from "react-bootstrap";
 
-export const Categories = ({ categories }) => {
+export const Categories = ({ categories, blog, overview }) => {
   let pathname = "";
   if (typeof window !== "undefined") {
     pathname = window.location.pathname;
@@ -19,11 +19,13 @@ export const Categories = ({ categories }) => {
   return (
     <>
       <Nav className="justify-content-center  align-items-center">
-        <Nav.Item key="0">
-          <Nav.Link eventKey="0" onClick={() => addQuery("categ", 0)}>
-            OVERVIEW
-          </Nav.Link>
-        </Nav.Item>
+        {overview ? (
+          <Nav.Item key="0">
+            <Nav.Link eventKey="0" onClick={() => addQuery("categ", 0)}>
+              OVERVIEW
+            </Nav.Link>
+          </Nav.Item>
+        ) : null}
         {categories && categories.length
           ? categories.map((a, i) => {
               return (
@@ -40,6 +42,11 @@ export const Categories = ({ categories }) => {
           : null}{" "}
       </Nav>
       <Nav className="justify-content-center  align-items-center" activeKey="0">
+        {blog ? (
+          <Nav.Item key="contact">
+            <Nav.Link>Blog</Nav.Link>
+          </Nav.Item>
+        ) : null}
         <Nav.Item key="contact">
           <Nav.Link>Contact</Nav.Link>
         </Nav.Item>

@@ -4,10 +4,10 @@ import Head from "next/head";
 import path from "path";
 import { useState } from "react";
 import { Container, Modal } from "react-bootstrap";
-import CarouselComp from "../../components/carousel";
-import { Categories } from "../../components/categories";
-import { Header } from "../../components/header";
-import { Medias } from "../../components/medias";
+import CarouselComp from "../components/carousel";
+import { Categories } from "../components/categories";
+import { Header } from "../components/header";
+import { Medias } from "../components/medias";
 const { PrismaClient } = require("@prisma/client");
 const fsPromises = fs.promises;
 
@@ -26,29 +26,14 @@ export default function Home({ db_authors, mediasFiles, db_category }) {
       <section>
         <Header authors={db_authors}></Header>
         <main>
-          <Categories categories={db_category} overview></Categories>
+          <Categories categories={db_category} blog></Categories>
 
           <Medias
             mediasFiles={mediasFiles}
             setShow={setShow}
             show={show}
           ></Medias>
-          <Modal
-            show={show}
-            fullscreen={fullscreen}
-            onHide={() => setShow(false)}
-          >
-            <Modal.Header closeButton className="cursor">
-              <span onClick={() => setShow(!show)}>Back</span>
-            </Modal.Header>
-            <Modal.Body>
-              {" "}
-              <CarouselComp mediasFiles={mediasFiles}></CarouselComp>
-            </Modal.Body>
-          </Modal>
         </main>
-
-        {/*         <footer className="text-center m-5 p-2">Qualyn</footer> */}
       </section>
     </Container>
   );

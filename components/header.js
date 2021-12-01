@@ -5,7 +5,9 @@ export const Header = ({ authors }) => {
   return (
     <header className="text-center">
       <Row className="m-4">
-        <h1>QUALYN</h1>
+        <Link href="/">
+          <h1 className="cursor">QUALYN</h1>
+        </Link>
       </Row>
       <Row className="justify-content-md-center pb-2">
         <Nav className="justify-content-center">
