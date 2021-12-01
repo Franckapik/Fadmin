@@ -36,11 +36,13 @@ export default function CarouselComp({ mediasFiles }) {
                     return (
                       <Carousel.Item key={i}>
                         <div class="d-flex justify-content-center">
-                          <img
-                            className="d-block media-view"
-                            src={path_client_img}
-                            alt="slider image"
-                          />
+                          <a target="_blank" href={mediaSelected[0].media_link}>
+                            <img
+                              className="d-block media-view"
+                              src={path_client_img}
+                              alt="slider image"
+                            />
+                          </a>
                         </div>
                       </Carousel.Item>
                     );
