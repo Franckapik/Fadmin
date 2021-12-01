@@ -14,10 +14,10 @@ const Sidebar = () => (
       </h2>
 
       <Nav.Item>
-        <Nav.Link href="/admin/authors">Artistes</Nav.Link>
+        <Nav.Link href="/admin/author">Artistes</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-2">Catégories</Nav.Link>
+        <Nav.Link href="/admin/category">Catégories</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link href="/admin/media">Gallerie</Nav.Link>
