@@ -5,7 +5,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 import { useForm, Controller } from "react-hook-form";
 
-const MediaAdmin = ({ db_author }) => {
+const AuthorAdmin = ({ db_author }) => {
   const {
     setError,
     handleSubmit,
@@ -144,12 +144,12 @@ const MediaAdmin = ({ db_author }) => {
   );
 };
 
-export default MediaAdmin;
+export default AuthorAdmin;
 
 export async function getServerSideProps({ params }) {
-  const db_author = await prisma.category.findUnique({
+  const db_author = await prisma.author.findUnique({
     where: {
-      category_id: Number(params?.author) || -1,
+      author_id: Number(params?.author) || -1,
     },
   });
 

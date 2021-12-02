@@ -1,5 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/client";
 import { Button, Col, Container, Nav, Row } from "react-bootstrap";
+import Sidebar from "../../components/sidebar";
 
 export default function Page() {
   const [session, loading] = useSession();
@@ -17,7 +18,7 @@ export default function Page() {
           <>
             <Container fluid>
               <Row>
-                {Sidebar}
+                <Sidebar></Sidebar>
                 <Col xs={10} id="page-content-wrapper">
                   <header>
                     <Nav className="justify-content-center">

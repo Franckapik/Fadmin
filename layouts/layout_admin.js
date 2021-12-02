@@ -8,7 +8,9 @@ export default function Layout_Admin({ children }) {
   return (
     <Container fluid>
       <Row>
-        <Sidebar></Sidebar>
+        <Col xs={2}>
+          <Sidebar></Sidebar>
+        </Col>
         <Col xs={10}>
           {/*  <header>
             <Nav className="justify-content-center">
@@ -18,7 +20,7 @@ export default function Layout_Admin({ children }) {
               </Nav.Item>
             </Nav>
           </header> */}
-          <main className="mt-5">{children}</main>
+          <main className="p-5">{children}</main>
         </Col>
       </Row>
     </Container>

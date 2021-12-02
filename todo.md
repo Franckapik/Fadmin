@@ -38,3 +38,5 @@ useSWR semble possible dans getServer mais cela a peut de sens.
 
 Questions : Qu'en est-il du coté du site ? Retirer captions ?
 retirer les captions fleches si pas de gallery
+
+//ajouter/modifier/supprimer données depuis l'admin (icones)

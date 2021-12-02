@@ -1,36 +1,37 @@
-import { ListGroup, ListGroupItem, Nav } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import Layout_Admin from "../../../layouts/layout_admin";
+import { Grid } from "../../../components/grid";
 
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-export default function Page({ db_category }) {
-  return (
-    <Layout_Admin>
-      <ListGroup>
-        {db_category && db_category.length
-          ? db_category.map((a, i) => {
-              return (
-                <ListGroupItem key={i + 1}>
-                  <Nav.Link
-                    eventKey={i}
-                    href={`/admin/category/${a.category_id}`}
-                  >
-                    {a.category_name}
-                    <p className="thin">{a.category_description}</p>
-                  </Nav.Link>
-                </ListGroupItem>
-              );
-            })
-          : null}
-      </ListGroup>
-    </Layout_Admin>
-  );
-}
+const CategoryPage = ({ db_category }) => (
+  <Layout_Admin>
+    <Row xs={1} md={4} className="g-4">
+      {db_category && db_category.length
+        ? db_category.map((a, i) => {
+            return (
+              <Grid
+                title={a.category_name}
+                text={a.author.author_name}
+                edit_link={`/admin/category/${a.category_id}`}
+              ></Grid>
+            );
+          })
+        : null}
+    </Row>
+  </Layout_Admin>
+);
+
+export default CategoryPage;
 
 export async function getServerSideProps() {
-  const db_category = await prisma.category.findMany();
+  const db_category = await prisma.category.findMany({
+    include: {
+      author: true,
+    },
+  });
 
   return {
     props: { db_category },
