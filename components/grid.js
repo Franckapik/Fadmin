@@ -6,7 +6,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 export const Grid = ({ title, text, edit_link }) => (
   <Col>
-    <Card className="card_admin">
+    <Card>
       <Card.Body className="text-center">
         <Card.Title className="mt-4">
           <h2>{title}</h2>

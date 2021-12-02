@@ -116,3 +116,8 @@ footer {
   margin-top: 80px;
   background-color: inherit;
 }
+
+.form-control::-webkit-input-placeholder {
+  color: grey;
+  padding : 10px;
+}
