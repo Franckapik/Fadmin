@@ -4,8 +4,9 @@ import Layout_Admin from "../../../layouts/layout_admin";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
 
-const CategoryAdmin = ({ db_category }) => {
+const CategoryAdmin = ({ db_category, db_author }) => {
   const {
     setError,
     handleSubmit,
@@ -15,21 +16,31 @@ const CategoryAdmin = ({ db_category }) => {
     getValues,
   } = useForm({
     defaultValues: {
+      category_id: db_category.category_id,
       category_name: db_category.category_name,
-      category_page_id: db_category.category_page_id,
       category_description: db_category.category_description,
       category_draft: db_category.category_draft,
       category_author: db_category.category_author,
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("data", data);
-    return null;
+  const router = useRouter();
+
+  const onSubmit = async (data) => {
+    data.category_author = parseInt(data.category_author); //integer issue
+    console.log(data);
+
+    await axios.post("/api/category/addCategory", data);
+    router.push("/admin/category");
   };
 
   return (
     <Layout_Admin>
+      {db_category ? (
+        <h2 className="mb-4 text-center"> Modifier la catégorie</h2>
+      ) : (
+        <h2 className="mb-4 text-center"> Ajouter une catégorie</h2>
+      )}
       <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
         <Form.Group className="mb-3" controlId="category_name_id">
           <Form.Label>Nom de categorie</Form.Label>
@@ -49,27 +60,6 @@ const CategoryAdmin = ({ db_category }) => {
           />
           <Form.Control.Feedback type="invalid">
             {errors.category_name?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="category_page_id_id">
-          <Form.Label>Type de categorie</Form.Label>
-          <Controller
-            control={control}
-            name="category_page_id"
-            defaultValue=""
-            render={({ field: { onChange, onBlur, value, ref } }) => (
-              <Form.Control
-                onChange={onChange}
-                value={value}
-                ref={ref}
-                isInvalid={errors.category_page_id}
-                placeholder="Enter category type"
-              />
-            )}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.category_page_id?.message}
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -99,14 +89,15 @@ const CategoryAdmin = ({ db_category }) => {
           <Controller
             control={control}
             name="category_draft"
-            defaultValue="video"
+            defaultValue={true}
             render={({ field: { onChange, onBlur, value, ref } }) => (
-              <Form.Control
+              <Form.Check
+                type={"checkbox"}
                 onChange={onChange}
                 value={value}
                 ref={ref}
-                isInvalid={errors.category_draft}
-                placeholder="draft of the media"
+                isInvalid={errors.author_draft}
+                placeholder="draft of the category"
               />
             )}
           />
@@ -115,20 +106,24 @@ const CategoryAdmin = ({ db_category }) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="category_author_id">
+        <Form.Group className="mb-3" controlId="media_author_id_id">
           <Form.Label>Auteur</Form.Label>
           <Controller
             control={control}
             name="category_author"
-            defaultValue=""
+            defaultValue={1}
             render={({ field: { onChange, onBlur, value, ref } }) => (
-              <Form.Control
+              <Form.Select
                 onChange={onChange}
                 value={value}
                 ref={ref}
                 isInvalid={errors.category_author}
-                placeholder="Auteur"
-              />
+                aria-label="Default select example"
+              >
+                {db_author.map((a, i) => (
+                  <option value={parseInt(a.author_id)}>{a.author_name}</option>
+                ))}
+              </Form.Select>
             )}
           />
           <Form.Control.Feedback type="invalid">
@@ -147,13 +142,19 @@ const CategoryAdmin = ({ db_category }) => {
 export default CategoryAdmin;
 
 export async function getServerSideProps({ params }) {
-  const db_category = await prisma.category.findUnique({
-    where: {
-      category_id: Number(params?.category) || -1,
-    },
-  });
+  let db_category = 0;
+
+  if (params?.category !== "0") {
+    db_category = await prisma.category.findUnique({
+      where: {
+        category_id: Number(params?.category) || -1,
+      },
+    });
+  }
+
+  const db_author = await prisma.author.findMany();
 
   return {
-    props: { db_category },
+    props: { db_category, db_author },
   };
 }

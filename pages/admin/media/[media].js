@@ -4,6 +4,7 @@ import Layout_Admin from "../../../layouts/layout_admin";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
 
 const MediaAdmin = ({ db_media, db_category, db_author }) => {
   const {
@@ -29,9 +30,15 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("data", data);
-    return null;
+  const router = useRouter();
+
+  const onSubmit = async (data) => {
+    data.media_id = 0;
+    data.media_category_id = parseInt(data.media_category_id); //integer issue
+    data.media_author_id = parseInt(data.media_author_id); //integer issue
+
+    await axios.post("/api/media/addMedia", data);
+    router.push("/admin/media");
   };
 
   const allFields = watch();
@@ -40,6 +47,11 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
     <Layout_Admin>
       <Row>
         <Col>
+          {db_media ? (
+            <h2 className="mb-4 text-center"> Modifier le media</h2>
+          ) : (
+            <h2 className="mb-4 text-center"> Ajouter un media</h2>
+          )}
           <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
             <Form.Group className="mb-3" controlId="media_title_id">
               <Form.Label>Titre du media</Form.Label>
@@ -63,7 +75,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="media_photo_id">
-              <Form.Label>Photography</Form.Label>
+              <Form.Label>Photographie(s)</Form.Label>
               <Controller
                 control={control}
                 name="media_photo"
@@ -109,7 +121,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               <Controller
                 control={control}
                 name="media_content"
-                defaultValue="video"
+                defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
@@ -130,7 +142,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               <Controller
                 control={control}
                 name="media_link"
-                defaultValue="video"
+                defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
@@ -151,7 +163,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               <Controller
                 control={control}
                 name="media_share"
-                defaultValue="video"
+                defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
@@ -172,7 +184,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               <Controller
                 control={control}
                 name="media_category_id"
-                defaultValue="video"
+                defaultValue={1}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Select
                     onChange={onChange}
@@ -197,7 +209,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               <Controller
                 control={control}
                 name="media_folder"
-                defaultValue="video"
+                defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
@@ -218,7 +230,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               <Controller
                 control={control}
                 name="media_subtitle"
-                defaultValue="video"
+                defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
@@ -239,7 +251,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               <Controller
                 control={control}
                 name="media_author_id"
-                defaultValue="video"
+                defaultValue={1}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Select
                     onChange={onChange}
@@ -297,11 +309,15 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
 export default MediaAdmin;
 
 export async function getServerSideProps({ params }) {
-  const db_media = await prisma.media.findUnique({
-    where: {
-      media_id: Number(params?.media) || -1,
-    },
-  });
+  let db_media = 0;
+
+  if (params?.media !== "0") {
+    db_media = await prisma.media.findUnique({
+      where: {
+        media_id: Number(params?.media) || -1,
+      },
+    });
+  }
 
   const db_category = await prisma.category.findMany();
   const db_author = await prisma.author.findMany();

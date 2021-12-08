@@ -6,20 +6,14 @@ const prisma = new PrismaClient();
 export default async (req, res) => {
   const data = req.body;
   try {
-    const result = await prisma.author.upsert({
+    const deleteAuthor = await prisma.author.delete({
       where: {
-        author_id: data.author_id || -1,
-      },
-      update: {
-        ...data,
-      },
-      create: {
-        ...data,
+        author_id: data.id,
       },
     });
-    res.status(200).json(result);
+    res.status(200).json(deleteAuthor);
   } catch (err) {
     console.log(err);
-    res.status(403).json({ err: "Error occured while adding a new author." });
+    res.status(403).json({ err: "Error occured while deleting a author." });
   }
 };

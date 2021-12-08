@@ -25,13 +25,11 @@ const AuthorAdmin = ({ db_author }) => {
     },
   });
 
+  const router = useRouter();
+
   const onSubmit = async (data) => {
-    console.log("data", data);
-
     await axios.post("/api/author/addAuthor", data);
-
-    console.log("data", data);
-    return null;
+    router.push("/admin/author");
   };
 
   return (

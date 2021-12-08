@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
-export const Grid = ({ title, text, edit_link }) => (
+export const CardAdmin = ({ title, text, edit_link, show, setShow }) => (
   <Col>
     <Card>
       <Card.Body className="text-center">
@@ -19,9 +19,11 @@ export const Grid = ({ title, text, edit_link }) => (
           <Link href={edit_link}>
             <FontAwesomeIcon icon={faEdit} className="m-2 cursor" />
           </Link>
-          <Link href={`/admin/category/`}>
-            <FontAwesomeIcon icon={faTrash} className="m-2 cursor" />
-          </Link>
+          <FontAwesomeIcon
+            icon={faTrash}
+            className="m-2 cursor"
+            onClick={() => setShow(!show)}
+          />
         </Card.Footer>
       </Card.Body>
     </Card>
