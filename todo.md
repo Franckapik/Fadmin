@@ -40,3 +40,6 @@ Questions : Qu'en est-il du coté du site ? Retirer captions ?
 retirer les captions fleches si pas de gallery
 
 //ajouter/modifier/supprimer données depuis l'admin (icones)
+//input file working ?
+//simplifier le lien vers le media ? Comment uploader vers le server ?
+//lien avec la db prisma pour la modif/supression

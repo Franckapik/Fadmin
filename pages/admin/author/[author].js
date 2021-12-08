@@ -4,6 +4,7 @@ import Layout_Admin from "../../../layouts/layout_admin";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
 
 const AuthorAdmin = ({ db_author }) => {
   const {
@@ -15,6 +16,7 @@ const AuthorAdmin = ({ db_author }) => {
     getValues,
   } = useForm({
     defaultValues: {
+      author_id: db_author.author_id,
       author_name: db_author.author_name,
       author_art: db_author.author_art,
       author_biography: db_author.author_biography,
@@ -23,13 +25,22 @@ const AuthorAdmin = ({ db_author }) => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    console.log("data", data);
+
+    await axios.post("/api/author/addAuthor", data);
+
     console.log("data", data);
     return null;
   };
 
   return (
     <Layout_Admin>
+      {db_author ? (
+        <h2 className="mb-4 text-center"> Modifier l'artiste</h2>
+      ) : (
+        <h2 className="mb-4 text-center"> Ajouter un artiste</h2>
+      )}
       <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
         <Form.Group className="mb-3" controlId="author_name_id">
           <Form.Label>Nom de l'artiste</Form.Label>
@@ -99,9 +110,10 @@ const AuthorAdmin = ({ db_author }) => {
           <Controller
             control={control}
             name="author_draft"
-            defaultValue="video"
+            defaultValue="true"
             render={({ field: { onChange, onBlur, value, ref } }) => (
-              <Form.Control
+              <Form.Check
+                type={"checkbox"}
                 onChange={onChange}
                 value={value}
                 ref={ref}
@@ -123,6 +135,7 @@ const AuthorAdmin = ({ db_author }) => {
             defaultValue=""
             render={({ field: { onChange, onBlur, value, ref } }) => (
               <Form.Control
+                type="email"
                 onChange={onChange}
                 value={value}
                 ref={ref}
@@ -147,11 +160,15 @@ const AuthorAdmin = ({ db_author }) => {
 export default AuthorAdmin;
 
 export async function getServerSideProps({ params }) {
-  const db_author = await prisma.author.findUnique({
-    where: {
-      author_id: Number(params?.author) || -1,
-    },
-  });
+  let db_author = 0;
+
+  if (params?.author !== "0") {
+    db_author = await prisma.author.findUnique({
+      where: {
+        author_id: Number(params?.author) || -1,
+      },
+    });
+  }
 
   return {
     props: { db_author },

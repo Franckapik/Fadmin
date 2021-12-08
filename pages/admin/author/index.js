@@ -1,4 +1,4 @@
-import { Row } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import { Grid } from "../../../components/grid";
 import Layout_Admin from "../../../layouts/layout_admin";
 
@@ -8,6 +8,9 @@ const prisma = new PrismaClient();
 
 const AuthorPage = ({ db_author }) => (
   <Layout_Admin>
+    <Row className="mb-5 text-center">
+      <Button href={"/admin/author/0"}>Ajouter un artiste</Button>
+    </Row>
     <Row xs={1} md={4} className="g-4">
       {db_author && db_author.length
         ? db_author.map((a, i) => {
