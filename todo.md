@@ -46,3 +46,17 @@ retirer les captions fleches si pas de gallery
 //s'occuper du style pour repondre a la demande urgente
 //pb de tailles au niveau du lecteur video facebook (windows)
 //option : ajouter la bar de lecture et le temps ailleurs pour le style
+
+-essai d'overview vidéo mais baisse de performance au chargement constaté. Je vais essayé une autre technologie pour cela.
+
+A faire :
+-finir la section du blog
+-ajout de la biographie sous le nom de profile avec deux langues disponibles
+-logo avec police d'écriture adaptée
+-espace de commentaires à terminer également
+-finir espace sur le coté pour le lien vers le blog /contacts
+-ajuster le style de la partie administration
+-preview video : retirer le debut de la video ?
+//style overlay testé mais peu convainquant
+//comment regler la position ? (rag and drop?)
+//facebook link pour qui ? Pas présent sur le home !?

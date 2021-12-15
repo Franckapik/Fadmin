@@ -14,6 +14,8 @@ model author {
   author_biography String?
   author_draft     Boolean
   author_email     String?    @db.VarChar(20)
+  author_fb        String?    @db.VarChar(100)
+  author_insta     String?    @db.VarChar(100)
   category         category[]
   media            media[]
 }
@@ -46,6 +48,7 @@ model media {
   media_draft       Boolean
   media_large       Boolean
   media_position    Int?      @db.SmallInt
+  media_preview     Boolean?
   author            author?   @relation(fields: [media_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "author_id_fkey")
   category          category? @relation(fields: [media_category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "category_fkey")
 }

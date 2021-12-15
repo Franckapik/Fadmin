@@ -22,6 +22,8 @@ const AuthorAdmin = ({ db_author }) => {
       author_biography: db_author.author_biography,
       author_draft: db_author.author_draft,
       author_email: db_author.author_email,
+      author_fb: db_author.author_fb,
+      author_insta: db_author.author_insta,
     },
   });
 
@@ -95,6 +97,48 @@ const AuthorAdmin = ({ db_author }) => {
                 ref={ref}
                 isInvalid={errors.author_biography}
                 placeholder="Enter biography"
+              />
+            )}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.author_biography?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="author_fb_id">
+          <Form.Label>Facebook</Form.Label>
+          <Controller
+            control={control}
+            name="author_fb"
+            defaultValue=""
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control
+                onChange={onChange}
+                value={value}
+                ref={ref}
+                isInvalid={errors.author_fb}
+                placeholder="Enter facebook address"
+              />
+            )}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.author_biography?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="author_insta_id">
+          <Form.Label>Instagram</Form.Label>
+          <Controller
+            control={control}
+            name="author_insta"
+            defaultValue=""
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control
+                onChange={onChange}
+                value={value}
+                ref={ref}
+                isInvalid={errors.author_insta}
+                placeholder="Enter instagram address"
               />
             )}
           />

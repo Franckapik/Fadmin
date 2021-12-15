@@ -13,7 +13,12 @@ const fsPromises = fs.promises;
 
 const prisma = new PrismaClient();
 
-export default function Home({ db_authors, mediasFiles, db_category }) {
+export default function Home({
+  db_authors,
+  mediasFiles,
+  db_category,
+  db_author,
+}) {
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
 
@@ -26,7 +31,11 @@ export default function Home({ db_authors, mediasFiles, db_category }) {
       <section>
         <Header authors={db_authors}></Header>
         <main>
-          <Categories categories={db_category} overview></Categories>
+          <Categories
+            categories={db_category}
+            author={db_author}
+            overview
+          ></Categories>
 
           <Medias
             mediasFiles={mediasFiles}
@@ -120,6 +129,6 @@ export async function getServerSideProps({ params, query }) {
   });
 
   return {
-    props: { db_authors, mediasFiles, db_category },
+    props: { db_authors, mediasFiles, db_category, db_author },
   };
 }

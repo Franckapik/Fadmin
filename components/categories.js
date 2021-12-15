@@ -1,13 +1,17 @@
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebookSquare,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { Nav } from "react-bootstrap";
 
-export const Categories = ({ categories, blog, overview }) => {
+export const Categories = ({ categories, blog, overview, author }) => {
   let pathname = "";
   if (typeof window !== "undefined") {
     pathname = window.location.pathname;
   }
+  console.log(author);
 
   const router = useRouter();
 
@@ -50,11 +54,24 @@ export const Categories = ({ categories, blog, overview }) => {
         <Nav.Item key="contact">
           <Nav.Link>Contact</Nav.Link>
         </Nav.Item>
-        <Nav.Item key="insta">
-          <Nav.Link>
-            <FontAwesomeIcon icon={faInstagram} width="1.5em" />
-          </Nav.Link>
-        </Nav.Item>
+        {author ? (
+          <>
+            <Nav.Item key="insta">
+              <a
+                href={author?.author_insta}
+                className="nav-link"
+                target="_blank"
+              >
+                <FontAwesomeIcon icon={faInstagram} width="1.5em" />{" "}
+              </a>
+            </Nav.Item>
+            <Nav.Item key="fb">
+              <a href={author?.author_fb} className="nav-link" target="_blank">
+                <FontAwesomeIcon icon={faFacebookSquare} width="1.5em" />{" "}
+              </a>
+            </Nav.Item>
+          </>
+        ) : null}
       </Nav>
     </div>
   );
