@@ -3,6 +3,9 @@ import { useState } from "react";
 import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 
+import React from "react";
+import ReactPlayer from "react-player";
+
 export default function CarouselComp({ mediasFiles }) {
   const [index, setIndex] = useState(0);
   const handleSelect = (selectedIndex, e) => {
@@ -15,10 +18,31 @@ export default function CarouselComp({ mediasFiles }) {
     (a) => a.media_id == router.query.media
   );
 
+  console.log(mediaSelected[0]?.media_video);
+
   return (
-    <>
-      {mediaSelected && mediaSelected[0] ? (
-        <Container fluid>
+    <Container fluid className="text-center">
+      {mediaSelected && mediaSelected[0]?.media_video ? (
+        <>
+          <Row className="mb-3">
+            <a href={mediaSelected[0].media_link} target="_blank">
+              {mediaSelected[0].media_title}
+            </a>
+          </Row>
+          <Row>
+            <Col className="player-wrapper">
+              <ReactPlayer
+                className="react-player"
+                width="100%"
+                height="100%"
+                controls
+                url={mediaSelected[0].media_video}
+              />
+            </Col>
+          </Row>
+        </>
+      ) : (
+        <>
           <Row>
             <Col className="mx-auto">
               <Carousel
@@ -73,8 +97,8 @@ export default function CarouselComp({ mediasFiles }) {
               <ListGroup.Item>{mediaSelected[0].media_content}</ListGroup.Item>
             </ListGroup>
           </Row>
-        </Container>
-      ) : null}
-    </>
+        </>
+      )}
+    </Container>
   );
 }
