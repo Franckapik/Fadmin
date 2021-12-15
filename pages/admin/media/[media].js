@@ -27,13 +27,15 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
       media_folder: db_media.media_folder,
       media_subtitle: db_media.media_subtitle,
       media_author_id: db_media.media_author_id,
+      media_home: db_media.media_home,
+      media_draft: db_media.media_draft,
     },
   });
 
   const router = useRouter();
 
   const onSubmit = async (data) => {
-    data.media_id = 0;
+    data.media_id = db_media.media_id || 0;
     data.media_category_id = parseInt(data.media_category_id); //integer issue
     data.media_author_id = parseInt(data.media_author_id); //integer issue
 
@@ -48,7 +50,10 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
       <Row>
         <Col>
           {db_media ? (
-            <h2 className="mb-4 text-center"> Modifier le media</h2>
+            <h2 className="mb-4 text-center">
+              {" "}
+              Modifier le media [ n°{db_media.media_id}]
+            </h2>
           ) : (
             <h2 className="mb-4 text-center"> Ajouter un media</h2>
           )}
@@ -268,6 +273,69 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               />
               <Form.Control.Feedback type="invalid">
                 {errors.media_author_id?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="author_draft_id">
+              <Form.Label>Visible sur l'accueil</Form.Label>
+              <Controller
+                control={control}
+                name="media_home"
+                defaultValue={true}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Check
+                    type={"checkbox"}
+                    onChange={onChange}
+                    value={value}
+                    ref={ref}
+                    isInvalid={errors.media_draft}
+                    placeholder="home media"
+                  />
+                )}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.author_draft?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="author_draft_id">
+              <Form.Label>Brouillon</Form.Label>
+              <Controller
+                control={control}
+                name="media_draft"
+                defaultValue={true}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Check
+                    type={"checkbox"}
+                    onChange={onChange}
+                    value={value}
+                    ref={ref}
+                    isInvalid={errors.media_draft}
+                    placeholder="draft of the media"
+                  />
+                )}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.author_draft?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="author_draft_id">
+              <Form.Label>Miniature Large</Form.Label>
+              <Controller
+                control={control}
+                name="media_large"
+                defaultValue={false}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Check
+                    type={"checkbox"}
+                    onChange={onChange}
+                    value={value}
+                    ref={ref}
+                    isInvalid={errors.media_draft}
+                    placeholder="width of the media"
+                  />
+                )}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.author_draft?.message}
               </Form.Control.Feedback>
             </Form.Group>
 

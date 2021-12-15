@@ -102,7 +102,9 @@ footer {
   top: -20px;
 }
 
-
+.carousel-home  .carousel-indicators {
+  display: none;
+}
 
 .logo {
   width: 50%;
@@ -112,12 +114,41 @@ footer {
   padding : 15px;
 }
 
-.card-footer {
+.card-admin .card-footer {
   margin-top: 80px;
   background-color: inherit;
+}
+
+.card-footer {
+  text-align: center;
+  background-color: inherit;
+  border: 0;
+  margin-top: 1em;
+  margin-bottom: 3em;
 }
 
 .form-control::-webkit-input-placeholder {
   color: grey;
   padding : 10px;
+}
+
+.carousel-indicators button {
+  background-color: grey!important;
+  border-radius: 50% !important;
+  height: 12px!important;
+  width: 12px!important;
+  margin: 15px!important;
+}
+
+.container_main {
+padding-left: 50px;
+padding-right: 50px;
+}
+
+.media_position {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  font-size: 12px;
+  font-weight: bold;
 }

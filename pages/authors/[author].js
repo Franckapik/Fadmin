@@ -18,7 +18,7 @@ export default function Home({ db_authors, mediasFiles, db_category }) {
   const [show, setShow] = useState(false);
 
   return (
-    <Container fluid>
+    <Container fluid className="container_main">
       <Head>
         <title>Qualyn</title>
         <link rel="icon" href="/favicon.ico" />
@@ -70,6 +70,7 @@ export async function getServerSideProps({ params, query }) {
       },
       include: {
         author: true,
+        category: true,
       },
     });
   } else {
@@ -79,11 +80,10 @@ export async function getServerSideProps({ params, query }) {
       },
       include: {
         author: true,
+        category: true,
       },
     });
   }
-
-  console.log(db_medias);
 
   const db_authors = await prisma.author.findMany();
 
@@ -106,11 +106,12 @@ export async function getServerSideProps({ params, query }) {
           ...a,
         };
       } else {
-        console.log("folder", pathFolder, "doesnt exist");
         return 0;
       }
     })
   );
+
+  console.log(mediasFiles);
 
   const db_category = await prisma.category.findMany({
     where: {

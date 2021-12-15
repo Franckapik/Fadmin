@@ -33,7 +33,9 @@ const MediaPage = ({ db_media }) => {
                   <CardAdmin
                     title={a.media_title}
                     text={a.media_subtitle}
+                    category={a.category.category_name}
                     edit_link={`/admin/media/${a.media_id}`}
+                    position={a.media_position}
                     setShow={setShow}
                     show={show}
                   ></CardAdmin>
@@ -75,7 +77,11 @@ const MediaPage = ({ db_media }) => {
 export default MediaPage;
 
 export async function getServerSideProps() {
-  const db_media = await prisma.media.findMany();
+  const db_media = await prisma.media.findMany({
+    include: {
+      category: true,
+    },
+  });
 
   return {
     props: { db_media },

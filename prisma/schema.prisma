@@ -42,6 +42,10 @@ model media {
   media_folder      String?   @db.VarChar(30)
   media_subtitle    String    @db.VarChar(50)
   media_author_id   Int?      @db.SmallInt
+  media_home        Boolean?
+  media_draft       Boolean?
+  media_large       Boolean?
+  media_position    Int?      @db.SmallInt
   author            author?   @relation(fields: [media_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "author_id_fkey")
   category          category? @relation(fields: [media_category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "category_fkey")
 }

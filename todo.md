@@ -42,4 +42,6 @@ retirer les captions fleches si pas de gallery
 //ajouter/modifier/supprimer données depuis l'admin (icones)
 //input file working ?
 //simplifier le lien vers le media ? Comment uploader vers le server ?
-//lien avec la db prisma pour la modif/supression
+//trouver l'origine du pb avec l'ajout de media/categorie et les modals box et la supression (peut-etre les retirer simplement?))
+//modifier la hauteur initiale du carousel home
+// la longueur des vignettes inégales avec un tableau de width inégales a trouver

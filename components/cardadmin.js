@@ -4,12 +4,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
-export const CardAdmin = ({ title, text, edit_link, show, setShow }) => (
+export const CardAdmin = ({
+  title,
+  text,
+  edit_link,
+  show,
+  setShow,
+  position,
+  category,
+}) => (
   <Col>
-    <Card>
+    <Card className="card-admin">
       <Card.Body className="text-center">
         <Card.Title className="mt-4">
-          <h2>{title}</h2>
+          <h2>{title || category}</h2>
         </Card.Title>
         <Card.Text>
           <h6>{text}</h6>
@@ -24,6 +32,7 @@ export const CardAdmin = ({ title, text, edit_link, show, setShow }) => (
             className="m-2 cursor"
             onClick={() => setShow(!show)}
           />
+          <div className="media_position">{position}</div>
         </Card.Footer>
       </Card.Body>
     </Card>

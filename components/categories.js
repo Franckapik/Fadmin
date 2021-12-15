@@ -17,7 +17,7 @@ export const Categories = ({ categories, blog, overview }) => {
   };
 
   return (
-    <>
+    <div className="mb-5">
       <Nav className="justify-content-center  align-items-center">
         {overview ? (
           <Nav.Item key="0">
@@ -56,6 +56,6 @@ export const Categories = ({ categories, blog, overview }) => {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-    </>
+    </div>
   );
 };
