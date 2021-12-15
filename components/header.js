@@ -6,7 +6,9 @@ export const Header = ({ authors }) => {
     <header className="text-center">
       <Row className="m-4">
         <Link href="/">
-          <h1 className="cursor">QUALYN</h1>
+          <h1 className="cursor">
+            <span style={{ fontSize: "1.3em" }}>Q</span>ualyn
+          </h1>
         </Link>
       </Row>
       <Row className="justify-content-md-center pb-2">

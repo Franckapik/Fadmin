@@ -52,7 +52,6 @@ retirer les captions fleches si pas de gallery
 A faire :
 -finir la section du blog
 -ajout de la biographie sous le nom de profile avec deux langues disponibles
--logo avec police d'écriture adaptée
 -espace de commentaires à terminer également
 -finir espace sur le coté pour le lien vers le blog /contacts
 -ajuster le style de la partie administration
@@ -60,3 +59,4 @@ A faire :
 //style overlay testé mais peu convainquant
 //comment regler la position ? (rag and drop?)
 //facebook link pour qui ? Pas présent sur le home !?
+//-logo avec police d'écriture adaptée? Pq la qsueue courte ?

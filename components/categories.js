@@ -4,7 +4,9 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Nav } from "react-bootstrap";
+import Biography from "./bio";
 
 export const Categories = ({ categories, blog, overview, author }) => {
   let pathname = "";
@@ -19,6 +21,9 @@ export const Categories = ({ categories, blog, overview, author }) => {
     router.query[key] = value;
     router.push(router);
   };
+
+  const [fullscreen, setFullscreen] = useState(true);
+  const [show, setShow] = useState(false);
 
   return (
     <div className="mb-5">
@@ -51,6 +56,11 @@ export const Categories = ({ categories, blog, overview, author }) => {
             <Nav.Link>Blog</Nav.Link>
           </Nav.Item>
         ) : null}
+        {author.author_biography_fr ? (
+          <Nav.Item key="bio">
+            <Nav.Link onClick={() => setShow(!show)}>Profile</Nav.Link>
+          </Nav.Item>
+        ) : null}
         <Nav.Item key="contact">
           <Nav.Link>Contact</Nav.Link>
         </Nav.Item>
@@ -73,6 +83,12 @@ export const Categories = ({ categories, blog, overview, author }) => {
           </>
         ) : null}
       </Nav>
+      <Biography
+        show={show}
+        fullscreen={fullscreen}
+        setShow={setShow}
+        author={author}
+      ></Biography>
     </div>
   );
 };

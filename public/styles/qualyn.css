@@ -4,16 +4,19 @@
     url("../fonts/Futura-Light.woff") format("woff");
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap');
+
 body {
   font-family: "Futura", sans-serif;
-  font-weight: 400;
   letter-spacing: 0.075em;
   text-transform: uppercase;
   column-span: all;
 }
 
 h1 {
-  font-weight: lighter;
+  font-size: 3em;
+  font-weight: 300;
+  font-family: 'Cormorant Garamond', serif;
 }
 
 h2 {
@@ -211,6 +214,20 @@ top: -10px;
     from {opacity: 0}
     to {opacity: 1}
   }
+
+
+  .bio_modal {
+    line-height: 2em;
+    text-transform: none;
+    text-align: justify;
+    padding-right: 10vw;
+    padding-left: 10vw;
+  }
+
+
+
+
+
 
 
 .pentagon {

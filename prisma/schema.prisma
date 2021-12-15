@@ -8,16 +8,17 @@ datasource db {
 }
 
 model author {
-  author_id        Int        @id @default(autoincrement()) @db.SmallInt
-  author_name      String     @db.VarChar(20)
-  author_art       String?    @db.VarChar(20)
-  author_biography String?
-  author_draft     Boolean
-  author_email     String?    @db.VarChar(20)
-  author_fb        String?    @db.VarChar(100)
-  author_insta     String?    @db.VarChar(100)
-  category         category[]
-  media            media[]
+  author_id           Int        @id @default(autoincrement()) @db.SmallInt
+  author_name         String     @db.VarChar(20)
+  author_art          String?    @db.VarChar(20)
+  author_biography_fr String?
+  author_draft        Boolean
+  author_email        String?    @db.VarChar(70)
+  author_fb           String?    @db.VarChar(100)
+  author_insta        String?    @db.VarChar(100)
+  author_biography_en String?
+  category            category[]
+  media               media[]
 }
 
 model category {
