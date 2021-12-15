@@ -39,9 +39,8 @@ useSWR semble possible dans getServer mais cela a peut de sens.
 Questions : Qu'en est-il du coté du site ? Retirer captions ?
 retirer les captions fleches si pas de gallery
 
-//ajouter/modifier/supprimer données depuis l'admin (icones)
 //input file working ?
 //simplifier le lien vers le media ? Comment uploader vers le server ?
 //trouver l'origine du pb avec l'ajout de media/categorie et les modals box et la supression (peut-etre les retirer simplement?))
-//modifier la hauteur initiale du carousel home
-// la longueur des vignettes inégales avec un tableau de width inégales a trouver
+//generation de folder ? choix de la miniature si plusieurs photos uploadées.
+//s'occuper du style pour repondre a la demande urgente

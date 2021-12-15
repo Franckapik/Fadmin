@@ -280,7 +280,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               <Controller
                 control={control}
                 name="media_home"
-                defaultValue={true}
+                defaultValue={false}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Check
                     type={"checkbox"}
@@ -301,7 +301,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               <Controller
                 control={control}
                 name="media_draft"
-                defaultValue={true}
+                defaultValue={false}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Check
                     type={"checkbox"}
