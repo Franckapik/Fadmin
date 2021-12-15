@@ -19,6 +19,7 @@ model author {
   author_biography_en String?
   category            category[]
   media               media[]
+  post                post[]
 }
 
 model category {
@@ -102,4 +103,17 @@ model VerificationRequest {
   updatedAt  DateTime @updatedAt
 
   @@unique([identifier, token])
+}
+
+model post {
+  post_id          Int       @id @default(autoincrement())
+  post_title       String    @db.VarChar(200)
+  post_image       String[]  @db.VarChar(150)
+  post_draft       Boolean?
+  post_create_time DateTime? @db.Date
+  post_update_time DateTime? @db.Date
+  post_author_id   Int?
+  post_content     Json?     @db.Json
+  post_html        String?
+  author           author?   @relation(fields: [post_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "post_author_id_fk")
 }

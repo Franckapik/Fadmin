@@ -21,7 +21,9 @@ const Sidebar = () => (
       <Nav.Link href="/admin/media">Gallerie</Nav.Link>
     </Nav.Item>
     <Nav.Item>
-      <Nav.Link eventKey="link-1">Blog</Nav.Link>
+      <Nav.Link href="/admin/blog" eventKey="link-1">
+        Blog
+      </Nav.Link>
     </Nav.Item>
 
     <Nav.Item>
