@@ -44,3 +44,4 @@ retirer les captions fleches si pas de gallery
 //trouver l'origine du pb avec l'ajout de media/categorie et les modals box et la supression (peut-etre les retirer simplement?))
 //generation de folder ? choix de la miniature si plusieurs photos uploadées.
 //s'occuper du style pour repondre a la demande urgente
+//lecteur intégré

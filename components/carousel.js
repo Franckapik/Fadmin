@@ -27,6 +27,7 @@ export default function CarouselComp({ mediasFiles }) {
                 onSelect={handleSelect}
                 className="carousel-media"
                 controls={mediaSelected[0].files.length - 1}
+                indicators={mediaSelected[0].files.length - 1 || null}
               >
                 {mediaSelected &&
                   mediaSelected[0].files.map((a, i) => {
