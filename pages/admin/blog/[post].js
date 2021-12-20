@@ -216,15 +216,18 @@ const PostAdmin = ({ db_post, db_author }) => {
 export default PostAdmin;
 
 export async function getServerSideProps({ params }) {
-  let db_post = 0;
+  let db_post_0 = 0;
 
   if (params?.post !== "0") {
-    db_post = await prisma.post.findUnique({
+    db_post_0 = await prisma.post.findUnique({
       where: {
         post_id: Number(params?.post) || -1,
       },
     });
   }
+
+  const db_post_s = JSON.stringify(db_post_0);
+  const db_post = JSON.parse(db_post_s); //serialize issue
 
   const db_author = await prisma.author.findMany();
 

@@ -1,5 +1,14 @@
-import { Col, Container, Row } from "react-bootstrap";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  PinterestIcon,
+  PinterestShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from "next-share";
+
 import React, { useEffect, useState } from "react";
+import { Card, Col, Row } from "react-bootstrap";
 import Moment from "react-moment";
 import Layout_Home from "../../layouts/layout_home";
 
@@ -14,36 +23,60 @@ const Post = ({ db_post }) => {
 
   return (
     <Layout_Home>
-      <Row className="post_row">
+      <Row className="post_row ">
         {db_post && db_post.post_html ? (
           <>
             {" "}
             <Col
+              md={4}
               style={{
-                backgroundColor: "red",
                 backgroundImage: `url("/blog/femme.png")`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center center",
                 backgroundSize: "cover",
+                backgroundOrigin: "content-box",
               }}
             >
               {db_post.post_title}
             </Col>
-            <Col className="text-center p-5">
-              <p>Blog</p>
-              <h4>{db_post.post_title}</h4>
+            <Col md={7} className="text-justify">
+              <h4 className="text-center">{db_post.post_title}</h4>
               <hr></hr>
-              <p dangerouslySetInnerHTML={{ __html: html }}></p>
-              <p>
-                Par <strong>{db_post.author.author_name}</strong> le{" "}
-                <Moment format="DD/MM/YYYY">
-                  {db_post.post_update || db_post.post_create}
-                </Moment>
-              </p>
-              <p></p>
+              <Card border="0" className="p-4 ">
+                <div dangerouslySetInnerHTML={{ __html: html }} />
+              </Card>
             </Col>
           </>
         ) : null}
+      </Row>
+      <Row className="text-center">
+        <p className="mt-5">
+          Par <strong>{db_post.author.author_name}</strong> le{" "}
+          <Moment format="DD/MM/YYYY">
+            {db_post.post_update || db_post.post_create}
+          </Moment>
+        </p>
+        <p className="mt-5">
+          <FacebookShareButton
+            url={"https://github.com/next-share"}
+            quote={"Un article intéressant sur le blog de Qualyn!"}
+            hashtag={"#nextshare"}
+          >
+            <FacebookIcon size={32} round className="m-2" />
+          </FacebookShareButton>
+          <TwitterShareButton
+            url={"https://github.com/next-share"}
+            title={"Un article intéressant sur le blog de Qualyn!"}
+          >
+            <TwitterIcon size={32} round className="m-2" />
+          </TwitterShareButton>
+          <PinterestShareButton
+            url={"https://github.com/next-share"}
+            media={"Un article intéressant sur le blog de Qualyn!"}
+          >
+            <PinterestIcon size={32} round className="m-2" />
+          </PinterestShareButton>
+        </p>
       </Row>
     </Layout_Home>
   );

@@ -225,10 +225,20 @@ top: -10px;
   }
 
   .post_row {
-    height: 25vw;
+    margin-top : 50px;
+    justify-content:space-around;
+    
   }
 
+.blog_html {
+  text-align: justify;
+}
 
+
+footer {
+  position: relative;
+  height: 50px;
+}
 
 
 

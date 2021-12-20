@@ -64,3 +64,5 @@ A faire :
 //facebook link pour qui ? Pas présent sur le home !?
 //-logo avec police d'écriture adaptée? Pq la qsueue courte ?
 //resoudre le pb avec nouveau => id = 0 et l'id existant 0 mais non modifiable (bon courage pour retrouver ca! )
+//ajuster l'url de fin sur les boutons share (où avoir l'url ?)
+//style d'un artcile du blog. Entete ? fleches sur le coté pour passer d'un article à l'autre ?

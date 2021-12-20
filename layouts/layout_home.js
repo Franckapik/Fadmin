@@ -64,6 +64,7 @@ export default function Layout_Home({
           {children}
         </main>
       </section>
+      <footer></footer>
     </Container>
   );
 }

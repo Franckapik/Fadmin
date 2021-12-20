@@ -77,11 +77,14 @@ const BlogPage = ({ db_post }) => {
 export default BlogPage;
 
 export async function getServerSideProps() {
-  const db_post = await prisma.post.findMany({
+  const db_post_0 = await prisma.post.findMany({
     include: {
       author: true,
     },
   });
+
+  const db_post_s = JSON.stringify(db_post_0);
+  const db_post = JSON.parse(db_post_s); //serialize issue
 
   return {
     props: { db_post },
