@@ -40,7 +40,7 @@ model media {
   media_content     String?
   media_link        String?   @db.VarChar(100)
   media_share       String?   @db.VarChar(100)
-  media_created     DateTime? @db.Date
+  media_created     DateTime? @db.Timestamp(6)
   media_number      Int?      @db.SmallInt
   media_category_id Int?
   media_folder      String?   @db.VarChar(30)
@@ -106,14 +106,14 @@ model VerificationRequest {
 }
 
 model post {
-  post_id          Int       @id @default(autoincrement())
-  post_title       String    @db.VarChar(200)
-  post_image       String[]  @db.VarChar(150)
-  post_draft       Boolean?
-  post_create_time DateTime? @db.Date
-  post_update_time DateTime? @db.Date
-  post_author_id   Int?
-  post_content     Json?     @db.Json
-  post_html        String?
-  author           author?   @relation(fields: [post_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "post_author_id_fk")
+  post_id        Int       @id @default(autoincrement())
+  post_title     String    @db.VarChar(200)
+  post_image     String[]  @db.VarChar(150)
+  post_draft     Boolean?
+  post_author_id Int?
+  post_content   Json?     @db.Json
+  post_html      String?
+  post_create    DateTime? @db.Date
+  post_update    DateTime? @db.Date
+  author         author?   @relation(fields: [post_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "post_author_id_fk")
 }

@@ -11,7 +11,6 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 const BlogPage = ({ db_post }) => {
-  console.log(db_post);
   const [show, setShow] = useState(false);
   const router = useRouter();
 

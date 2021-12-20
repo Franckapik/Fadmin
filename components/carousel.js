@@ -18,8 +18,6 @@ export default function CarouselComp({ mediasFiles }) {
     (a) => a.media_id == router.query.media
   );
 
-  console.log(mediaSelected[0]?.media_video);
-
   return (
     <Container fluid className="text-center">
       {mediaSelected && mediaSelected[0]?.media_video ? (

@@ -37,7 +37,6 @@ const PostAdmin = ({ db_post, db_author }) => {
     data.post_author_id = parseInt(data.post_author_id); //integer issue
     data.post_content = quill.getContents();
     data.post_html = innerHTML;
-    console.log(data);
 
     await axios.post("/api/blog/addPost", data);
     router.push("/admin/blog");
@@ -49,11 +48,11 @@ const PostAdmin = ({ db_post, db_author }) => {
   useEffect(() => {
     if (quill) {
       quill.on("text-change", (delta, oldDelta, source) => {
-        /*         console.log("Text change!");
+        /*         
         console.log(quill.getText()); // Get text only
         console.log(quill.getContents()); // Get delta contents
-        console.log(quill.root.innerHTML); // Get innerHTML using quill
-        console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
+         // Get innerHTML using quill
+         // Get innerHTML using quillRef
  */
         setText(quill.getText());
         setInnerHTML(quill.root.innerHTML);

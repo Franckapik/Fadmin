@@ -13,7 +13,7 @@ export const Categories = ({ categories, blog, overview, author }) => {
   if (typeof window !== "undefined") {
     pathname = window.location.pathname;
   }
-  console.log(author);
+  console.log(categories);
 
   const router = useRouter();
 
@@ -53,10 +53,10 @@ export const Categories = ({ categories, blog, overview, author }) => {
       <Nav className="justify-content-center  align-items-center" activeKey="0">
         {blog ? (
           <Nav.Item key="contact">
-            <Nav.Link>Blog</Nav.Link>
+            <Nav.Link href={`/blog`}>Blog</Nav.Link>
           </Nav.Item>
         ) : null}
-        {author.author_biography_fr ? (
+        {author && author.author_biography_fr ? (
           <Nav.Item key="bio">
             <Nav.Link onClick={() => setShow(!show)}>Profile</Nav.Link>
           </Nav.Item>
@@ -83,12 +83,14 @@ export const Categories = ({ categories, blog, overview, author }) => {
           </>
         ) : null}
       </Nav>
-      <Biography
-        show={show}
-        fullscreen={fullscreen}
-        setShow={setShow}
-        author={author}
-      ></Biography>
+      {author ? (
+        <Biography
+          show={show}
+          fullscreen={fullscreen}
+          setShow={setShow}
+          author={author}
+        ></Biography>
+      ) : null}
     </div>
   );
 };
