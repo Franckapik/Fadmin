@@ -1,12 +1,9 @@
 import fs from "fs";
 import getConfig from "next/config";
-import Head from "next/head";
 import path from "path";
 import { useState } from "react";
-import { Container, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import CarouselComp from "../../components/carousel";
-import { Categories } from "../../components/categories";
-import { Header } from "../../components/header";
 import { Medias } from "../../components/medias";
 import Layout_Home from "../../layouts/layout_home";
 const { PrismaClient } = require("@prisma/client");
@@ -28,6 +25,7 @@ export default function Home({
       authors={db_authors}
       categories={db_category}
       author={db_author}
+      contact
     >
       <Medias mediasFiles={mediasFiles} setShow={setShow} show={show}></Medias>
       <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>

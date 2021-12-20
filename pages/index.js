@@ -1,9 +1,6 @@
-import Head from "next/head";
 import { useState } from "react";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
-import CarouselComp from "../components/carousel";
-import { Categories } from "../components/categories";
-import { Header } from "../components/header";
+import { Carousel, Col, Row } from "react-bootstrap";
+import Layout_Home from "../layouts/layout_home";
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
@@ -15,47 +12,35 @@ export default function Home({ db_authors, mediasFiles }) {
   };
 
   return (
-    <Container fluid>
-      <Head>
-        <title>Qualyn</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <section>
-        <Header authors={db_authors}></Header>
-        <main>
-          <Categories blog></Categories>
-          <Container className="home">
-            <Row>
-              <Col className="mx-auto">
-                <Carousel
-                  fade
-                  variant="dark"
-                  activeIndex={index}
-                  onSelect={handleSelect}
-                  className="carousel-home"
-                  controls={false}
-                >
-                  {mediasFiles &&
-                    mediasFiles.map((a, i) => {
-                      return (
-                        <Carousel.Item key={i}>
-                          <div className="d-flex justify-content-center">
-                            <img
-                              className="d-block media-view"
-                              src={`/medias/${a.media_author_id}/${a.media_folder}/${a.media_photo}`}
-                              alt="slider image"
-                            />
-                          </div>
-                        </Carousel.Item>
-                      );
-                    })}
-                </Carousel>
-              </Col>
-            </Row>
-          </Container>
-        </main>
-      </section>
-    </Container>
+    <Layout_Home authors={db_authors} blog contact>
+      <Row>
+        <Col className="mx-auto">
+          <Carousel
+            fade
+            variant="dark"
+            activeIndex={index}
+            onSelect={handleSelect}
+            className="carousel-home"
+            controls={false}
+          >
+            {mediasFiles &&
+              mediasFiles.map((a, i) => {
+                return (
+                  <Carousel.Item key={i}>
+                    <div className="d-flex justify-content-center">
+                      <img
+                        className="d-block media-view"
+                        src={`/medias/${a.media_author_id}/${a.media_folder}/${a.media_photo}`}
+                        alt="slider image"
+                      />
+                    </div>
+                  </Carousel.Item>
+                );
+              })}
+          </Carousel>
+        </Col>
+      </Row>
+    </Layout_Home>
   );
 }
 

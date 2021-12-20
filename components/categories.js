@@ -8,12 +8,11 @@ import { useState } from "react";
 import { Nav } from "react-bootstrap";
 import Biography from "./bio";
 
-export const Categories = ({ categories, blog, overview, author }) => {
+export const Categories = ({ categories, blog, overview, author, contact }) => {
   let pathname = "";
   if (typeof window !== "undefined") {
     pathname = window.location.pathname;
   }
-  console.log(categories);
 
   const router = useRouter();
 
@@ -61,9 +60,11 @@ export const Categories = ({ categories, blog, overview, author }) => {
             <Nav.Link onClick={() => setShow(!show)}>Profile</Nav.Link>
           </Nav.Item>
         ) : null}
-        <Nav.Item key="contact">
-          <Nav.Link>Contact</Nav.Link>
-        </Nav.Item>
+        {contact && (
+          <Nav.Item key="contact">
+            <Nav.Link>Contact</Nav.Link>
+          </Nav.Item>
+        )}
         {author ? (
           <>
             <Nav.Item key="insta">

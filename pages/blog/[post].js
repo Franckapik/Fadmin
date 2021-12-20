@@ -1,6 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
+import Layout_Home from "../../layouts/layout_home";
 
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -12,7 +13,7 @@ const Post = ({ db_post }) => {
   }, [db_post]);
 
   return (
-    <Container>
+    <Layout_Home>
       <Row className="post_row">
         {db_post && db_post.post_html ? (
           <>
@@ -44,7 +45,7 @@ const Post = ({ db_post }) => {
           </>
         ) : null}
       </Row>
-    </Container>
+    </Layout_Home>
   );
 };
 
