@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/client";
 import { Button, Col, Container, Nav, Row } from "react-bootstrap";
-import Sidebar from "../../components/sidebar";
+import Sidebar from "../../components/sidebaradmin";
 import Layout_Admin from "../../layouts/layout_admin";
 
 export default function Page() {

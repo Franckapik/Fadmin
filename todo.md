@@ -52,17 +52,14 @@ retirer les captions fleches si pas de gallery
 -essai d'overview vidéo mais baisse de performance au chargement constaté. Je vais essayé une autre technologie pour cela.
 
 A faire :
-//finir la section du blog
-//Faire un layout pour les pages du Home
 //ajout de la biographie sous le nom de profile avec deux langues disponibles
 -espace de commentaires à terminer également
 -finir espace sur le coté pour le lien vers le blog /contacts
 -ajuster le style de la partie administration
-//preview video : retirer le debut de la video ?
 //style overlay testé mais peu convainquant
 //comment regler la position ? (rag and drop?)
 //facebook link pour qui ? Pas présent sur le home !?
 //-logo avec police d'écriture adaptée? Pq la qsueue courte ?
 //resoudre le pb avec nouveau => id = 0 et l'id existant 0 mais non modifiable (bon courage pour retrouver ca! )
 //ajuster l'url de fin sur les boutons share (où avoir l'url ?)
-//style d'un artcile du blog. Entete ? fleches sur le coté pour passer d'un article à l'autre ?
+//addquery issue

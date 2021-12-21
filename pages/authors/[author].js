@@ -26,6 +26,7 @@ export default function Home({
       categories={db_category}
       author={db_author}
       contact
+      comment
     >
       <Medias mediasFiles={mediasFiles} setShow={setShow} show={show}></Medias>
       <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>

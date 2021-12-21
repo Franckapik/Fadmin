@@ -19,7 +19,7 @@ export const PostList = ({ postList }) => {
             return (
               <>
                 <a href={`/blog/${a.post_id}`}>
-                  <Card border="0" className="cursor mx-auto m-3" key={i}>
+                  <Card border="0" className="cursor m-3" key={i}>
                     <Card.Body
                       className="fade-short rounded no-hover"
                       style={{
@@ -27,9 +27,7 @@ export const PostList = ({ postList }) => {
                         margin: "auto",
                         height: "20vw",
                         width: "20vw",
-                        backgroundImage:
-                          a.post_image ||
-                          `url(${a.folder_path.substr(7) + "/" + a.files[0]})`,
+                        backgroundImage: `url("/blog/${a.post_image}")`,
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center center",
                         backgroundSize: "cover",

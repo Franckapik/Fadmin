@@ -11,6 +11,7 @@ export default function Layout_Home({
   blog,
   overview,
   contact,
+  comment,
 }) {
   return (
     <Container fluid className="container_main">
@@ -59,6 +60,7 @@ export default function Layout_Home({
             overview={overview}
             blog={blog}
             contact={contact}
+            comment={comment}
           ></Categories>
 
           {children}

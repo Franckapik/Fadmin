@@ -108,12 +108,12 @@ model VerificationRequest {
 model post {
   post_id        Int       @id @default(autoincrement())
   post_title     String    @db.VarChar(200)
-  post_image     String[]  @db.VarChar(150)
   post_draft     Boolean?
   post_author_id Int?
   post_content   Json?     @db.Json
   post_html      String?
   post_create    DateTime? @db.Date
   post_update    DateTime? @db.Date
+  post_image     String?   @db.VarChar(400)
   author         author?   @relation(fields: [post_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "post_author_id_fk")
 }

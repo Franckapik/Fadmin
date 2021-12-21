@@ -8,7 +8,14 @@ import { useState } from "react";
 import { Nav } from "react-bootstrap";
 import Biography from "./bio";
 
-export const Categories = ({ categories, blog, overview, author, contact }) => {
+export const Categories = ({
+  categories,
+  blog,
+  overview,
+  author,
+  contact,
+  comment,
+}) => {
   let pathname = "";
   if (typeof window !== "undefined") {
     pathname = window.location.pathname;
@@ -56,7 +63,7 @@ export const Categories = ({ categories, blog, overview, author, contact }) => {
             activeKey="0"
           >
             {blog ? (
-              <Nav.Item key="contact">
+              <Nav.Item key="blog">
                 <Nav.Link href={`/blog`}>Blog</Nav.Link>
               </Nav.Item>
             ) : null}
@@ -68,6 +75,11 @@ export const Categories = ({ categories, blog, overview, author, contact }) => {
             {contact && (
               <Nav.Item key="contact">
                 <Nav.Link>Contact</Nav.Link>
+              </Nav.Item>
+            )}
+            {comment && (
+              <Nav.Item key="comment">
+                <Nav.Link>Comment</Nav.Link>
               </Nav.Item>
             )}
             {author ? (
