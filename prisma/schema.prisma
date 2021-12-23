@@ -18,6 +18,7 @@ model author {
   author_insta        String?    @db.VarChar(100)
   author_biography_en String?
   category            category[]
+  comment             comment[]
   media               media[]
   post                post[]
 }
@@ -116,4 +117,14 @@ model post {
   post_update    DateTime? @db.Date
   post_image     String?   @db.VarChar(400)
   author         author?   @relation(fields: [post_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "post_author_id_fk")
+}
+
+model comment {
+  comment_id        Int       @id(map: "comment_id_pk")
+  comment_msg       String?   @db.VarChar(1000)
+  comment_create    DateTime? @db.Date
+  comment_author    String?   @db.VarChar(100)
+  comment_draft     Boolean?
+  comment_author_id Int?
+  author            author?   @relation(fields: [comment_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "comment_author_id_fk")
 }
