@@ -240,7 +240,24 @@ footer {
   height: 50px;
 }
 
+.quote {
+  font-size: 16em;
+  font-weight: 300;
+  font-family: 'Cormorant Garamond', serif;
+  vertical-align: baseline;
+padding: 0;
+margin: 0;
+}
 
+.addcomment {
+  position: fixed;
+  right: 3vw;
+  bottom : 3vh; 
+}
+
+.modal_comment .modal-dialog {
+  max-width: 1000px;
+}
 
 
 .pentagon {

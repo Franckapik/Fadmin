@@ -1,13 +1,13 @@
+import axios from "axios";
 import { useRouter } from "next/router";
+import "quill/dist/quill.snow.css";
+import { useEffect, useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Controller, useForm } from "react-hook-form";
+import { useQuill } from "react-quilljs";
 import Layout_Admin from "../../../layouts/layout_admin";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-import { useForm, Controller } from "react-hook-form";
-import axios from "axios";
-import { useQuill } from "react-quilljs";
-import "quill/dist/quill.snow.css";
-import { useEffect, useState } from "react";
 
 const CommentAdmin = ({ db_comment, db_author }) => {
   const {
@@ -20,11 +20,11 @@ const CommentAdmin = ({ db_comment, db_author }) => {
     getValues,
   } = useForm({
     defaultValues: {
-      comment_msg: db_comment.comment_msg,
-      comment_create: db_comment.comment_create,
-      comment_author: db_comment.comment_author,
-      comment_author_id: db_comment.comment_author_id,
-      comment_draft: db_comment.comment_draft,
+      comment_msg: db_comment?.comment_msg,
+      comment_create: db_comment?.comment_create,
+      comment_author: db_comment?.comment_author,
+      comment_author_id: db_comment?.comment_author_id,
+      comment_draft: db_comment?.comment_draft,
     },
   });
   const [content, setContent] = useState();
@@ -33,11 +33,11 @@ const CommentAdmin = ({ db_comment, db_author }) => {
 
   const router = useRouter();
 
-  console.log(db_comment);
-
   const onSubmit = async (data) => {
-    data.comment_id = db_comment.comment_id || 0;
+    data.comment_id = db_comment?.comment_id || 0;
+    data.comment_author_id = parseInt(data.comment_author_id); //integer issue
     data.comment_msg = quill.getText();
+    data.comment_create = db_comment?.create || new Date();
 
     await axios.post("/api/comment/addComment", data);
     router.push("/admin/comment");
@@ -64,7 +64,9 @@ const CommentAdmin = ({ db_comment, db_author }) => {
   }, [quill]);
 
   useEffect(() => {
-    quill?.setText(db_comment.comment_msg);
+    if (quill && db_comment) {
+      quill?.setText(db_comment?.comment_msg);
+    }
   }, [quill, db_comment]);
 
   return (

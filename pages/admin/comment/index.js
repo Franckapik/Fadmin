@@ -26,7 +26,7 @@ const CommentPage = ({ db_comment }) => {
     <Layout_Admin>
       <Row className="mb-5 text-center" key="addMed">
         <Button variant="light" href={"/admin/comment/0"}>
-          Ajouter un article
+          Ajouter un commentaire
         </Button>
       </Row>
       <Row xs={1} md={4} className="g-4" key="ComList">
@@ -46,8 +46,8 @@ const CommentPage = ({ db_comment }) => {
                     <Modal.Body className="text-center">
                       {" "}
                       <p>
-                        Etes vous certain de vouloir supprimer l'article{" "}
-                        {a.comment_title} ?
+                        Etes vous certain de vouloir supprimer le commentaire de{" "}
+                        {a.comment_author} ?
                       </p>
                       <Button
                         variant="danger"

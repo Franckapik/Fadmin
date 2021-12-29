@@ -4,7 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-export default function Home({ db_post, db_authors }) {
+export default function Blog({ db_post, db_authors }) {
   return (
     <Layout_Home authors={db_authors} contact>
       <PostList postList={db_post}></PostList>

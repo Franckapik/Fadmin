@@ -120,7 +120,7 @@ model post {
 }
 
 model comment {
-  comment_id        Int       @id(map: "comment_id_pk")
+  comment_id        Int       @id @default(autoincrement())
   comment_msg       String?   @db.VarChar(1000)
   comment_create    DateTime? @db.Date
   comment_author    String?   @db.VarChar(100)
