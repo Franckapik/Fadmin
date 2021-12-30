@@ -53,7 +53,6 @@ retirer les captions fleches si pas de gallery
 
 A faire :
 //ajout de la biographie sous le nom de profile avec deux langues disponibles
--espace de commentaires à terminer également
 -finir espace sur le coté pour le lien vers le blog /contacts
 -ajuster le style de la partie administration
 //style overlay testé mais peu convainquant
@@ -63,3 +62,8 @@ A faire :
 //resoudre le pb avec nouveau => id = 0 et l'id existant 0 mais non modifiable (bon courage pour retrouver ca! )
 //ajuster l'url de fin sur les boutons share (où avoir l'url ?)
 //addquery issue
+//soundcloud ajout
+//show draft only
+//affichage moins lourd => jpeg compressé => refus d'image trop lourde
+//regarder comptabilité mobile
+//contact

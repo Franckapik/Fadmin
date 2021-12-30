@@ -1,15 +1,42 @@
-import { Modal } from "react-bootstrap";
+import { Col, Modal, Row } from "react-bootstrap";
+import Flags from "country-flag-icons/react/3x2";
+import { useState } from "react";
+
+//https://catamphetamine.gitlab.io/country-flag-icons/3x2/
 
 const Biography = ({ author, show, fullscreen, setShow }) => {
+  const [lang, setlang] = useState("FR");
+
   return (
     <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
       <Modal.Header closeButton className="cursor">
         <span onClick={() => setShow(!show)}>Back</span>
       </Modal.Header>
       <Modal.Body className="bio_modal">
-        <h2> {author.author_name} </h2>
-        <p> {author.author_biography_fr} </p>
-        <p> {author.author_biography_en} </p>
+        <Row>
+          <Col md={1} className="d-flex" style={{ flexDirection: "column" }}>
+            <Flags.FR
+              title="France"
+              className="flag circle cursor m-2"
+              onClick={() => {
+                setlang("FR");
+              }}
+            />
+            <Flags.GB
+              title="English"
+              className="flag circle cursor m-2"
+              onClick={() => {
+                setlang("GB");
+              }}
+            />
+          </Col>
+          <Col md={11}>
+            {" "}
+            <h2 className="mb-4"> {author.author_name} </h2>
+            {lang === "FR" ? <p> {author.author_biography_fr} </p> : null}
+            {lang === "GB" ? <p> {author.author_biography_en} </p> : null}
+          </Col>
+        </Row>
       </Modal.Body>
     </Modal>
   );

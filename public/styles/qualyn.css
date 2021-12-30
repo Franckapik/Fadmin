@@ -260,6 +260,10 @@ margin: 0;
 }
 
 
+.flag {
+  width: 50px;
+}
+
 .pentagon {
   -webkit-clip-path: polygon(50% 0%, 100% 40%, 82% 100%, 18% 100%, 0% 40%);
       clip-path: polygon(50% 0%, 100% 40%, 82% 100%, 18% 100%, 0% 40%);

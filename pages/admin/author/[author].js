@@ -19,7 +19,8 @@ const AuthorAdmin = ({ db_author }) => {
       author_id: db_author.author_id,
       author_name: db_author.author_name,
       author_art: db_author.author_art,
-      author_biography: db_author.author_biography,
+      author_biography_fr: db_author.author_biography_fr,
+      author_biography_en: db_author.author_biography_en,
       author_draft: db_author.author_draft,
       author_email: db_author.author_email,
       author_fb: db_author.author_fb,
@@ -84,24 +85,49 @@ const AuthorAdmin = ({ db_author }) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="author_biography_id">
-          <Form.Label>Biographie</Form.Label>
+        <Form.Group className="mb-3" controlId="author_biography_fr_id">
+          <Form.Label>Biographie (FR)</Form.Label>
           <Controller
             control={control}
-            name="author_biography"
+            name="author_biography_fr"
             defaultValue=""
             render={({ field: { onChange, onBlur, value, ref } }) => (
               <Form.Control
+                as="textarea"
+                style={{ height: "200px" }}
                 onChange={onChange}
                 value={value}
                 ref={ref}
-                isInvalid={errors.author_biography}
-                placeholder="Enter biography"
+                isInvalid={errors.author_biography_fr}
+                placeholder="Enter biography in French"
               />
             )}
           />
           <Form.Control.Feedback type="invalid">
-            {errors.author_biography?.message}
+            {errors.author_biography_fr?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="author_biography_en_id">
+          <Form.Label>Biography (EN)</Form.Label>
+          <Controller
+            control={control}
+            name="author_biography_en"
+            defaultValue=""
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <Form.Control
+                as="textarea"
+                style={{ height: "200px" }}
+                onChange={onChange}
+                value={value}
+                ref={ref}
+                isInvalid={errors.author_biography_en}
+                placeholder="Enter biography in English"
+              />
+            )}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.author_biography_en?.message}
           </Form.Control.Feedback>
         </Form.Group>
 
