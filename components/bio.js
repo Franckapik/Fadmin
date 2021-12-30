@@ -1,4 +1,4 @@
-import { Col, Modal, Row } from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import Flags from "country-flag-icons/react/3x2";
 import { useState } from "react";
 
@@ -36,7 +36,17 @@ const Biography = ({ author, show, fullscreen, setShow }) => {
             {lang === "FR" ? <p> {author.author_biography_fr} </p> : null}
             {lang === "GB" ? <p> {author.author_biography_en} </p> : null}
           </Col>
-        </Row>
+        </Row>{" "}
+        <div className="text-center">
+          {" "}
+          <Button
+            variant="outline-primary"
+            className="m-3 mt-4 p-5 pt-2 pb-2"
+            onClick={() => setShow(!show)}
+          >
+            Contact
+          </Button>
+        </div>
       </Modal.Body>
     </Modal>
   );

@@ -57,7 +57,6 @@ A faire :
 //comment regler la position ? (rag and drop?)
 //-logo avec police d'écriture adaptée? Pq la qsueue courte ?
 //resoudre le pb avec nouveau => id = 0 et l'id existant 0 mais non modifiable (bon courage pour retrouver ca! )
-//ajuster l'url de fin sur les boutons share (où avoir l'url ?)
 //addquery issue
 //soundcloud ajout
 //show draft only

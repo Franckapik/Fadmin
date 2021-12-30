@@ -24,7 +24,7 @@ const Post = ({ db_post, post_length }) => {
 
   const router = useRouter();
 
-  console.log(post_length);
+  console.log(router.query.post);
   useEffect(() => {
     db_post?.post_html && setHTML(db_post.post_html);
   }, [db_post]);
@@ -76,20 +76,20 @@ const Post = ({ db_post, post_length }) => {
         </p>
         <p className="mt-5">
           <FacebookShareButton
-            url={"https://github.com/next-share"}
+            url={`https://www.qualyn.fr/blog/${router.query.post}`}
             quote={"Un article intéressant sur le blog de Qualyn!"}
-            hashtag={"#nextshare"}
+            hashtag={"#qualyn"}
           >
             <FacebookIcon size={32} round className="m-2" />
           </FacebookShareButton>
           <TwitterShareButton
-            url={"https://github.com/next-share"}
+            url={`https://www.qualyn.fr/blog/${router.query.post}`}
             title={"Un article intéressant sur le blog de Qualyn!"}
           >
             <TwitterIcon size={32} round className="m-2" />
           </TwitterShareButton>
           <PinterestShareButton
-            url={"https://github.com/next-share"}
+            url={`https://www.qualyn.fr/blog/${router.query.post}`}
             media={"Un article intéressant sur le blog de Qualyn!"}
           >
             <PinterestIcon size={32} round className="m-2" />
