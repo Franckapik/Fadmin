@@ -82,7 +82,7 @@ export const Categories = ({
                 <Nav.Link>Comment</Nav.Link>
               </Nav.Item>
             )}
-            {author ? (
+            {/*          {author ? (
               <>
                 <Nav.Item key="insta">
                   <a
@@ -103,7 +103,7 @@ export const Categories = ({
                   </a>
                 </Nav.Item>
               </>
-            ) : null}
+            ) : null} */}
           </Nav>
           {author ? (
             <Biography

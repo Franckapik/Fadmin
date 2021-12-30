@@ -21,9 +21,11 @@ A faire :
 -finir espace sur le coté pour le lien vers le blog /contacts
 -ajuster le style de la partie administration
 //comment regler la position ? (rag and drop?)
-//-logo avec police d'écriture adaptée? Pq la qsueue courte ?
 //resoudre le pb avec nouveau => id = 0 et l'id existant 0 mais non modifiable (bon courage pour retrouver ca! )
 //addquery issue
 //show draft only
 //affichage moins lourd => jpeg compressé => refus d'image trop lourde
 //regarder comptabilité mobile
+
+//a questionner :
+//-logo avec police d'écriture adaptée? Pq la qsueue courte ?

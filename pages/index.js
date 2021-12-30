@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Carousel, Col, Row } from "react-bootstrap";
+import { Medias } from "../components/medias";
 import Layout_Home from "../layouts/layout_home";
 const { PrismaClient } = require("@prisma/client");
 
@@ -12,10 +13,10 @@ export default function Home({ db_authors, mediasFiles }) {
   };
 
   return (
-    <Layout_Home authors={db_authors} blog contact>
+    <Layout_Home authors={db_authors}>
       <Row>
         <Col className="mx-auto">
-          <Carousel
+          {/* <Carousel
             fade
             variant="dark"
             activeIndex={index}
@@ -37,7 +38,8 @@ export default function Home({ db_authors, mediasFiles }) {
                   </Carousel.Item>
                 );
               })}
-          </Carousel>
+          </Carousel> */}
+          <Medias mediasFiles={mediasFiles}></Medias>
         </Col>
       </Row>
     </Layout_Home>

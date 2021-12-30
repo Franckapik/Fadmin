@@ -25,16 +25,16 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                 <>
                   <Card
                     border="0"
-                    className="cursor mx-auto m-3"
+                    className="cursor mx-auto m-3 filtre "
                     onClick={() => addQuery("media", a.media_id)}
                     key={i}
                   >
                     <Card.Body
-                      className="fade-short rounded no-hover"
+                      className="fade-short rounded no-hover "
                       style={{
                         padding: 0,
                         margin: "auto",
-                        width: a.media_large ? "30vw" : "25vw",
+                        width: a.media_large ? "35vw" : "22vw",
                         height: "20vw",
                         backgroundImage:
                           a.media_preview ||
