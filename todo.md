@@ -62,4 +62,3 @@ A faire :
 //show draft only
 //affichage moins lourd => jpeg compressé => refus d'image trop lourde
 //regarder comptabilité mobile
-//contact

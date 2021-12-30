@@ -1,20 +1,11 @@
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  ListGroup,
-  Modal,
-  Row,
-} from "react-bootstrap";
-import Moment from "react-moment";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
-import axios from "axios";
+import Moment from "react-moment";
 
 export const CommentList = ({ commentList }) => {
   const [show, setShow] = useState(false);

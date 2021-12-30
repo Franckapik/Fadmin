@@ -74,7 +74,7 @@ export const Categories = ({
             ) : null}
             {contact && (
               <Nav.Item key="contact">
-                <Nav.Link>Contact</Nav.Link>
+                <Nav.Link href={`/contact`}>Contact</Nav.Link>
               </Nav.Item>
             )}
             {comment && (
