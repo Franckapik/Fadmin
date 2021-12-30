@@ -101,18 +101,17 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="media_video_id">
-              <Form.Label>Video</Form.Label>
+              <Form.Label>Video/Sound</Form.Label>
               <Controller
                 control={control}
                 name="media_video"
                 defaultValue="video"
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control
-                    type="file"
                     onChange={onChange}
                     ref={ref}
                     isInvalid={errors.media_video}
-                    placeholder="Enter video"
+                    placeholder="Enter the url of the video/sound"
                   />
                 )}
               />
