@@ -52,12 +52,9 @@ retirer les captions fleches si pas de gallery
 -essai d'overview vidéo mais baisse de performance au chargement constaté. Je vais essayé une autre technologie pour cela.
 
 A faire :
-//ajout de la biographie sous le nom de profile avec deux langues disponibles
 -finir espace sur le coté pour le lien vers le blog /contacts
 -ajuster le style de la partie administration
-//style overlay testé mais peu convainquant
 //comment regler la position ? (rag and drop?)
-//facebook link pour qui ? Pas présent sur le home !?
 //-logo avec police d'écriture adaptée? Pq la qsueue courte ?
 //resoudre le pb avec nouveau => id = 0 et l'id existant 0 mais non modifiable (bon courage pour retrouver ca! )
 //ajuster l'url de fin sur les boutons share (où avoir l'url ?)
