@@ -39,6 +39,15 @@ body::-webkit-scrollbar-thumb {
   margin : auto;
 }
 
+.barre {
+  transition-duration: 500ms;
+}
+
+.barre:hover {
+  top : -20px;
+  height: 30vh;
+}
+
 .left {
   text-align: left !important
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Carousel, Col, Row } from "react-bootstrap";
-import { Medias } from "../components/medias";
+import { Col, Row } from "react-bootstrap";
+import { MediasHome } from "../components/mediashome";
 import Layout_Home from "../layouts/layout_home";
 const { PrismaClient } = require("@prisma/client");
 
@@ -39,7 +39,7 @@ export default function Home({ db_authors, mediasFiles }) {
                 );
               })}
           </Carousel> */}
-          <Medias mediasFiles={mediasFiles}></Medias>
+          <MediasHome mediasFiles={mediasFiles}></MediasHome>
         </Col>
       </Row>
     </Layout_Home>
@@ -51,6 +51,9 @@ export async function getServerSideProps({ params, query }) {
   const mediasFiles = await prisma.media.findMany({
     where: {
       media_home: true,
+    },
+    include: {
+      author: true,
     },
   });
   return {

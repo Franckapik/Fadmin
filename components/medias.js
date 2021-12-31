@@ -30,7 +30,7 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                     key={i}
                   >
                     <Card.Body
-                      className="fade-short rounded no-hover "
+                      className="fade-short  no-hover "
                       style={{
                         padding: 0,
                         margin: "auto",
@@ -38,7 +38,7 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                         height: "20vw",
                         backgroundImage:
                           a.media_preview ||
-                          `url(${a.folder_path.substr(7) + "/" + a.files[0]})`,
+                          `url(${a.folder_path.substr(7) + "/" + a.files[0]})`, ///medias/1/03/03.png
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center center",
                         backgroundSize: "cover",

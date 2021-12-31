@@ -52,6 +52,7 @@ model media {
   media_large       Boolean
   media_position    Int?      @db.SmallInt
   media_preview     Boolean?
+  media_path        String?   @db.VarChar(200)
   author            author?   @relation(fields: [media_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "author_id_fkey")
   category          category? @relation(fields: [media_category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "category_fkey")
 }
