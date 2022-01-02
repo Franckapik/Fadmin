@@ -226,8 +226,17 @@ padding: 2em;
 
 }
 .card-admin .card-footer {
-  margin-top: 80px;
-  background-color: inherit;
+height: 100px;
+background-color: inherit;
+}
+
+.card-admin-add .card-footer {
+height: 80px;
+background-color: inherit;
+}
+
+.card-admin-add {
+  background-color: burlywood;
 }
 
 .card-footer {

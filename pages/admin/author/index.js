@@ -22,12 +22,16 @@ const AuthorPage = ({ db_author, user }) => {
 
   return (
     <Layout_Admin title={"Authors"}>
-      <Row className="mb-5 text-center">
-        <Button variant="light" href={"/admin/author/0"}>
-          Ajouter un artiste
-        </Button>
-      </Row>
       <Row xs={1} md={4} className="g-4">
+        <CardAdmin
+          title={"Ajouter un artiste"}
+          text={"____"}
+          edit_link={"/admin/author/0"}
+          setShow={setShow}
+          show={show}
+          add
+        ></CardAdmin>
+
         {db_author && db_author.length
           ? db_author.map((a, i) => {
               return (

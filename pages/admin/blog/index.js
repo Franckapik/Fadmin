@@ -22,12 +22,15 @@ const BlogPage = ({ db_post }) => {
 
   return (
     <Layout_Admin title={"Blog"}>
-      <Row className="mb-5 text-center" key="addMed">
-        <Button variant="light" href={"/admin/blog/0"}>
-          Ajouter un article
-        </Button>
-      </Row>
       <Row xs={1} md={4} className="g-4" key="MedList">
+        <CardAdmin
+          title={"Ajouter un article"}
+          text={"____"}
+          edit_link={"/admin/blog/0"}
+          setShow={setShow}
+          show={show}
+          add
+        ></CardAdmin>
         {db_post && db_post.length
           ? db_post.map((a, i) => {
               return (

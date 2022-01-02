@@ -25,19 +25,26 @@ const CommentPage = ({ db_comment }) => {
 
   return (
     <Layout_Admin title={"Comments"}>
-      <Row className="mb-5 text-center" key="addMed">
-        <Button variant="light" href={"/admin/comment/0"}>
-          Ajouter un commentaire
-        </Button>
-      </Row>
       <Row xs={1} md={4} className="g-4" key="ComList">
+        <CardAdmin
+          title={"Ajouter un commentaire"}
+          text={"____"}
+          edit_link={"/admin/comment/0"}
+          setShow={setShow}
+          show={show}
+          add
+        ></CardAdmin>
         {db_comment && db_comment.length
           ? db_comment.map((a, i) => {
               return (
                 <>
                   <CardAdmin
                     title={a.comment_author}
-                    text={a.comment_msg}
+                    text={
+                      a.comment_msg.length > 100
+                        ? a.comment_msg.substring(0, 100) + " [...]"
+                        : a.comment_msg
+                    }
                     edit_link={`/admin/comment/${a.comment_id}`}
                     setShow={setShow}
                     show={show}

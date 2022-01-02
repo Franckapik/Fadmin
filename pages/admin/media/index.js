@@ -21,12 +21,15 @@ const MediaPage = ({ db_media }) => {
 
   return (
     <Layout_Admin title={"Medias"}>
-      <Row className="mb-5 text-center" key="addMed">
-        <Button variant="light" href={"/admin/media/0"}>
-          Ajouter un media
-        </Button>
-      </Row>
       <Row xs={1} md={4} className="g-4" key="MedList">
+        <CardAdmin
+          title={"Ajouter un média"}
+          text={"____"}
+          edit_link={"/admin/media/0"}
+          setShow={setShow}
+          show={show}
+          add
+        ></CardAdmin>
         {db_media && db_media.length
           ? db_media.map((a, i) => {
               return (

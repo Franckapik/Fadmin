@@ -22,12 +22,15 @@ const CategoryPage = ({ db_category }) => {
 
   return (
     <Layout_Admin title={"Categories"}>
-      <Row className="mb-5 text-center" key={"addCat"}>
-        <Button variant="light" href={"/admin/category/0"}>
-          Ajouter une categorie
-        </Button>
-      </Row>
       <Row xs={1} md={4} className="g-4" key={"addForm"}>
+        <CardAdmin
+          title={"Ajouter une catégorie"}
+          text={"____"}
+          edit_link={"/admin/category/0"}
+          setShow={setShow}
+          show={show}
+          add
+        ></CardAdmin>
         {db_category && db_category.length
           ? db_category.map((a, i) => {
               return (
