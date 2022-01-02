@@ -20,7 +20,7 @@ const MediaPage = ({ db_media }) => {
   };
 
   return (
-    <Layout_Admin>
+    <Layout_Admin title={"Medias"}>
       <Row className="mb-5 text-center" key="addMed">
         <Button variant="light" href={"/admin/media/0"}>
           Ajouter un media

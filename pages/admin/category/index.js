@@ -21,7 +21,7 @@ const CategoryPage = ({ db_category }) => {
   };
 
   return (
-    <Layout_Admin>
+    <Layout_Admin title={"Categories"}>
       <Row className="mb-5 text-center" key={"addCat"}>
         <Button variant="light" href={"/admin/category/0"}>
           Ajouter une categorie

@@ -167,6 +167,9 @@ footer {
   padding-bottom: 0;
 }
 
+.admin .title {
+margin-left: 5em;
+}
 
 .list-group-item {
   padding : 0;
@@ -199,8 +202,19 @@ footer {
   width: 50%;
 }
 
-.sidebar .nav-item {
-  padding : 15px;
+.sidebar_container {
+  background-color: rgb(30, 32, 53);
+  height: 100vh;
+  color: aliceblue;
+
+}
+
+.sidebar_container .nav-item {
+padding: 2em;
+}
+
+.s-icon {
+  margin-right: 1em !important;
 }
 
 .card { 

@@ -21,7 +21,7 @@ const AuthorPage = ({ db_author, user }) => {
   };
 
   return (
-    <Layout_Admin>
+    <Layout_Admin title={"Authors"}>
       <Row className="mb-5 text-center">
         <Button variant="light" href={"/admin/author/0"}>
           Ajouter un artiste

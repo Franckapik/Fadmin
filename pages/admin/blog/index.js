@@ -21,7 +21,7 @@ const BlogPage = ({ db_post }) => {
   };
 
   return (
-    <Layout_Admin>
+    <Layout_Admin title={"Blog"}>
       <Row className="mb-5 text-center" key="addMed">
         <Button variant="light" href={"/admin/blog/0"}>
           Ajouter un article

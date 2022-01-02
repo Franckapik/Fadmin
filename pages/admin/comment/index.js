@@ -24,7 +24,7 @@ const CommentPage = ({ db_comment }) => {
   console.log(db_comment);
 
   return (
-    <Layout_Admin>
+    <Layout_Admin title={"Comments"}>
       <Row className="mb-5 text-center" key="addMed">
         <Button variant="light" href={"/admin/comment/0"}>
           Ajouter un commentaire
