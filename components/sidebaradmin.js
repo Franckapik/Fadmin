@@ -75,6 +75,10 @@ const Sidebar = () => (
         Commentaires
       </Nav.Link>
     </Nav.Item>
+
+    <h2 className="p-5">
+      <a href="/">Website</a>
+    </h2>
   </Nav>
 );
 

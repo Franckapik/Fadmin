@@ -14,7 +14,6 @@ GetServer only on page file !!!!
 //option : ajouter la bar de lecture et le temps ailleurs pour le style
 
 A faire :
--ajuster le style de la partie administration
 //comment regler la position ? (rag and drop?)
 //resoudre le pb avec nouveau => id = 0 et l'id existant 0 mais non modifiable (bon courage pour retrouver ca! )
 //addquery issue
