@@ -4,12 +4,13 @@ import { CardAdmin } from "../../../components/cardadmin";
 import Layout_Admin from "../../../layouts/layout_admin";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
+import { getSession } from "next-auth/client";
 
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-const AuthorPage = ({ db_author }) => {
+const AuthorPage = ({ db_author, user }) => {
   const [show, setShow] = useState(false);
   const router = useRouter();
 
@@ -76,10 +77,22 @@ const AuthorPage = ({ db_author }) => {
 
 export default AuthorPage;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
   const db_author = await prisma.author.findMany();
-
+  const session = await getSession(ctx);
+  //if no session found(user hasn’t logged in)
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/admin/", //redirect user to homepage
+        permanent: false,
+      },
+    };
+  }
   return {
-    props: { db_author },
+    props: {
+      user: session.user,
+      db_author,
+    },
   };
 }

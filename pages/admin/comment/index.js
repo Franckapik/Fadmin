@@ -6,6 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
+import { getSession } from "next-auth/client";
 
 const { PrismaClient } = require("@prisma/client");
 
@@ -78,17 +79,28 @@ const CommentPage = ({ db_comment }) => {
 
 export default CommentPage;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
   const db_comment_0 = await prisma.comment.findMany({
     include: {
       author: true,
     },
   });
 
+  const session = await getSession(ctx);
+  //if no session found(user hasn’t logged in)
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/admin/", //redirect user to homepage
+        permanent: false,
+      },
+    };
+  }
+
   const db_comment_s = JSON.stringify(db_comment_0);
   const db_comment = JSON.parse(db_comment_s); //serialize issue
 
   return {
-    props: { db_comment },
+    props: { user: session.user, db_comment },
   };
 }

@@ -304,6 +304,13 @@ padding-right: 5vw;
   filter: saturate(100%)
 }
 
+.signin {
+  border: 1px solid rgb(48, 48, 47); 
+  padding-top: 25vh;
+  padding-bottom: 25vh;
+
+}
+
   @keyframes mymove {
     from {opacity: 0}
     to {opacity: 1}

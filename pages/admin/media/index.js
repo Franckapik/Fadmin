@@ -4,6 +4,7 @@ import { CardAdmin } from "../../../components/cardadmin";
 import Layout_Admin from "../../../layouts/layout_admin";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
+import { getSession } from "next-auth/client";
 
 const { PrismaClient } = require("@prisma/client");
 
@@ -76,14 +77,25 @@ const MediaPage = ({ db_media }) => {
 
 export default MediaPage;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
   const db_media = await prisma.media.findMany({
     include: {
       category: true,
     },
   });
 
+  const session = await getSession(ctx);
+  //if no session found(user hasn’t logged in)
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/admin/", //redirect user to homepage
+        permanent: false,
+      },
+    };
+  }
+
   return {
-    props: { db_media },
+    props: { user: session.user, db_media },
   };
 }

@@ -42,7 +42,7 @@ export const MediasHome = ({ mediasFiles, setShow, show }) => {
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center center",
                         backgroundSize: "cover",
-                        borderRadius: " 50px 50px 3%",
+                        borderRadius: "50px 50px 3%",
                       }}
                     ></Card.Body>
                   </Card>

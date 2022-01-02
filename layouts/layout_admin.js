@@ -1,10 +1,9 @@
 import { signIn, signOut, useSession } from "next-auth/client";
-import { Button, Col, Container, Nav, Row } from "react-bootstrap";
+import { Button, Col, Container, Nav, Row, Dropdown } from "react-bootstrap";
 import Sidebar from "../components/sidebaradmin";
 
 export default function Layout_Admin({ children }) {
   const [session, loading] = useSession();
-
   return (
     <Container fluid>
       <Row>
@@ -12,48 +11,32 @@ export default function Layout_Admin({ children }) {
           <Sidebar></Sidebar>
         </Col>
         <Col xs={10}>
-          {/*  <header>
-            <Nav className="justify-content-center">
-              <Nav.Item className="m-5">Bienvenue {session.user.name}</Nav.Item>
+          <header>
+            <Nav className="justify-content-end">
               <Nav.Item className="m-5">
-                <Button onClick={() => signOut()}>Sign out</Button>
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-basic">
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name}
+                      width={"40em"}
+                    />
+                    <span className="m-3">{session.user.name}</span>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="/admin">Home</Dropdown.Item>
+                    <Dropdown.Item onClick={() => signOut()}>
+                      Sign out
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Nav.Item>
             </Nav>
-          </header> */}
+          </header>
           <main className="p-5">{children}</main>
         </Col>
       </Row>
     </Container>
   );
-  /* 
-  return (
-    <>
-      {!session && (
-        <>
-          Not signed in <br />
-          <button onClick={() => signIn()}>Sign in</button>
-        </>
-      )}
-      {session && (
-        <Container fluid>
-          <Row>
-            <Sidebar></Sidebar>
-            <Col xs={10}>
-              <header>
-                <Nav className="justify-content-center">
-                  <Nav.Item className="m-5">
-                    Bienvenue {session.user.name}
-                  </Nav.Item>
-                  <Nav.Item className="m-5">
-                    <Button onClick={() => signOut()}>Sign out</Button>
-                  </Nav.Item>
-                </Nav>
-              </header>
-              <main>{children}</main>
-            </Col>
-          </Row>
-        </Container>
-      )}
-    </>
-  ); */
 }
