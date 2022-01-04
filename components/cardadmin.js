@@ -6,6 +6,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 export const CardAdmin = ({
+  all,
   title,
   text,
   edit_link,
@@ -14,6 +15,7 @@ export const CardAdmin = ({
   position,
   category,
   add,
+  setSelected,
 }) => (
   <Col>
     <Card className={add ? "card-admin-add" : "card-admin"}>
@@ -40,12 +42,15 @@ export const CardAdmin = ({
             <>
               {" "}
               <Link href={edit_link}>
-                <FontAwesomeIcon icon={faEdit} className="m-2 cursor" />
+                <FontAwesomeIcon icon={faEdit} className="m-4 cursor" />
               </Link>
               <FontAwesomeIcon
                 icon={faTrash}
-                className="m-2 cursor"
-                onClick={() => setShow(!show)}
+                className="m-4 cursor"
+                onClick={() => {
+                  setSelected(all);
+                  setShow(!show);
+                }}
               />
               <div className="media_position">{position}</div>
             </>

@@ -5,6 +5,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import { useState } from "react";
 
 const MediaAdmin = ({ db_media, db_category, db_author }) => {
   const {
@@ -29,18 +30,42 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
       media_author_id: db_media.media_author_id,
       media_home: db_media.media_home,
       media_draft: db_media.media_draft,
+      media_path: db_media.media_path,
     },
   });
 
+  const [image, setImage] = useState(null);
+  const [createObjectURL, setCreateObjectURL] = useState(null);
   const router = useRouter();
 
   const onSubmit = async (data) => {
+    uploadToServer(data);
+
     data.media_id = db_media.media_id || 0;
     data.media_category_id = parseInt(data.media_category_id); //integer issue
     data.media_author_id = parseInt(data.media_author_id); //integer issue
+    data.media_path =
+      /* data.media_path || */
+      `/medias/${data.media_author_id}/${data.media_folder}/${image.name}`;
 
     await axios.post("/api/media/addMedia", data);
     router.push("/admin/media");
+  };
+
+  const uploadToServer = async (data) => {
+    const body = new FormData();
+    body.append("file", image);
+    body.append("path", data.media_path);
+    await axios.post("/api/media/upload", body);
+  };
+
+  const uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+      console.log(i);
+      setImage(i);
+      setCreateObjectURL(URL.createObjectURL(i));
+    }
   };
 
   const allFields = watch();
@@ -88,7 +113,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control
                     type="file"
-                    onChange={onChange}
+                    onChange={uploadToClient}
                     ref={ref}
                     isInvalid={errors.media_photo}
                     placeholder="Enter photography"
@@ -346,25 +371,26 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
         <Col>
           <Card>
             <Row>
-              <Col>
-                <Card.Img
-                  variant="top"
-                  className="mx-auto"
-                  src={`/medias/${allFields.media_author_id}/${allFields.media_folder}/${allFields.media_photo}`}
-                ></Card.Img>
-              </Col>
-              <Col>
-                <Card.Body className="text-center">
-                  <Card.Title className="mt-4">
-                    <h2>{allFields.media_title}</h2>
-                  </Card.Title>
-                  <Card.Text>
-                    <h6>{allFields.media_subtitle}</h6>
-                    <hr></hr>
-                    <h6>{allFields.media_content}</h6>
-                  </Card.Text>
-                </Card.Body>
-              </Col>
+              <Card.Img
+                variant="top"
+                className="mx-auto"
+                src={
+                  allFields.media_path
+                    ? `/medias/${allFields.media_author_id}/${allFields.media_folder}/${allFields.media_photo}`
+                    : createObjectURL
+                }
+              ></Card.Img>
+
+              <Card.Body className="text-center">
+                <Card.Title className="mt-4">
+                  <h2>{allFields.media_title}</h2>
+                </Card.Title>
+                <Card.Text>
+                  <h6>{allFields.media_subtitle}</h6>
+                  <hr></hr>
+                  <h6>{allFields.media_content}</h6>
+                </Card.Text>
+              </Card.Body>
             </Row>
           </Card>
         </Col>

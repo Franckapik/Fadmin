@@ -13,6 +13,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const CommentPage = ({ db_comment }) => {
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState(false);
+
   const router = useRouter();
 
   const onDelete = async (data) => {
@@ -39,6 +41,8 @@ const CommentPage = ({ db_comment }) => {
               return (
                 <>
                   <CardAdmin
+                    all={a}
+                    setSelected={setSelected}
                     title={a.comment_author}
                     text={
                       a.comment_msg.length > 100
@@ -55,12 +59,12 @@ const CommentPage = ({ db_comment }) => {
                       {" "}
                       <p>
                         Etes vous certain de vouloir supprimer le commentaire de{" "}
-                        {a.comment_author} ?
+                        {selected.comment_author} ?
                       </p>
                       <Button
                         variant="danger"
                         className="m-3 mb-3"
-                        onClick={() => onDelete(a.comment_id)}
+                        onClick={() => onDelete(selected.comment_id)}
                       >
                         {" "}
                         CONFIRMER

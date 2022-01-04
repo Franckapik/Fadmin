@@ -12,6 +12,8 @@ const prisma = new PrismaClient();
 
 const AuthorPage = ({ db_author, user }) => {
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState(false);
+
   const router = useRouter();
 
   const onDelete = async (data) => {
@@ -37,44 +39,45 @@ const AuthorPage = ({ db_author, user }) => {
               return (
                 <>
                   <CardAdmin
+                    all={a}
+                    setSelected={setSelected}
                     title={a.author_name}
                     text={a.author_art}
                     edit_link={`/admin/author/${a.author_id}`}
                     setShow={setShow}
                     show={show}
                   ></CardAdmin>
-
-                  <Modal show={show} onHide={() => setShow(false)}>
-                    <Modal.Header closeButton className="cursor"></Modal.Header>
-                    <Modal.Body className="text-center">
-                      {" "}
-                      <p>
-                        Etes vous certain de vouloir supprimer l'artiste{" "}
-                        {a.author_name} ?
-                      </p>
-                      <Button
-                        variant="danger"
-                        className="m-3 mb-3"
-                        onClick={() => onDelete(a.author_id)}
-                      >
-                        {" "}
-                        CONFIRMER
-                      </Button>
-                      <Button
-                        variant="primary"
-                        className="m-3 mb-3"
-                        onClick={() => setShow(!show)}
-                      >
-                        {" "}
-                        ANNULER
-                      </Button>
-                    </Modal.Body>
-                  </Modal>
                 </>
               );
             })
           : null}
       </Row>
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton className="cursor"></Modal.Header>
+        <Modal.Body className="text-center">
+          {" "}
+          <p>
+            Etes vous certain de vouloir supprimer l'artiste{" "}
+            {selected.author_name} ?
+          </p>
+          <Button
+            variant="danger"
+            className="m-3 mb-3"
+            onClick={() => onDelete(selected.author_id)}
+          >
+            {" "}
+            CONFIRMER
+          </Button>
+          <Button
+            variant="primary"
+            className="m-3 mb-3"
+            onClick={() => setShow(!show)}
+          >
+            {" "}
+            ANNULER
+          </Button>
+        </Modal.Body>
+      </Modal>
     </Layout_Admin>
   );
 };

@@ -12,6 +12,8 @@ const prisma = new PrismaClient();
 
 const CategoryPage = ({ db_category }) => {
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState(false);
+
   const router = useRouter();
 
   const onDelete = async (data) => {
@@ -36,43 +38,45 @@ const CategoryPage = ({ db_category }) => {
               return (
                 <>
                   <CardAdmin
+                    all={a}
+                    setSelected={setSelected}
                     title={a.category_name}
                     text={a.author.author_name}
                     edit_link={`/admin/category/${a.category_id}`}
                     setShow={setShow}
                     show={show}
                   ></CardAdmin>
-                  <Modal show={show} onHide={() => setShow(false)}>
-                    <Modal.Header closeButton className="cursor"></Modal.Header>
-                    <Modal.Body className="text-center">
-                      {" "}
-                      <p>
-                        Etes vous certain de vouloir supprimer la catégorie{" "}
-                        {a.category_name} ?
-                      </p>
-                      <Button
-                        variant="danger"
-                        className="m-3 mb-3"
-                        onClick={() => onDelete(a.category_id)}
-                      >
-                        {" "}
-                        CONFIRMER
-                      </Button>
-                      <Button
-                        variant="primary"
-                        className="m-3 mb-3"
-                        onClick={() => setShow(!show)}
-                      >
-                        {" "}
-                        ANNULER
-                      </Button>
-                    </Modal.Body>
-                  </Modal>
                 </>
               );
             })
           : null}
       </Row>
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton className="cursor"></Modal.Header>
+        <Modal.Body className="text-center">
+          {" "}
+          <p>
+            Etes vous certain de vouloir supprimer la categorie{" "}
+            {selected.category_name} ?
+          </p>
+          <Button
+            variant="danger"
+            className="m-3 mb-3"
+            onClick={() => onDelete(selected.category_id)}
+          >
+            {" "}
+            CONFIRMER
+          </Button>
+          <Button
+            variant="primary"
+            className="m-3 mb-3"
+            onClick={() => setShow(!show)}
+          >
+            {" "}
+            ANNULER
+          </Button>
+        </Modal.Body>
+      </Modal>
     </Layout_Admin>
   );
 };

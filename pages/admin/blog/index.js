@@ -12,6 +12,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const BlogPage = ({ db_post }) => {
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState(false);
+
   const router = useRouter();
 
   const onDelete = async (data) => {
@@ -36,43 +38,45 @@ const BlogPage = ({ db_post }) => {
               return (
                 <>
                   <CardAdmin
+                    all={a}
+                    setSelected={setSelected}
                     title={a.post_title}
                     text={a.post_subtitle}
                     edit_link={`/admin/blog/${a.post_id}`}
                     setShow={setShow}
                     show={show}
                   ></CardAdmin>
-                  <Modal show={show} onHide={() => setShow(false)}>
-                    <Modal.Header closeButton className="cursor"></Modal.Header>
-                    <Modal.Body className="text-center">
-                      {" "}
-                      <p>
-                        Etes vous certain de vouloir supprimer l'article{" "}
-                        {a.post_title} ?
-                      </p>
-                      <Button
-                        variant="danger"
-                        className="m-3 mb-3"
-                        onClick={() => onDelete(a.post_id)}
-                      >
-                        {" "}
-                        CONFIRMER
-                      </Button>
-                      <Button
-                        variant="primary"
-                        className="m-3 mb-3"
-                        onClick={() => setShow(!show)}
-                      >
-                        {" "}
-                        ANNULER
-                      </Button>
-                    </Modal.Body>
-                  </Modal>
                 </>
               );
             })
           : null}
       </Row>
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton className="cursor"></Modal.Header>
+        <Modal.Body className="text-center">
+          {" "}
+          <p>
+            Etes vous certain de vouloir supprimer l'article{" "}
+            {selected.post_title} ?
+          </p>
+          <Button
+            variant="danger"
+            className="m-3 mb-3"
+            onClick={() => onDelete(selected.post_id)}
+          >
+            {" "}
+            CONFIRMER
+          </Button>
+          <Button
+            variant="primary"
+            className="m-3 mb-3"
+            onClick={() => setShow(!show)}
+          >
+            {" "}
+            ANNULER
+          </Button>
+        </Modal.Body>
+      </Modal>
     </Layout_Admin>
   );
 };

@@ -11,6 +11,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const MediaPage = ({ db_media }) => {
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState(false);
   const router = useRouter();
 
   const onDelete = async (data) => {
@@ -35,6 +36,8 @@ const MediaPage = ({ db_media }) => {
               return (
                 <>
                   <CardAdmin
+                    all={a}
+                    setSelected={setSelected}
                     title={a.media_title}
                     text={a.media_subtitle}
                     category={a.category.category_name}
@@ -43,37 +46,37 @@ const MediaPage = ({ db_media }) => {
                     setShow={setShow}
                     show={show}
                   ></CardAdmin>
-                  <Modal show={show} onHide={() => setShow(false)}>
-                    <Modal.Header closeButton className="cursor"></Modal.Header>
-                    <Modal.Body className="text-center">
-                      {" "}
-                      <p>
-                        Etes vous certain de vouloir supprimer le media{" "}
-                        {a.media_title} ?
-                      </p>
-                      <Button
-                        variant="danger"
-                        className="m-3 mb-3"
-                        onClick={() => onDelete(a.media_id)}
-                      >
-                        {" "}
-                        CONFIRMER
-                      </Button>
-                      <Button
-                        variant="primary"
-                        className="m-3 mb-3"
-                        onClick={() => setShow(!show)}
-                      >
-                        {" "}
-                        ANNULER
-                      </Button>
-                    </Modal.Body>
-                  </Modal>
                 </>
               );
             })
           : null}
       </Row>
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton className="cursor"></Modal.Header>
+        <Modal.Body className="text-center">
+          {" "}
+          <p>
+            Etes vous certain de vouloir supprimer le media{" "}
+            {selected.media_title || selected.category?.category_name} ?
+          </p>
+          <Button
+            variant="danger"
+            className="m-3 mb-3"
+            onClick={() => onDelete(selected.media_id)}
+          >
+            {" "}
+            CONFIRMER
+          </Button>
+          <Button
+            variant="primary"
+            className="m-3 mb-3"
+            onClick={() => setShow(!show)}
+          >
+            {" "}
+            ANNULER
+          </Button>
+        </Modal.Body>
+      </Modal>
     </Layout_Admin>
   );
 };
