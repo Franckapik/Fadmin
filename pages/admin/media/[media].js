@@ -8,7 +8,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const MediaAdmin = ({ db_media, db_category, db_author }) => {
+const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
   const {
     setError,
     handleSubmit,
@@ -271,7 +271,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
                       />
                     )}
                   />
-                  <Button onClick={() => setNewFolder(false)}>Nouveau</Button>
+                  <Button onClick={() => setNewFolder(false)}>Selection</Button>
                 </InputGroup>
                 <Form.Control.Feedback type="invalid">
                   {errors.media_folder?.message}
@@ -279,23 +279,28 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               </Form.Group>
             ) : (
               <Form.Group className="mb-3" controlId="media_folder_id">
-                <Form.Label>Nom du dossier</Form.Label>
+                <Form.Label>Selection du dossier</Form.Label>
                 <InputGroup>
                   <Controller
                     control={control}
                     name="media_folder"
                     defaultValue=""
                     render={({ field: { onChange, onBlur, value, ref } }) => (
-                      <Form.Control
+                      <Form.Select
                         onChange={onChange}
                         value={value}
                         ref={ref}
-                        isInvalid={errors.media_link}
-                        placeholder="Enter name of folder without accent and space"
-                      />
+                        isInvalid={errors.media_folder}
+                      >
+                        {db_medias.map((a, i) => (
+                          <option value={a.media_folder}>
+                            {a.media_folder}
+                          </option>
+                        ))}
+                      </Form.Select>
                     )}
                   />
-                  <Button onClick={() => setNewFolder(true)}>Selection</Button>
+                  <Button onClick={() => setNewFolder(true)}>Nouveau</Button>
                 </InputGroup>
                 <Form.Control.Feedback type="invalid">
                   {errors.media_folder?.message}
@@ -463,8 +468,9 @@ export async function getServerSideProps({ params }) {
 
   const db_category = await prisma.category.findMany();
   const db_author = await prisma.author.findMany();
+  const db_medias = await prisma.media.findMany();
 
   return {
-    props: { db_media, db_category, db_author },
+    props: { db_media, db_category, db_author, db_medias },
   };
 }
