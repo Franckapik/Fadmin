@@ -7,12 +7,6 @@ import ReactPlayer from "react-player";
 export const MediasHome = ({ mediasFiles, setShow, show }) => {
   const router = useRouter();
 
-  const addQuery = (key, value) => {
-    setShow(!show);
-    router.query[key] = value;
-    router.push(router);
-  };
-
   return (
     <Container fluid className="d-flex justify-content-center flex-wrap ">
       {" "}

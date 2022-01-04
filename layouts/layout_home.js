@@ -63,7 +63,6 @@ export default function Layout_Home({
                       <Nav.Item key={i + 1}>
                         <Nav.Link
                           eventKey={i}
-                          onClick={() => addQuery("categ", a.category_id)}
                           href={`/authors/${a.author_id}`}
                           className="nav-authors frame "
                         >

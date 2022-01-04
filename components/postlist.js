@@ -5,11 +5,6 @@ import { Card, Container } from "react-bootstrap";
 export const PostList = ({ postList }) => {
   const router = useRouter();
 
-  const addQuery = (key, value) => {
-    router.query[key] = value;
-    router.push(router);
-  };
-
   return (
     <Container fluid className="d-flex justify-content-center flex-wrap ">
       {" "}
