@@ -16,42 +16,42 @@ export const CardAdmin = ({
   add,
 }) => (
   <Col>
-    <a href={edit_link}>
-      <Card className={add ? "card-admin-add" : "card-admin"}>
-        <Card.Body className="text-center">
+    <Card className={add ? "card-admin-add" : "card-admin"}>
+      <Card.Body className="text-center">
+        <a href={edit_link}>
           <Card.Title className="mt-4">
             <h2>{title || category}</h2>
           </Card.Title>
           <Card.Text>
             <h6>{text}</h6>
-          </Card.Text>
-          <Card.Footer>
-            {" "}
-            {add ? (
+          </Card.Text>{" "}
+        </a>
+        <Card.Footer>
+          {" "}
+          {add ? (
+            <Link href={edit_link}>
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                className="cursor"
+                size="4x"
+              />
+            </Link>
+          ) : (
+            <>
+              {" "}
               <Link href={edit_link}>
-                <FontAwesomeIcon
-                  icon={faPlusCircle}
-                  className="cursor"
-                  size="4x"
-                />
+                <FontAwesomeIcon icon={faEdit} className="m-2 cursor" />
               </Link>
-            ) : (
-              <>
-                {" "}
-                <Link href={edit_link}>
-                  <FontAwesomeIcon icon={faEdit} className="m-2 cursor" />
-                </Link>
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  className="m-2 cursor"
-                  onClick={() => setShow(!show)}
-                />
-                <div className="media_position">{position}</div>
-              </>
-            )}
-          </Card.Footer>
-        </Card.Body>
-      </Card>
-    </a>
+              <FontAwesomeIcon
+                icon={faTrash}
+                className="m-2 cursor"
+                onClick={() => setShow(!show)}
+              />
+              <div className="media_position">{position}</div>
+            </>
+          )}
+        </Card.Footer>
+      </Card.Body>
+    </Card>
   </Col>
 );

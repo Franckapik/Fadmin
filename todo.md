@@ -9,14 +9,12 @@ GetServer only on page file !!!!
 
 //input file working ?
 //simplifier le lien vers le media ? Comment uploader vers le server ?
-//trouver l'origine du pb avec l'ajout de media/categorie et les modals box et la supression (peut-etre les retirer simplement?))
 //generation de folder ? choix de la miniature si plusieurs photos uploadées.
 //option : ajouter la bar de lecture et le temps ailleurs pour le style
+//auto-increment sur media avec la recherche du last id pour autoincrementer du coté serveur plutot que la db .
+//choix de ne pas ajouter la fonctionnalité de changement de position
 
 A faire :
-//comment regler la position ? (rag and drop?)
-//resoudre le pb avec nouveau => id = 0 et l'id existant 0 mais non modifiable (bon courage pour retrouver ca! )
-//show draft only
 //affichage moins lourd => jpeg compressé => refus d'image trop lourde
 //regarder comptabilité mobile
 
