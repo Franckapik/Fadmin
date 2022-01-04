@@ -37,8 +37,7 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                         width: a.media_large ? "35vw" : "22vw",
                         height: "20vw",
                         backgroundImage:
-                          a.media_preview ||
-                          `url(${a.folder_path.substr(7) + "/" + a.files[0]})`, ///medias/1/03/03.png
+                          a.media_preview || `url(${a.media_path})`, ///medias/1/03/03.png
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center center",
                         backgroundSize: "cover",
@@ -59,10 +58,9 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                           />
                         </>
                       ) : null}
-                      <div className="square "></div>
                     </Card.Body>
                     <Card.Footer>
-                      <h5>{a.media_title || a.category.category_name}</h5>
+                      <h5>{a.media_title || a.category?.category_name}</h5>
                       <h7>{a.media_subtitle}</h7>
                     </Card.Footer>
                   </Card>

@@ -16,6 +16,7 @@ export default function Home({
   mediasFiles,
   db_category,
   db_author,
+  db_medias,
 }) {
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
@@ -28,7 +29,7 @@ export default function Home({
       contact
       comment
     >
-      <Medias mediasFiles={mediasFiles} setShow={setShow} show={show}></Medias>
+      <Medias mediasFiles={db_medias} setShow={setShow} show={show}></Medias>
       <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
         <Modal.Header closeButton className="cursor">
           <span onClick={() => setShow(!show)}>Back</span>
@@ -113,6 +114,6 @@ export async function getServerSideProps({ params, query }) {
   });
 
   return {
-    props: { db_authors, mediasFiles, db_category, db_author },
+    props: { db_authors, mediasFiles, db_category, db_author, db_medias },
   };
 }

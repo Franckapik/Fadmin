@@ -424,27 +424,25 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
         </Col>
         <Col>
           <Card>
-            <Row>
+            <Row className="text-center">
               <Card.Img
                 variant="top"
                 className="mx-auto"
-                src={
-                  allFields.media_path
-                    ? `/medias/${allFields.media_author_id}/${allFields.media_folder}/${allFields.media_photo}`
-                    : createObjectURL
-                }
+                src={allFields.media_path || createObjectURL}
               ></Card.Img>
 
-              <Card.Body className="text-center">
+              {allFields.media_title ? (
                 <Card.Title className="mt-4">
                   <h2>{allFields.media_title}</h2>
                 </Card.Title>
+              ) : null}
+              {allFields.media_content ? (
                 <Card.Text>
                   <h6>{allFields.media_subtitle}</h6>
                   <hr></hr>
                   <h6>{allFields.media_content}</h6>
                 </Card.Text>
-              </Card.Body>
+              ) : null}
             </Row>
           </Card>
         </Col>
