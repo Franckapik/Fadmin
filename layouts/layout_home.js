@@ -19,15 +19,15 @@ export default function Layout_Home({
   comment,
 }) {
   return (
-    <Container fluid className="container_main">
+    <Container fluid className="container_main mt-4">
       <Head>
         <title>Qualyn</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="paper"></div>
       <div className="shapes"></div>
-      <div className="blob">Qualyn</div>
-      <div className="sticker">
+      <div className="title_bg">Qualyn</div>
+      <div className="sticker d-none d-lg-flex">
         <div>
           Qualyn{" "}
           <a href={author?.author_insta} className="m-2" target="_blank">
@@ -40,14 +40,14 @@ export default function Layout_Home({
       </div>
       <section>
         <header className="text-center">
-          <Row className="m-4">
+          <Row>
             <Link href="/">
-              <h1 className="cursor">
-                <span style={{ fontSize: "1.2em" }}>Q</span>ualyn
+              <h1 className="cursor title">
+                <span className="capitale">Q</span>ualyn
               </h1>
             </Link>
           </Row>
-          <Row className="blogocontact">
+          <Row className="blogocontact d-none d-md-flex">
             <Col className="left cursor">
               <a href={`/blog`}> Blog</a>
             </Col>

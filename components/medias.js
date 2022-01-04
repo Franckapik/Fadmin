@@ -30,7 +30,7 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                     key={i}
                   >
                     <Card.Body
-                      className="fade-short  no-hover "
+                      className="fade-short no-hover card-media "
                       style={{
                         padding: 0,
                         margin: "auto",

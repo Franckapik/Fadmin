@@ -39,7 +39,9 @@ export default function Home({ db_authors, mediasFiles }) {
                 );
               })}
           </Carousel> */}
-          <MediasHome mediasFiles={mediasFiles}></MediasHome>
+          <MediasHome
+            mediasFiles={mediasFiles}
+          ></MediasHome>
         </Col>
       </Row>
     </Layout_Home>

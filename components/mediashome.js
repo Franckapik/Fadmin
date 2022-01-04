@@ -8,7 +8,10 @@ export const MediasHome = ({ mediasFiles, setShow, show }) => {
   const router = useRouter();
 
   return (
-    <Container fluid className="d-flex justify-content-center flex-wrap ">
+    <Container
+      fluid
+      className="d-flex justify-content-center flex-wrap d-none d-sm-flex "
+    >
       {" "}
       {/*justify-content-between */}
       {mediasFiles && mediasFiles != 0

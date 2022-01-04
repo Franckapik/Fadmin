@@ -74,7 +74,10 @@ export default function CarouselComp({ mediasFiles }) {
             </Col>
           </Row>
           <Row>
-            <ListGroup horizontal className="mt-5 justify-content-center">
+            <ListGroup
+              horizontal
+              className="mt-5 justify-content-center legend"
+            >
               <ListGroup.Item>
                 {mediaSelected[0].media_subtitle}{" "}
               </ListGroup.Item>
