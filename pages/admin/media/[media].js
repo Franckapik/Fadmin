@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
 import Layout_Admin from "../../../layouts/layout_admin";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const MediaAdmin = ({ db_media, db_category, db_author }) => {
   const {
@@ -36,39 +37,51 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
 
   const [image, setImage] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
+  const [newFolder, setNewFolder] = useState(false);
+  const [allFiles, setAllFiles] = useState(false);
+  const [path, setPath] = useState(false);
   const router = useRouter();
 
   const onSubmit = async (data) => {
-    uploadToServer(data);
-
     data.media_id = db_media.media_id || 0;
     data.media_category_id = parseInt(data.media_category_id); //integer issue
     data.media_author_id = parseInt(data.media_author_id); //integer issue
-    data.media_path =
-      /* data.media_path || */
-      `/medias/${data.media_author_id}/${data.media_folder}/${image.name}`;
+    data.media_path = path + image.name;
 
-    await axios.post("/api/media/addMedia", data);
-    router.push("/admin/media");
+    uploadToServer(allFiles);
+
+    await axios.post("/api/media/upload", data);
+    /*     router.push("/admin/media");
+     */
   };
+  const allFields = watch();
 
-  const uploadToServer = async (data) => {
+  useEffect(() => {
+    setPath(`medias/${allFields.media_author_id}/${allFields.media_folder}/`);
+  }, [allFields]);
+
+  const uploadToServer = async (files) => {
     const body = new FormData();
+
+    body.append("path", path);
+    Object.keys(files).map((i) => {
+      body.append("file", files[i]);
+    });
+
     body.append("file", image);
-    body.append("path", data.media_path);
+    body.append("path", path);
     await axios.post("/api/media/upload", body);
   };
 
   const uploadToClient = (event) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
-      console.log(i);
+
       setImage(i);
       setCreateObjectURL(URL.createObjectURL(i));
+      setAllFiles(event.target.files);
     }
   };
-
-  const allFields = watch();
 
   return (
     <Layout_Admin>
@@ -106,6 +119,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
 
             <Form.Group className="mb-3" controlId="media_photo_id">
               <Form.Label>Photographie(s)</Form.Label>
+
               <Controller
                 control={control}
                 name="media_photo"
@@ -113,6 +127,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control
                     type="file"
+                    multiple
                     onChange={uploadToClient}
                     ref={ref}
                     isInvalid={errors.media_photo}
@@ -120,6 +135,11 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
                   />
                 )}
               />
+              <small>
+                {path}
+                {image?.name}
+              </small>
+
               <Form.Control.Feedback type="invalid">
                 {errors.media_photo?.message}
               </Form.Control.Feedback>
@@ -233,26 +253,55 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="media_folder_id">
-              <Form.Label>Nom du dossier</Form.Label>
-              <Controller
-                control={control}
-                name="media_folder"
-                defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <Form.Control
-                    onChange={onChange}
-                    value={value}
-                    ref={ref}
-                    isInvalid={errors.media_folder}
-                    placeholder="Enter folder name of the media"
+            {newFolder ? (
+              <Form.Group className="mb-3" controlId="media_folder_id">
+                <Form.Label>Nom du dossier</Form.Label>
+                <InputGroup>
+                  <Controller
+                    control={control}
+                    name="media_folder"
+                    defaultValue=""
+                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                      <Form.Control
+                        onChange={onChange}
+                        value={value}
+                        ref={ref}
+                        isInvalid={errors.media_folder}
+                        placeholder="Enter folder name of the media"
+                      />
+                    )}
                   />
-                )}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.media_folder?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
+                  <Button onClick={() => setNewFolder(false)}>Nouveau</Button>
+                </InputGroup>
+                <Form.Control.Feedback type="invalid">
+                  {errors.media_folder?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            ) : (
+              <Form.Group className="mb-3" controlId="media_folder_id">
+                <Form.Label>Nom du dossier</Form.Label>
+                <InputGroup>
+                  <Controller
+                    control={control}
+                    name="media_folder"
+                    defaultValue=""
+                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                      <Form.Control
+                        onChange={onChange}
+                        value={value}
+                        ref={ref}
+                        isInvalid={errors.media_link}
+                        placeholder="Enter name of folder without accent and space"
+                      />
+                    )}
+                  />
+                  <Button onClick={() => setNewFolder(true)}>Selection</Button>
+                </InputGroup>
+                <Form.Control.Feedback type="invalid">
+                  {errors.media_folder?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            )}
 
             <Form.Group className="mb-3" controlId="media_subtitle_id">
               <Form.Label>Sous-titres</Form.Label>
