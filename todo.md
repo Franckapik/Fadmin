@@ -7,9 +7,6 @@ useSWR semble possible dans getServer mais cela a peut de sens.
 
 GetServer only on page file !!!!
 
-//input file working ?
-//simplifier le lien vers le media ? Comment uploader vers le server ?
-//generation de folder ? choix de la miniature si plusieurs photos uploadées.
 //option : ajouter la bar de lecture et le temps ailleurs pour le style
 //auto-increment sur media avec la recherche du last id pour autoincrementer du coté serveur plutot que la db .
 //choix de ne pas ajouter la fonctionnalité de changement de position
