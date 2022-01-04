@@ -47,7 +47,11 @@ export default function Home({ db_authors, mediasFiles }) {
 }
 
 export async function getServerSideProps({ params, query }) {
-  const db_authors = await prisma.author.findMany();
+  const db_authors = await prisma.author.findMany({
+    where: {
+      author_draft: false,
+    },
+  });
   const mediasFiles = await prisma.media.findMany({
     where: {
       media_home: true,

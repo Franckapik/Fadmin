@@ -55,6 +55,7 @@ export async function getServerSideProps({ params, query }) {
     db_medias = await prisma.media.findMany({
       where: {
         media_author_id: Number(params?.author) || -1,
+        media_draft: false,
       },
       include: {
         author: true,
@@ -65,6 +66,7 @@ export async function getServerSideProps({ params, query }) {
     db_medias = await prisma.media.findMany({
       where: {
         media_category_id: Number(query?.categ) || -1,
+        media_draft: false,
       },
       include: {
         author: true,
@@ -73,7 +75,11 @@ export async function getServerSideProps({ params, query }) {
     });
   }
 
-  const db_authors = await prisma.author.findMany();
+  const db_authors = await prisma.author.findMany({
+    where: {
+      author_draft: false,
+    },
+  });
 
   const mediasFiles = await Promise.all(
     db_medias.map(async (a, i) => {
@@ -102,6 +108,7 @@ export async function getServerSideProps({ params, query }) {
   const db_category = await prisma.category.findMany({
     where: {
       category_author: Number(params?.author) || -1,
+      category_draft: false,
     },
   });
 

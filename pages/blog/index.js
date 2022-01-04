@@ -19,7 +19,11 @@ export async function getServerSideProps({ params, query }) {
     },
   });
 
-  const db_authors = await prisma.author.findMany();
+  const db_authors = await prisma.author.findMany({
+    where: {
+      author_draft: false,
+    },
+  });
 
   const db_post_s = JSON.stringify(db_post_0);
   const db_post = JSON.parse(db_post_s); //serialize issue

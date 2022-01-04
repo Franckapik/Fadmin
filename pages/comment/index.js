@@ -22,7 +22,11 @@ export async function getServerSideProps({ params, query }) {
   const db_comment_s = JSON.stringify(db_comment_0);
   const db_comment = JSON.parse(db_comment_s); //serialize issue
 
-  const db_authors = await prisma.author.findMany();
+  const db_authors = await prisma.author.findMany({
+    where: {
+      author_draft: false,
+    },
+  });
 
   return {
     props: { db_comment, db_authors },

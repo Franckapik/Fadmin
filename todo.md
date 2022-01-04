@@ -16,7 +16,6 @@ GetServer only on page file !!!!
 A faire :
 //comment regler la position ? (rag and drop?)
 //resoudre le pb avec nouveau => id = 0 et l'id existant 0 mais non modifiable (bon courage pour retrouver ca! )
-//addquery issue
 //show draft only
 //affichage moins lourd => jpeg compressé => refus d'image trop lourde
 //regarder comptabilité mobile

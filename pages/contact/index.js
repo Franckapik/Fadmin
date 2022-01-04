@@ -14,7 +14,11 @@ export default function Comment({ db_authors }) {
 }
 
 export async function getServerSideProps({ params, query }) {
-  const db_authors = await prisma.author.findMany();
+  const db_authors = await prisma.author.findMany({
+    where: {
+      author_draft: false,
+    },
+  });
 
   return {
     props: { db_authors },
