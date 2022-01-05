@@ -40,8 +40,8 @@ export const CommentList = ({ commentList }) => {
             .map((a, i) => {
               return (
                 <>
-                  <Row className="p-5 text-center align-items-center">
-                    <Col md={2} className="quote">
+                  <Row className="p-5 text-center align-items-center comment">
+                    <Col md={2} className="quote-t ">
                       “
                     </Col>
                     <Col md={8} style={{ fontSize: "1.2em" }}>
@@ -51,7 +51,7 @@ export const CommentList = ({ commentList }) => {
                         <Moment format="DD/MM/YYYY">{a.comment_create}</Moment>
                       </div>
                     </Col>
-                    <Col md={2} className="quote">
+                    <Col md={2} className="quote-b">
                       ”
                     </Col>
                   </Row>

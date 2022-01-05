@@ -79,31 +79,9 @@ export const Categories = ({
             )}
             {comment && (
               <Nav.Item key="comment">
-                <Nav.Link>Comment</Nav.Link>
+                <Nav.Link href={`/comment`}>Comment</Nav.Link>
               </Nav.Item>
             )}
-            {/*          {author ? (
-              <>
-                <Nav.Item key="insta">
-                  <a
-                    href={author?.author_insta}
-                    className="nav-link"
-                    target="_blank"
-                  >
-                    <FontAwesomeIcon icon={faInstagram} width="1.5em" />{" "}
-                  </a>
-                </Nav.Item>
-                <Nav.Item key="fb">
-                  <a
-                    href={author?.author_fb}
-                    className="nav-link"
-                    target="_blank"
-                  >
-                    <FontAwesomeIcon icon={faFacebookSquare} width="1.5em" />{" "}
-                  </a>
-                </Nav.Item>
-              </>
-            ) : null} */}
           </Nav>
           {author ? (
             <Biography

@@ -40,10 +40,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-
-.card-media {
-}
-
 .barre {
   transition-duration: 500ms;
 }
@@ -295,7 +291,7 @@ padding-right: 6vw;
 
 }
 
-.no-hover {
+.no_hover {
   pointer-events: none;
 
 }
@@ -307,7 +303,7 @@ padding-right: 6vw;
   animation-fill-mode: forwards;
 }
 
-.fade-short {
+.fade_short {
   animation: mymove 5s;
   opacity: 0;
   animation-iteration-count: 1;
@@ -373,19 +369,29 @@ footer {
   height: 50px;
 }
 
-.quote {
-  font-size: 16em;
+.quote-t {
+  font-size: 8em;
   font-weight: 300;
   font-family: 'Cormorant Garamond', serif;
-  vertical-align: baseline;
+  vertical-align: text-top !important;
+padding: 0;
+margin: 0;
+}
+
+.quote-b {
+  font-size: 8em;
+  font-weight: 300;
+  font-family: 'Cormorant Garamond', serif;
+  vertical-align: text-bottom;
 padding: 0;
 margin: 0;
 }
 
 .addcomment {
   position: fixed;
-  right: 3vw;
-  bottom : 3vh; 
+  right: 60px;
+  bottom : 5vh; 
+  font-size: 0.8em;
 }
 
 .modal_comment .modal-dialog {
@@ -447,7 +453,9 @@ z-index: -6;
 }
 
 @media (max-width: 575.98px) { 
-  .card-media {
+
+  
+  .card_media {
     width: 80vw !important;
     height: 40vh !important;
   }
@@ -458,5 +466,18 @@ z-index: -6;
 
   .legend {
     font-size: 0.6em;
+  }
+
+  .comment {
+    font-size: 0.5em;
+  }
+
+  .quote-t, .quote-b {
+    font-size: 5em;
+  }
+
+  .addcomment {
+    font-size: 0.6em;
+
   }
 }
