@@ -24,7 +24,6 @@ const Post = ({ db_post, post_length }) => {
 
   const router = useRouter();
 
-  console.log(router.query.post);
   useEffect(() => {
     db_post?.post_html && setHTML(db_post.post_html);
   }, [db_post]);

@@ -13,8 +13,6 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
     router.push(router);
   };
 
-  console.log(mediasFiles);
-
   return (
     <Container fluid className="d-flex justify-content-center flex-wrap ">
       {" "}

@@ -23,10 +23,8 @@ export default function (req, res) {
       res
         .status(403)
         .json({ err: "Error occured while sending a message :" + err });
-      console.log(err);
     } else {
       res.status(200).json(info);
-      console.log(info);
     }
   });
 }

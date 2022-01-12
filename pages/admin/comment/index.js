@@ -23,8 +23,6 @@ const CommentPage = ({ db_comment }) => {
     router.push("/admin/comment");
   };
 
-  console.log(db_comment);
-
   return (
     <Layout_Admin title={"Comments"}>
       <Row xs={1} md={4} className="g-4" key="ComList">

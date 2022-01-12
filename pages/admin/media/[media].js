@@ -35,8 +35,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
     },
   });
 
-  console.log(db_media.media_draft);
-
   const [image, setImage] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
   const [newFolder, setNewFolder] = useState(false);
@@ -49,7 +47,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
     data.media_category_id = parseInt(data.media_category_id); //integer issue
     data.media_author_id = parseInt(data.media_author_id); //integer issue
     data.media_path = path + image.name.replace(/\.[^/.]+$/, "") + ".jpg";
-    console.log(image);
 
     uploadToServer(allFiles);
 
