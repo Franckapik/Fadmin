@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 7000",
+    "lint": "next lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -38,6 +39,8 @@
     "swr": "^1.0.1"
   },
   "devDependencies": {
+    "eslint": "8.6.0",
+    "eslint-config-next": "12.0.8",
     "nodemon": "^2.0.14",
     "prisma": "^3.6.0"
   }
