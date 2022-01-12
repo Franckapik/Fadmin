@@ -144,7 +144,12 @@ h7 {
 }
 
 .legend {
-  font-size: 1.2em;
+  font-size: 0.8em;
+}
+
+strong {
+  font-size: 1.4em;
+  font-weight: 600;
 }
 
 .nav-authors {
@@ -213,8 +218,7 @@ margin-left: 5em;
 }
 
 .list-group-item {
-  padding : 0;
-  margin : 5px;
+  padding : 25px;
   border: 0;
 }
 
