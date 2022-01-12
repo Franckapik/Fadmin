@@ -1,7 +1,26 @@
 @font-face {
-  font-family: "Futura";
-  src: url("../fonts/Futura-Light.woff2") format("woff2"),
-    url("../fonts/Futura-Light.woff") format("woff");
+  font-family: "futura-light";
+  src: url("../fonts/futura-light.ttf");
+  src: url("../fonts/futura-light.eot");
+  src: url("../fonts/futura-light.eot?#iefix") format("embedded-opentype"), url("../fonts/futura-light.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "FuturaBT-Medium";
+  src: url("../fonts/futura-med.ttf");
+  src: url("../fonts/futura-med.eot");
+  src: url("../fonts/futura-med.eot?#iefix") format("embedded-opentype"), url("../fonts/futura-med.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "social";
+  src: url("../fonts/social.ttf");
+  src: url("../fonts/social.eot");
+  src: url("../fonts/social.eot?#iefix") format("embedded-opentype"), url("../fonts/social.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap');
@@ -12,8 +31,10 @@ body {
    background-color: rgb(252, 246, 233); 
 /*   background-color: rgb(209, 24, 24);
  */  color: #02021a;
-  font-family: 'Wire One', sans-serif;  
-  letter-spacing: 0.075em;
+ font-family: "futura-light", sans-serif;
+ font-weight: 400;
+ line-height: 1.2em;
+ letter-spacing: 0.2em;
   text-transform: uppercase;
   column-span: all;
 }
@@ -101,17 +122,21 @@ h1:before {
 
 h1 {
   font-size: 5em;
-  font-weight: 300;
+  font-weight: 400;
   font-family: 'Cormorant Garamond', serif;
 }
 
 h2 {
   font-size: 20px;
-  letter-spacing: 0.07em;
+  font-weight: 400;
+}
+
+h5 {
+  letter-spacing: 0.3em;
 }
 
 h7 {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .subtitle {

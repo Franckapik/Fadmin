@@ -35,6 +35,8 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
     },
   });
 
+  console.log(db_media.media_draft);
+
   const [image, setImage] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
   const [newFolder, setNewFolder] = useState(false);
@@ -364,6 +366,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
                     type={"checkbox"}
                     onChange={onChange}
                     value={value}
+                    defaultChecked={db_media.media_home}
                     ref={ref}
                     isInvalid={errors.media_draft}
                     placeholder="home media"
@@ -379,12 +382,12 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
               <Controller
                 control={control}
                 name="media_draft"
-                defaultValue={false}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Check
                     type={"checkbox"}
                     onChange={onChange}
                     value={value}
+                    defaultChecked={db_media.media_draft}
                     ref={ref}
                     isInvalid={errors.media_draft}
                     placeholder="draft of the media"
@@ -406,6 +409,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
                     type={"checkbox"}
                     onChange={onChange}
                     value={value}
+                    defaultChecked={db_media.media_large}
                     ref={ref}
                     isInvalid={errors.media_draft}
                     placeholder="width of the media"
