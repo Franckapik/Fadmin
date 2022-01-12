@@ -376,7 +376,7 @@ footer {
 }
 
 .quote-t {
-  font-size: 8em;
+  font-size: 5em;
   font-weight: 300;
   font-family: 'Cormorant Garamond', serif;
   vertical-align: text-top !important;
@@ -385,7 +385,7 @@ margin: 0;
 }
 
 .quote-b {
-  font-size: 8em;
+  font-size: 5em;
   font-weight: 300;
   font-family: 'Cormorant Garamond', serif;
   vertical-align: text-bottom;

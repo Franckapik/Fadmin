@@ -79,7 +79,7 @@ export const Categories = ({
             )}
             {comment && (
               <Nav.Item key="comment">
-                <Nav.Link href={`/comment`}>Comment</Nav.Link>
+                <Nav.Link href={`/comment`}>Comments</Nav.Link>
               </Nav.Item>
             )}
           </Nav>

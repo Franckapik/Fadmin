@@ -40,11 +40,11 @@ export const CommentList = ({ commentList }) => {
             .map((a, i) => {
               return (
                 <>
-                  <Row className="p-5 text-center align-items-center comment">
+                  <Row className="p-5 text-center align-items-center comment mt-5">
                     <Col md={2} className="quote-t ">
                       “
                     </Col>
-                    <Col md={8} style={{ fontSize: "1.2em" }}>
+                    <Col md={8} style={{ fontSize: "1em" }}>
                       <p>{a.comment_msg}</p>
                       <div style={{ textAlign: "right", paddingTop: "15px" }}>
                         <strong>{a.comment_author}</strong>, le{" "}
