@@ -5,6 +5,7 @@ import Carousel from "react-bootstrap/Carousel";
 
 import React from "react";
 import ReactPlayer from "react-player";
+import Image from "next/image";
 
 export default function CarouselComp({ mediasFiles }) {
   const [index, setIndex] = useState(0);
@@ -75,7 +76,7 @@ export default function CarouselComp({ mediasFiles }) {
                       <Carousel.Item key={i}>
                         <div className="d-flex justify-content-center">
                           <a target="_blank" href={mediaSelected[0].media_link}>
-                            <img
+                            <Image
                               className="d-block media-view"
                               src={path_client_img}
                               alt="slider image"

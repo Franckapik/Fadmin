@@ -45,7 +45,7 @@ export const ContactForm = ({ db_authors }) => {
                       aria-label="Default select example"
                     >
                       {db_authors.map((a, i) => (
-                        <option value={a.author_email}>
+                        <option key={"authors" + i} value={a.author_email}>
                           {a.author_name} / {a.author_art}
                         </option>
                       ))}
@@ -130,7 +130,7 @@ export const ContactForm = ({ db_authors }) => {
               {" "}
               <p>Thank you for your message!</p>
               <Button variant="primary" className="m-3 mb-3" href={"/"}>
-                Retour à l'accueil
+                Retour à l&apos;accueil
               </Button>
             </div>
           )}

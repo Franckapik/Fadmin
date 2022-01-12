@@ -31,7 +31,7 @@ export const CardAdmin = ({
         <Card.Footer>
           {" "}
           {add ? (
-            <Link href={edit_link}>
+            <Link href={edit_link} passHref>
               <FontAwesomeIcon
                 icon={faPlusCircle}
                 className="cursor"
@@ -41,7 +41,7 @@ export const CardAdmin = ({
           ) : (
             <>
               {" "}
-              <Link href={edit_link}>
+              <Link href={edit_link} passHref>
                 <FontAwesomeIcon icon={faEdit} className="m-4 cursor" />
               </Link>
               <FontAwesomeIcon

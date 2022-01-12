@@ -73,14 +73,14 @@ const PostAdmin = ({ db_post, db_author }) => {
           {db_post ? (
             <h2 className="mb-4 text-center">
               {" "}
-              Modifier l'article' [ n°{db_post.post_id}]
+              Modifier l&apos;article [ n°{db_post.post_id}]
             </h2>
           ) : (
             <h2 className="mb-4 text-center"> Ajouter un article</h2>
           )}
           <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
             <Form.Group className="mb-3" controlId="post_title_id">
-              <Form.Label>Titre de l'article</Form.Label>
+              <Form.Label>Titre de l&apos;article</Form.Label>
               <Controller
                 control={control}
                 name="post_title"
@@ -146,7 +146,9 @@ const PostAdmin = ({ db_post, db_author }) => {
                     aria-label="Default select example"
                   >
                     {db_author.map((a, i) => (
-                      <option value={a.author_id}>{a.author_name}</option>
+                      <option key={"author" + id} value={a.author_id}>
+                        {a.author_name}
+                      </option>
                     ))}
                   </Form.Select>
                 )}

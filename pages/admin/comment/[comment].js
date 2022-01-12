@@ -128,7 +128,9 @@ const CommentAdmin = ({ db_comment, db_author }) => {
                     aria-label="Default select example"
                   >
                     {db_author.map((a, i) => (
-                      <option value={a.author_id}>{a.author_name}</option>
+                      <option key={"author" + i} value={a.author_id}>
+                        {a.author_name}
+                      </option>
                     ))}
                   </Form.Select>
                 )}

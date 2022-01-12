@@ -15,6 +15,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import Moment from "react-moment";
 import Layout_Home from "../../layouts/layout_home";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -37,7 +38,7 @@ const Post = ({ db_post, post_length }) => {
     <Layout_Home>
       <Row>
         <h4 className="text-center">
-          <a href="/blog">Blog</a>
+          <Link href="/blog">Blog</Link>
         </h4>
       </Row>
       <Row className="post_row ">

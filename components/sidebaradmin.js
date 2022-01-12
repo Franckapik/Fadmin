@@ -5,6 +5,7 @@ import { faComments } from "@fortawesome/free-solid-svg-icons";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { faPhotoVideo } from "@fortawesome/free-solid-svg-icons";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const Sidebar = () => (
   <Nav
@@ -17,7 +18,7 @@ const Sidebar = () => (
       </Nav.Link> */}
     </Nav.Item>
     <h2 className="p-5">
-      <a href="/admin/">Qualyn Admin</a>
+      <Link href="/admin/">Qualyn Admin</Link>
     </h2>
 
     <Nav.Item>
@@ -77,7 +78,7 @@ const Sidebar = () => (
     </Nav.Item>
 
     <h2 className="p-5">
-      <a href="/">Website</a>
+      <Link href="/">Website</Link>
     </h2>
   </Nav>
 );

@@ -242,7 +242,9 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
                     aria-label="Default select example"
                   >
                     {db_category.map((a, i) => (
-                      <option value={a.category_id}>{a.category_name}</option>
+                      <option key={"categ" + i} value={a.category_id}>
+                        {a.category_name}
+                      </option>
                     ))}
                   </Form.Select>
                 )}
@@ -292,7 +294,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
                         isInvalid={errors.media_folder}
                       >
                         {db_medias.map((a, i) => (
-                          <option value={a.media_folder}>
+                          <option key={"media" + i} value={a.media_folder}>
                             {a.media_folder}
                           </option>
                         ))}
@@ -343,7 +345,9 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
                     aria-label="Default select example"
                   >
                     {db_author.map((a, i) => (
-                      <option value={a.author_id}>{a.author_name}</option>
+                      <option key={"author" + i} value={a.author_id}>
+                        {a.author_name}
+                      </option>
                     ))}
                   </Form.Select>
                 )}
@@ -353,7 +357,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="author_draft_id">
-              <Form.Label>Visible sur l'accueil</Form.Label>
+              <Form.Label>Visible sur l&apos;accueil</Form.Label>
               <Controller
                 control={control}
                 name="media_home"

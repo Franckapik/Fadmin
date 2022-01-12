@@ -57,7 +57,7 @@ const AuthorPage = ({ db_author, user }) => {
         <Modal.Body className="text-center">
           {" "}
           <p>
-            Etes vous certain de vouloir supprimer l'artiste{" "}
+            Etes vous certain de vouloir supprimer l&apos;artiste{" "}
             {selected.author_name} ?
           </p>
           <Button

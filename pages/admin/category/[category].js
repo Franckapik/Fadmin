@@ -120,7 +120,9 @@ const CategoryAdmin = ({ db_category, db_author }) => {
                 aria-label="Default select example"
               >
                 {db_author.map((a, i) => (
-                  <option value={parseInt(a.author_id)}>{a.author_name}</option>
+                  <option key={"author" + i} value={parseInt(a.author_id)}>
+                    {a.author_name}
+                  </option>
                 ))}
               </Form.Select>
             )}

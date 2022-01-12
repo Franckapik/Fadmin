@@ -38,13 +38,13 @@ const AuthorAdmin = ({ db_author }) => {
   return (
     <Layout_Admin>
       {db_author ? (
-        <h2 className="mb-4 text-center"> Modifier l'artiste</h2>
+        <h2 className="mb-4 text-center"> Modifier l&apos;artiste</h2>
       ) : (
         <h2 className="mb-4 text-center"> Ajouter un artiste</h2>
       )}
       <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
         <Form.Group className="mb-3" controlId="author_name_id">
-          <Form.Label>Nom de l'artiste</Form.Label>
+          <Form.Label>Nom de l&apos;artiste</Form.Label>
           <Controller
             control={control}
             name="author_name"

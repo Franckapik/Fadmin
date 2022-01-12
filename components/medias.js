@@ -3,6 +3,7 @@ import { Card, Container, Figure } from "react-bootstrap";
 
 import React from "react";
 import ReactPlayer from "react-player";
+import Image from "next/image";
 
 export const Medias = ({ mediasFiles, setShow, show }) => {
   const router = useRouter();
@@ -38,7 +39,11 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                         height: "20vw",
                       }}
                     >
-                      <img src={a.media_path} className="media_img"></img>
+                      <Image
+                        src={a.media_path}
+                        className="media_img"
+                        alt="media video"
+                      ></Image>
                       {a.media_preview && a.media_video ? (
                         <>
                           <ReactPlayer

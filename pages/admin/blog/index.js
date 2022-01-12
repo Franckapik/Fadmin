@@ -56,7 +56,7 @@ const BlogPage = ({ db_post }) => {
         <Modal.Body className="text-center">
           {" "}
           <p>
-            Etes vous certain de vouloir supprimer l'article{" "}
+            Etes vous certain de vouloir supprimer l&apos;article{" "}
             {selected.post_title} ?
           </p>
           <Button
