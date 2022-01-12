@@ -121,7 +121,7 @@ export const ContactForm = ({ db_authors }) => {
               </Form.Group>
               <div className="text-center">
                 <Button variant="danger" type="submit">
-                  Send
+                  <span className="p-3">Send</span>
                 </Button>
               </div>
             </Form>
