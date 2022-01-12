@@ -84,6 +84,19 @@ h1:before {
   font-size: 2.5em;
   left : -6vw
 ;}
+
+.rotate {
+  transform: rotate(-90deg);
+
+}
+
+.bio_transition {
+  transition: opacity 1s ease-out;
+}
+
+.bio_transition:active {
+  opacity: 1;
+}
   
 
 h1 {
@@ -140,13 +153,11 @@ a, .nav-link {
  .nav-link:hover {
   color: inherit;
   border:1px solid rgb(167, 166, 166);  
-
 }
 
  .nav-link:focus {
   color: inherit;
   border:1px solid rgb(0, 0, 0);  
-
 }
 
 .thin {
@@ -205,6 +216,11 @@ margin-left: 5em;
 
 .logo {
   width: 50%;
+}
+
+.bio {
+  font-size: 0.9em;
+  line-height: 3em;
 }
 
 .sidebar_container {

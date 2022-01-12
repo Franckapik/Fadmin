@@ -85,7 +85,7 @@ export const Categories = ({
               </Nav.Item>
             )}
           </Nav>
-          {author ? (
+          {author && show ? (
             <Biography
               show={show}
               fullscreen={fullscreen}

@@ -8,47 +8,56 @@ const Biography = ({ author, show, fullscreen, setShow }) => {
   const [lang, setlang] = useState("FR");
 
   return (
-    <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
-      <Modal.Header closeButton className="cursor">
-        <span onClick={() => setShow(!show)}>Back</span>
-      </Modal.Header>
-      <Modal.Body className="bio_modal">
-        <Row>
-          <Col md={1} className="d-flex" style={{ flexDirection: "column" }}>
-            <Flags.FR
-              title="France"
-              className="flag circle cursor m-2"
-              onClick={() => {
-                setlang("FR");
-              }}
-            />
-            <Flags.GB
-              title="English"
-              className="flag circle cursor m-2"
-              onClick={() => {
-                setlang("GB");
-              }}
-            />
-          </Col>
-          <Col md={11}>
+    <>
+      <Row className="mt-5 bio_transition">
+        <Col
+          md={1}
+          className="d-flex justify-content-center "
+          style={{ flexDirection: "column" }}
+        >
+          <h2
+            className="p- rotate"
+            style={{ paddingLeft: "3em", whiteSpace: "nowrap" }}
+          >
             {" "}
-            <h2 className="mb-4"> {author.author_name} </h2>
-            {lang === "FR" ? <p> {author.author_biography_fr} </p> : null}
-            {lang === "GB" ? <p> {author.author_biography_en} </p> : null}
-          </Col>
-        </Row>{" "}
+            {author.author_name}{" "}
+          </h2>
+
+          <span
+            className="cursor nav-link"
+            onClick={() => {
+              setlang("FR");
+            }}
+          >
+            {" "}
+            FR
+          </span>
+          <span
+            className="cursor nav-link"
+            onClick={() => {
+              setlang("GB");
+            }}
+          >
+            {" "}
+            EN
+          </span>
+        </Col>
+        <Col md={11} className="bio text-center">
+          {" "}
+          {lang === "FR" ? <p> {author.author_biography_fr} </p> : null}
+          {lang === "GB" ? <p> {author.author_biography_en} </p> : null}
+        </Col>
+      </Row>
+      <Row>
+        {" "}
         <div className="text-center">
           {" "}
-          <Button
-            variant="outline-primary"
-            className="m-3 mt-4 p-5 pt-2 pb-2"
-            onClick={() => setShow(!show)}
-          >
+          <Button className="m-3 mt-4 p-5 pt-2 pb-2" href={"/contact"}>
             Contact
           </Button>
         </div>
-      </Modal.Body>
-    </Modal>
+      </Row>
+    </>
   );
 };
 
