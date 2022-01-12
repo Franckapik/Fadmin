@@ -27,7 +27,7 @@ export default function CarouselComp({ mediasFiles }) {
           <Row className="mb-3">
             <ListGroup
               horizontal
-              className="mt-5 justify-content-center legend"
+              className="mt-3 justify-content-center legend"
             >
               <ListGroup.Item>
                 {" "}
