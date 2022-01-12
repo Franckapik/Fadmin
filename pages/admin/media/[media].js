@@ -46,18 +46,18 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
     data.media_id = db_media.media_id || 0;
     data.media_category_id = parseInt(data.media_category_id); //integer issue
     data.media_author_id = parseInt(data.media_author_id); //integer issue
-    data.media_path = path + image.name;
+    data.media_path = path + image.name.replace(/\.[^/.]+$/, "") + ".jpg";
+    console.log(image);
 
     uploadToServer(allFiles);
 
-    await axios.post("/api/media/upload", data);
-    /*     router.push("/admin/media");
-     */
+    await axios.post("/api/media/addMedia", data);
+    router.push("/admin/media");
   };
   const allFields = watch();
 
   useEffect(() => {
-    setPath(`medias/${allFields.media_author_id}/${allFields.media_folder}/`);
+    setPath(`/medias/${allFields.media_author_id}/${allFields.media_folder}/`);
   }, [allFields]);
 
   const uploadToServer = async (files) => {

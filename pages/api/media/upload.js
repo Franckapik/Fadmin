@@ -47,13 +47,11 @@ apiRoute.post((req, res) => {
     .jpeg({ mozjpeg: true, progressive: true })
     .toFile(req.dir + req.filename + ".jpg")
     .then((data) => {
-      console.log(data);
+      res.status(200).json({ data: "success" });
     })
     .catch((err) => {
       console.log(err);
     });
-
-  res.status(200).json({ data: "success" });
 });
 
 export default apiRoute;
