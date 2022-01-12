@@ -31,7 +31,7 @@ export const ContactForm = ({ db_authors }) => {
           {!success ? (
             <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
               <Form.Group className="mb-3" controlId="comment_author_id_id">
-                <Form.Label>Destinataire</Form.Label>
+                <Form.Label>Contact</Form.Label>
                 <Controller
                   control={control}
                   name="author_email"
@@ -45,7 +45,9 @@ export const ContactForm = ({ db_authors }) => {
                       aria-label="Default select example"
                     >
                       {db_authors.map((a, i) => (
-                        <option value={a.author_email}>{a.author_name}</option>
+                        <option value={a.author_email}>
+                          {a.author_name} / {a.author_art}
+                        </option>
                       ))}
                     </Form.Select>
                   )}
@@ -67,7 +69,6 @@ export const ContactForm = ({ db_authors }) => {
                       value={value}
                       ref={ref}
                       isInvalid={errors.mail_author}
-                      placeholder="Your name, firstname or pseudonym"
                     />
                   )}
                 />
@@ -89,7 +90,6 @@ export const ContactForm = ({ db_authors }) => {
                       value={value}
                       ref={ref}
                       isInvalid={errors.mail_email}
-                      placeholder="Your name, firstname or pseudonym"
                     />
                   )}
                 />
@@ -107,7 +107,6 @@ export const ContactForm = ({ db_authors }) => {
                   render={({ field: { onChange, onBlur, value, ref } }) => (
                     <Form.Control
                       as="textarea"
-                      placeholder="Leave a message here"
                       style={{ height: "100px" }}
                       onChange={onChange}
                       value={value}
@@ -122,7 +121,7 @@ export const ContactForm = ({ db_authors }) => {
               </Form.Group>
               <div className="text-center">
                 <Button variant="danger" type="submit">
-                  Envoyer
+                  Send
                 </Button>
               </div>
             </Form>
