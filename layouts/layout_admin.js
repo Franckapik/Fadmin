@@ -1,4 +1,5 @@
 import { signOut, useSession } from "next-auth/client";
+import Image from "next/image";
 import { Col, Container, Dropdown, Nav, Row } from "react-bootstrap";
 import Sidebar from "../components/sidebaradmin";
 
@@ -18,7 +19,7 @@ export default function Layout_Admin({ children, title }) {
                 <Nav.Item>
                   <Dropdown>
                     <Dropdown.Toggle id="dropdown-basic">
-                      <img
+                      <Image
                         src={session.user.image}
                         alt={session.user.name}
                         width={"40em"}
