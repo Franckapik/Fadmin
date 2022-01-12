@@ -29,12 +29,17 @@ export default function CarouselComp({ mediasFiles }) {
               horizontal
               className="mt-5 justify-content-center legend"
             >
-              <ListGroup.Item>{mediaSelected[0].media_title}</ListGroup.Item>
               <ListGroup.Item>
+                {" "}
+                <small>{mediaSelected[0].category.category_name}</small>
+              </ListGroup.Item>
+              <ListGroup.Item
+                style={{ paddingLeft: "1em", paddingRight: "1em" }}
+              >
                 <strong>{mediaSelected[0].author.author_name}</strong>
               </ListGroup.Item>
               <ListGroup.Item>
-                {mediaSelected[0].category.category_name}
+                <small>{mediaSelected[0].media_title}</small>
               </ListGroup.Item>
             </ListGroup>
           </Row>
