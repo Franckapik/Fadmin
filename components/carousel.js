@@ -18,15 +18,27 @@ export default function CarouselComp({ mediasFiles }) {
     (a) => a.media_id == router.query.media
   );
 
+  console.log(mediaSelected);
+
   return (
     <Container fluid className="text-center">
       {mediaSelected && mediaSelected[0]?.media_video ? (
         <>
           <Row className="mb-3">
-            <a href={mediaSelected[0].media_link} target="_blank">
-              {mediaSelected[0].media_title}
-            </a>
+            <ListGroup
+              horizontal
+              className="mt-5 justify-content-center legend"
+            >
+              <ListGroup.Item>{mediaSelected[0].media_title}</ListGroup.Item>
+              <ListGroup.Item>
+                <strong>{mediaSelected[0].author.author_name}</strong>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {mediaSelected[0].category.category_name}
+              </ListGroup.Item>
+            </ListGroup>
           </Row>
+
           <Row>
             <Col className="player-wrapper">
               <ReactPlayer
