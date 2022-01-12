@@ -7,9 +7,12 @@ const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
       const { path } = req.body;
+      const oldDir = "./public/medias/Old/";
       const dir = `./public/${path}`;
-      req.image = dir + file.originalname;
+
+      req.oldImage = oldDir + file.originalname;
       req.dir = dir;
+      req.oldDir = oldDir;
       req.filename = file.originalname.replace(/\.[^/.]+$/, "");
 
       try {
@@ -19,7 +22,7 @@ const upload = multer({
       } catch (err) {
         console.error(err);
       }
-      cb(null, dir);
+      cb(null, oldDir);
     },
     filename: (req, file, cb) => cb(null, file.originalname),
   }),
@@ -39,9 +42,9 @@ const apiRoute = nextConnect({
 apiRoute.use(upload.array("file"));
 
 apiRoute.post((req, res) => {
-  sharp(req.image)
+  sharp(req.oldImage)
     .resize(1000)
-    .jpeg({ mozjpeg: true })
+    .jpeg({ mozjpeg: true, progressive: true })
     .toFile(req.dir + req.filename + ".jpg")
     .then((data) => {
       console.log(data);
