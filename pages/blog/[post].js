@@ -69,9 +69,9 @@ const Post = ({ db_post, post_length }) => {
       </Row>
       <Row className="text-center">
         <p className="mt-5">
-          Par <strong>{db_post.author.author_name}</strong> le{" "}
+          Par <strong>{db_post?.author.author_name}</strong> le{" "}
           <Moment format="DD/MM/YYYY">
-            {db_post.post_update || db_post.post_create}
+            {db_post?.post_update || db_post?.post_create}
           </Moment>
         </p>
         <p className="mt-5">

@@ -13,6 +13,8 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
     router.push(router);
   };
 
+  console.log(mediasFiles);
+
   return (
     <Container fluid className="d-flex justify-content-center flex-wrap ">
       {" "}
@@ -36,13 +38,9 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                         margin: "auto",
                         width: a.media_large ? "35vw" : "22vw",
                         height: "20vw",
-                        backgroundImage:
-                          a.media_preview || `url(${a.media_path})`, ///medias/1/03/03.png
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center center",
-                        backgroundSize: "cover",
                       }}
                     >
+                      <img src={a.media_path} className="media_img"></img>
                       {a.media_preview && a.media_video ? (
                         <>
                           <ReactPlayer
