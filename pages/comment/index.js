@@ -13,7 +13,12 @@ export default function Comment({ db_comment, db_authors }) {
 }
 
 export async function getServerSideProps({ params, query }) {
+  console.log(query);
+
   const db_comment_0 = await prisma.comment.findMany({
+    where: {
+      comment_author_id: parseInt(query.author),
+    },
     include: {
       author: true,
     },
