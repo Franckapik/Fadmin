@@ -39,11 +39,11 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                         height: "20vw",
                       }}
                     >
-                      <Image
+                      <img
                         src={a.media_path}
                         className="media_img"
                         alt="media video"
-                      ></Image>
+                      ></img>
                       {a.media_preview && a.media_video ? (
                         <>
                           <ReactPlayer

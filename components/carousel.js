@@ -76,7 +76,7 @@ export default function CarouselComp({ mediasFiles }) {
                       <Carousel.Item key={i}>
                         <div className="d-flex justify-content-center">
                           <a target="_blank" href={mediaSelected[0].media_link}>
-                            <Image
+                            <img
                               className="d-block media-view"
                               src={path_client_img}
                               alt="slider image"

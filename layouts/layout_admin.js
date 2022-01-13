@@ -19,7 +19,7 @@ export default function Layout_Admin({ children, title }) {
                 <Nav.Item>
                   <Dropdown>
                     <Dropdown.Toggle id="dropdown-basic">
-                      <Image
+                      <img
                         src={session.user.image}
                         alt={session.user.name}
                         width={"40em"}
