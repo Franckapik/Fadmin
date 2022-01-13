@@ -41,12 +41,14 @@ export default function CarouselComp({ mediasFiles }) {
                 <small>{mediaSelected[0].media_title}</small>
               </ListGroup.Item>
               <ListGroup.Item>
-                <FontAwesomeIcon
-                  icon={faFacebookSquare}
-                  className="cursor "
-                  size="4x"
-                  width={20}
-                />
+                <Link href={mediaSelected[0].author.author_fb} passHref>
+                  <FontAwesomeIcon
+                    icon={faFacebookSquare}
+                    className="cursor "
+                    size="4x"
+                    width={20}
+                  />
+                </Link>
               </ListGroup.Item>
             </ListGroup>
           </Row>
