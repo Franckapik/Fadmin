@@ -146,7 +146,7 @@ const PostAdmin = ({ db_post, db_author }) => {
                     aria-label="Default select example"
                   >
                     {db_author.map((a, i) => (
-                      <option key={"author" + id} value={a.author_id}>
+                      <option key={"author" + i} value={a.author_id}>
                         {a.author_name}
                       </option>
                     ))}
