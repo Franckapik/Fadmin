@@ -46,7 +46,7 @@ export default function Layout_Home({
           <Row>
             <Link href="/" passHref>
               <h1 className="cursor title">
-                <span className="capitale">Q</span>ualyn
+                <span className="capitale">Q</span>UALYN
               </h1>
             </Link>
           </Row>

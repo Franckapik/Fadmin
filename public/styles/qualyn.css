@@ -7,6 +7,12 @@
   font-style: normal;
 }
 @font-face {
+  font-family: "Cormorant-Garamond";
+  src: url("../fonts/CormorantGaramond-Light.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: "FuturaBT-Medium";
   src: url("../fonts/futura-med.ttf");
   src: url("../fonts/futura-med.eot");
@@ -23,7 +29,6 @@
   font-style: normal;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Wire+One&display=swap');
 
 
@@ -134,7 +139,7 @@ h1:before {
 h1 {
   font-size: 5em;
   font-weight: 400;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Cormorant-Garamond', serif;
 }
 
 h2 {
@@ -434,7 +439,7 @@ footer {
 .quote-t {
   font-size: 5em;
   font-weight: 300;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Cormorant-Garamond', serif;
   vertical-align: text-top !important;
 padding: 0;
 margin: 0;
@@ -443,7 +448,7 @@ margin: 0;
 .quote-b {
   font-size: 5em;
   font-weight: 300;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Cormorant-Garamond', serif;
   vertical-align: text-bottom;
 padding: 0;
 margin: 0;
@@ -506,7 +511,7 @@ opacity: 5%;
 top: 10%;
 left: -50%;
 font-size: 40vw;
-font-family: 'Cormorant Garamond', serif;
+font-family: 'Cormorant-Garamond', serif;
 letter-spacing: 7vw;
 z-index: -6;
 }
@@ -518,6 +523,10 @@ z-index: -6;
 
 .title {
   font-size: 4rem;
+  font-family: 'Cormorant-Garamond', serif;
+  text-transform: none;
+
+
 }
 
 .comment {
