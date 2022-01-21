@@ -46,18 +46,18 @@ const Post = ({ db_post, post_length }) => {
           <>
             {" "}
             <Col
-              md={4}
+              md={3}
               style={{
                 backgroundImage: `url("/blog/${db_post.post_image}")`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center center",
                 backgroundSize: "cover",
                 backgroundOrigin: "content-box",
+                minHeight: "200px",
               }}
-            >
-              {db_post.post_title}
-            </Col>
-            <Col md={6} className="text-justify">
+              className="mb-5"
+            ></Col>
+            <Col md={7} className="text-center">
               <h4 className="text-center">{db_post.post_title}</h4>
               <hr></hr>
               <Card border="0" className="p-4 no-upper">
@@ -100,11 +100,12 @@ const Post = ({ db_post, post_length }) => {
         <FontAwesomeIcon
           icon={faChevronRight}
           width="1.5em"
+          className="cursor"
           style={{
             position: "absolute",
             right: "2em",
-            top: "50%",
-            color: "gray",
+            top: "80%",
+            color: "black",
           }}
           onClick={() => changeQuery(1)}
         />
@@ -114,11 +115,12 @@ const Post = ({ db_post, post_length }) => {
         <FontAwesomeIcon
           icon={faChevronLeft}
           width="1.5em"
+          className="cursor"
           style={{
             position: "absolute",
             left: "2em",
-            top: "50%",
-            color: "gray",
+            top: "80%",
+            color: "black",
           }}
           onClick={() => changeQuery(-1)}
         />

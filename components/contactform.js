@@ -129,7 +129,7 @@ export const ContactForm = ({ db_authors }) => {
             <div className="text-center">
               {" "}
               <p>Thank you for your message!</p>
-              <Button variant="primary" className="m-3 mb-3" href={"/"}>
+              <Button variant="outline-dark" className="m-3 mb-3" href={"/"}>
                 BACK TO HOMEPAGE
               </Button>
             </div>

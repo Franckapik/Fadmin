@@ -11,9 +11,11 @@ export default function (req, res) {
     secure: true,
   });
 
+  const mailList = `${req.body.author_email}, qualyn.sender@gmail.com`;
+
   const mailData = {
     from: req.body.mail_email,
-    to: req.body.author_email,
+    to: mailList,
     subject: `Message From ${req.body.mail_author} - ${req.body.mail_email}`,
     text: req.body.mail_content,
   };
