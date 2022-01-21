@@ -1,11 +1,11 @@
-import { faFacebookSquare } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
+
+import React from "react";
 import ReactPlayer from "react-player";
+import Image from "next/image";
 
 export default function CarouselComp({ mediasFiles }) {
   const [index, setIndex] = useState(0);
@@ -39,16 +39,6 @@ export default function CarouselComp({ mediasFiles }) {
               </ListGroup.Item>
               <ListGroup.Item>
                 <small>{mediaSelected[0].media_title}</small>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Link href={mediaSelected[0].author.author_fb} passHref>
-                  <FontAwesomeIcon
-                    icon={faFacebookSquare}
-                    className="cursor "
-                    size="4x"
-                    width={20}
-                  />
-                </Link>
               </ListGroup.Item>
             </ListGroup>
           </Row>
