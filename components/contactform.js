@@ -120,8 +120,8 @@ export const ContactForm = ({ db_authors }) => {
                 </Form.Control.Feedback>
               </Form.Group>
               <div className="text-center">
-                <Button variant="danger" type="submit">
-                  <span className="p-3">Send</span>
+                <Button variant="outline-dark" type="submit">
+                  <span className="p-3">SEND</span>
                 </Button>
               </div>
             </Form>
@@ -130,7 +130,7 @@ export const ContactForm = ({ db_authors }) => {
               {" "}
               <p>Thank you for your message!</p>
               <Button variant="primary" className="m-3 mb-3" href={"/"}>
-                Retour à l&apos;accueil
+                BACK TO HOMEPAGE
               </Button>
             </div>
           )}

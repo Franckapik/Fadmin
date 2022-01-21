@@ -14,7 +14,7 @@ export default function (req, res) {
   const mailData = {
     from: req.body.mail_email,
     to: req.body.author_email,
-    subject: `Message From ${req.body.mail_author}`,
+    subject: `Message From ${req.body.mail_author} - ${req.body.mail_email}`,
     text: req.body.mail_content,
   };
 
