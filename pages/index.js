@@ -16,32 +16,7 @@ export default function Home({ db_authors, mediasFiles }) {
     <Layout_Home authors={db_authors}>
       <Row>
         <Col className="mx-auto">
-          {/* <Carousel
-            fade
-            variant="dark"
-            activeIndex={index}
-            onSelect={handleSelect}
-            className="carousel-home"
-            controls={false}
-          >
-            {mediasFiles &&
-              mediasFiles.map((a, i) => {
-                return (
-                  <Carousel.Item key={i}>
-                    <div className="d-flex justify-content-center">
-                      <img
-                        className="d-block media-view"
-                        src={`/medias/${a.media_author_id}/${a.media_folder}/${a.media_photo}`}
-                        alt="slider image"
-                      />
-                    </div>
-                  </Carousel.Item>
-                );
-              })}
-          </Carousel> */}
-          <MediasHome
-            mediasFiles={mediasFiles}
-          ></MediasHome>
+          <MediasHome mediasFiles={mediasFiles}></MediasHome>
         </Col>
       </Row>
     </Layout_Home>

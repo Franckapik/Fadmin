@@ -37,17 +37,16 @@ const AuthorPage = ({ db_author, user }) => {
         {db_author && db_author.length
           ? db_author.map((a, i) => {
               return (
-                <>
-                  <CardAdmin
-                    all={a}
-                    setSelected={setSelected}
-                    title={a.author_name}
-                    text={a.author_art}
-                    edit_link={`/admin/author/${a.author_id}`}
-                    setShow={setShow}
-                    show={show}
-                  ></CardAdmin>
-                </>
+                <CardAdmin
+                  key={i}
+                  all={a}
+                  setSelected={setSelected}
+                  title={a.author_name}
+                  text={a.author_art}
+                  edit_link={`/admin/author/${a.author_id}`}
+                  setShow={setShow}
+                  show={show}
+                ></CardAdmin>
               );
             })
           : null}

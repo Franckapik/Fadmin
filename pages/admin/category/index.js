@@ -36,17 +36,16 @@ const CategoryPage = ({ db_category }) => {
         {db_category && db_category.length
           ? db_category.map((a, i) => {
               return (
-                <>
-                  <CardAdmin
-                    all={a}
-                    setSelected={setSelected}
-                    title={a.category_name}
-                    text={a.author.author_name}
-                    edit_link={`/admin/category/${a.category_id}`}
-                    setShow={setShow}
-                    show={show}
-                  ></CardAdmin>
-                </>
+                <CardAdmin
+                  key={i}
+                  all={a}
+                  setSelected={setSelected}
+                  title={a.category_name}
+                  text={a.author.author_name}
+                  edit_link={`/admin/category/${a.category_id}`}
+                  setShow={setShow}
+                  show={show}
+                ></CardAdmin>
               );
             })
           : null}

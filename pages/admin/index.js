@@ -60,10 +60,10 @@ export default function Page({
                           db_author.map((a, i) => {
                             return (
                               <tr key={"jenesaispas"}>
-                                <td key={"admin"}>{a.author_name}</td>
-                                <td key={"admin"}>{a.author_art}</td>
-                                <td key={"admin"}>{a.author_fb}</td>
-                                <td key={"admin"}>{a.author_insta}</td>
+                                <td key={"a" + i}>{a.author_name}</td>
+                                <td key={"b" + i}>{a.author_art}</td>
+                                <td key={"c" + i}>{a.author_fb}</td>
+                                <td key={"d" + i}>{a.author_insta}</td>
                               </tr>
                             );
                           })}
@@ -88,14 +88,12 @@ export default function Page({
                             .map((a, i) => {
                               return (
                                 <tr key={"jenesaispas"}>
-                                  <td key={"admin"}>
+                                  <td key={"a"}>
                                     {a.media_title || a.media_subtitle}
                                   </td>
-                                  <td key={"admin"}>{a.media_folder}</td>
-                                  <td key={"admin"}>{a.media_subtitle}</td>
-                                  <td key={"admin"}>
-                                    {a.category.category_name}
-                                  </td>
+                                  <td key={"b"}>{a.media_folder}</td>
+                                  <td key={"c"}>{a.media_subtitle}</td>
+                                  <td key={"d"}>{a.category.category_name}</td>
                                 </tr>
                               );
                             })}

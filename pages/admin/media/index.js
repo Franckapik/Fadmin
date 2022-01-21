@@ -34,19 +34,18 @@ const MediaPage = ({ db_media }) => {
         {db_media && db_media.length
           ? db_media.map((a, i) => {
               return (
-                <>
-                  <CardAdmin
-                    all={a}
-                    setSelected={setSelected}
-                    title={a.media_title}
-                    text={a.media_subtitle}
-                    category={a.category.category_name}
-                    edit_link={`/admin/media/${a.media_id}`}
-                    position={a.media_position}
-                    setShow={setShow}
-                    show={show}
-                  ></CardAdmin>
-                </>
+                <CardAdmin
+                  key={i}
+                  all={a}
+                  setSelected={setSelected}
+                  title={a.media_title}
+                  text={a.media_subtitle}
+                  category={a.category.category_name}
+                  edit_link={`/admin/media/${a.media_id}`}
+                  position={a.media_position}
+                  setShow={setShow}
+                  show={show}
+                ></CardAdmin>
               );
             })
           : null}

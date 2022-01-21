@@ -36,17 +36,16 @@ const BlogPage = ({ db_post }) => {
         {db_post && db_post.length
           ? db_post.map((a, i) => {
               return (
-                <>
-                  <CardAdmin
-                    all={a}
-                    setSelected={setSelected}
-                    title={a.post_title}
-                    text={a.post_subtitle}
-                    edit_link={`/admin/blog/${a.post_id}`}
-                    setShow={setShow}
-                    show={show}
-                  ></CardAdmin>
-                </>
+                <CardAdmin
+                  key={i}
+                  all={a}
+                  setSelected={setSelected}
+                  title={a.post_title}
+                  text={a.post_subtitle}
+                  edit_link={`/admin/blog/${a.post_id}`}
+                  setShow={setShow}
+                  show={show}
+                ></CardAdmin>
               );
             })
           : null}

@@ -37,7 +37,7 @@ const CommentPage = ({ db_comment }) => {
         {db_comment && db_comment.length
           ? db_comment.map((a, i) => {
               return (
-                <>
+                <div key={i}>
                   <CardAdmin
                     all={a}
                     setSelected={setSelected}
@@ -77,7 +77,7 @@ const CommentPage = ({ db_comment }) => {
                       </Button>
                     </Modal.Body>
                   </Modal>
-                </>
+                </div>
               );
             })
           : null}
