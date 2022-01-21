@@ -7,6 +7,7 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 
 export default function Layout_Home({
   children,
@@ -18,6 +19,8 @@ export default function Layout_Home({
   contact,
   comment,
 }) {
+  const router = useRouter();
+
   return (
     <Container fluid className="container_main mt-4">
       <Head>
@@ -64,13 +67,17 @@ export default function Layout_Home({
                         <Nav.Link
                           eventKey={i}
                           href={`/authors/${a.author_id}`}
-                          className="nav-authors frame "
+                          className={
+                            router.query.author == a.author_id
+                              ? "active nav-authors  "
+                              : "nav-authors frame"
+                          }
                         >
-                          <h2 className="m-2">
+                          <h2>
                             {" "}
                             <p>{a.author_name}</p>{" "}
                           </h2>
-                          <p className="subtitle thin m-2"> {a.author_art}</p>
+                          <span className="subtitle thin"> {a.author_art}</span>
                         </Nav.Link>
                       </Nav.Item>
                     );

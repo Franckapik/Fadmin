@@ -119,6 +119,10 @@ h1:before {
   opacity: 1;
 }
   
+.active {
+  color: inherit;
+  border:1px solid rgb(0, 0, 0) !important  
+}
 
 h1 {
   font-size: 5em;
@@ -154,13 +158,13 @@ strong {
 
 .nav-authors {
   width: 310px;
-  padding: 2em;
+  padding: 1em;
   font-size: 15px;
   letter-spacing: 0.11em;
   font-weight: 800;
   margin-top: 0;
-  margin-left: 4em;
-  margin-right: 4em;
+  margin-left: 3em;
+  margin-right: 3em;
   margin-bottom: 2em;;
 
 }
