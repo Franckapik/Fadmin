@@ -60,7 +60,7 @@ const Post = ({ db_post, post_length }) => {
             <Col md={6} className="text-justify">
               <h4 className="text-center">{db_post.post_title}</h4>
               <hr></hr>
-              <Card border="0" className="p-4 ">
+              <Card border="0" className="p-4 no-upper">
                 <div dangerouslySetInnerHTML={{ __html: html }} />
               </Card>
             </Col>
@@ -69,7 +69,7 @@ const Post = ({ db_post, post_length }) => {
       </Row>
       <Row className="text-center">
         <p className="mt-5">
-          Par <strong>{db_post?.author.author_name}</strong> le{" "}
+          Par {db_post?.author.author_name} le{" "}
           <Moment format="DD/MM/YYYY">
             {db_post?.post_update || db_post?.post_create}
           </Moment>

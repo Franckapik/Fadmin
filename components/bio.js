@@ -9,22 +9,18 @@ const Biography = ({ author, show, fullscreen, setShow }) => {
 
   return (
     <>
-      <Row className="mt-5 bio_transition">
-        <Col
-          md={1}
-          className="d-flex justify-content-center "
-          style={{ flexDirection: "column" }}
-        >
-          <h2
-            className="p- rotate"
-            style={{ paddingLeft: "3em", whiteSpace: "nowrap" }}
-          >
-            {" "}
-            {author.author_name}{" "}
-          </h2>
-
+      <Row className="mt-5 bio_transition justify-content-center ">
+        <Col md={8} className="bio text-center no-upper">
+          {" "}
+          {lang === "FR" ? <p> {author.author_biography_fr} </p> : null}
+          {lang === "GB" ? <p> {author.author_biography_en} </p> : null}
+        </Col>
+      </Row>
+      <Row>
+        {" "}
+        <div className="text-center flag">
           <span
-            className="cursor nav-link"
+            className="cursor m-3"
             onClick={() => {
               setlang("FR");
             }}
@@ -33,7 +29,7 @@ const Biography = ({ author, show, fullscreen, setShow }) => {
             FR
           </span>
           <span
-            className="cursor nav-link"
+            className="cursor m-3"
             onClick={() => {
               setlang("GB");
             }}
@@ -41,18 +37,17 @@ const Biography = ({ author, show, fullscreen, setShow }) => {
             {" "}
             EN
           </span>
-        </Col>
-        <Col md={11} className="bio text-center">
-          {" "}
-          {lang === "FR" ? <p> {author.author_biography_fr} </p> : null}
-          {lang === "GB" ? <p> {author.author_biography_en} </p> : null}
-        </Col>
+        </div>
       </Row>
       <Row>
         {" "}
         <div className="text-center">
           {" "}
-          <Button className="m-3 mt-4 p-5 pt-2 pb-2" href={"/contact"}>
+          <Button
+            variant="outline-dark"
+            className="m-3 mt-4 p-5 pt-2 pb-2"
+            href={"/contact"}
+          >
             Contact
           </Button>
         </div>
