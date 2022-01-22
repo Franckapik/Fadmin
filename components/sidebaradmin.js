@@ -55,6 +55,17 @@ const Sidebar = () => (
       </Nav.Link>
     </Nav.Item>
     <Nav.Item>
+      <Nav.Link className="d-flex align-items-center " href="/admin/explorer">
+        {" "}
+        <FontAwesomeIcon
+          icon={faPhotoVideo}
+          className="m-2 cursor s-icon"
+          size="3x"
+        />
+        Explorer
+      </Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
       <Nav.Link className="d-flex align-items-center " href="/admin/blog">
         {" "}
         <FontAwesomeIcon
