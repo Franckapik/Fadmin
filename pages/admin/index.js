@@ -101,49 +101,44 @@ export default function Page({
                       </tbody>
                     </Table>
                   </Row>
-                  <Row className="mt-4">
-                    <Col md={6} className="p-0">
-                      {db_comment && (
-                        <Card style={{ width: "100%", height: "300px" }}>
-                          <Card.Body className="text-center">
-                            <Card.Title className="mt-4">
-                              {" "}
-                              Dernier commentaire
-                            </Card.Title>
-                            <Card.Text className="mt-5">
-                              {db_comment[db_comment.length - 1].comment_msg}
-                            </Card.Text>
-                            <Card.Footer>
-                              {db_comment[db_comment.length - 1].comment_author}
-                            </Card.Footer>
-                          </Card.Body>
-                        </Card>
-                      )}
-                    </Col>
-                    <Col md={6} className="p-0">
-                      {db_post && (
-                        <Card style={{ width: "100%", height: "250px" }}>
-                          <Card.Body className="text-center">
-                            <Card.Title className="mt-4">
-                              {" "}
-                              Dernier article
-                            </Card.Title>
-                            <Card.Text
-                              className="mt-5"
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  db_post[
-                                    db_comment.length - 1
-                                  ].post_html.slice(0, 200) + "[...]",
-                              }}
-                            ></Card.Text>
-                            <Card.Footer>
-                              {db_post[db_comment.length - 1].post_title}
-                            </Card.Footer>
-                          </Card.Body>
-                        </Card>
-                      )}
-                    </Col>
+                  <Row>
+                    <Table className="mt-3">
+                      <thead>
+                        <tr>
+                          <th>Dernier commentaire</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr key={"jenesaispas"}>
+                          <td key={"a"}>
+                            {db_comment[db_comment.length - 1].comment_msg}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Row>
+                  <Row>
+                    <Table className="mt-3">
+                      <thead>
+                        <tr>
+                          <th>Dernier article</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr key={"jenesaispas"}>
+                          <td
+                            key={"a"}
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                db_post[db_comment.length - 1].post_html.slice(
+                                  0,
+                                  200
+                                ) + "[...]",
+                            }}
+                          ></td>
+                        </tr>
+                      </tbody>
+                    </Table>
                   </Row>
                 </main>
               </Col>

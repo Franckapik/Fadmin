@@ -17,7 +17,7 @@ export default function Layout_Admin({ children, title }) {
             <Col xs={10}>
               <header>
                 <Nav className="justify-content-between align-items-center mt-2">
-                  <h5 className="title">{title}</h5>
+                  {title}
                   <Nav.Item>
                     <Dropdown>
                       <Dropdown.Toggle id="dropdown-basic">
@@ -37,7 +37,7 @@ export default function Layout_Admin({ children, title }) {
               <main className="p-5">{children}</main>
             </Col>
           </Row>
-          <div className="text-center small">
+          <div className="text-center small mb-5">
             Expiration de la session :{" "}
             <Moment format="DD/MM/YYYY">{session.expires}</Moment>
           </div>
