@@ -72,6 +72,23 @@ body::-webkit-scrollbar-thumb {
   margin : auto;
 }
 
+.card-audio {
+  margin : 3em;
+  height: 200px;
+}
+
+.progress-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.react-player-soundcloud {
+display: none;
+position: fixed;
+top: 0;
+}
 
 .barre {
   transition-duration: 500ms;

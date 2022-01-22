@@ -20,3 +20,4 @@ A faire :
 ////pb de tailles au niveau du lecteur video facebook (windows)
 //Ajouter lien vers le blog suyr le coté ?
 //old et new dir with multer and sharp. => renommer le lien dans la db ?
+//fort awesome fonctionne avec width mais entrouré d'une div

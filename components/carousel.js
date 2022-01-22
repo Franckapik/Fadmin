@@ -1,11 +1,25 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { Col, Container, ListGroup, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import {
+  Button,
+  Col,
+  Container,
+  ListGroup,
+  Row,
+  ProgressBar,
+  Form,
+  Card,
+} from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
-
+import { faPlayCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPauseCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import ReactPlayer from "react-player";
 import Image from "next/image";
+import { useRef } from "react";
+
+//RCfT93M4biAV6sjNiab6pMV1eYEgatjk
 
 export default function CarouselComp({ mediasFiles }) {
   const [index, setIndex] = useState(0);
@@ -18,6 +32,10 @@ export default function CarouselComp({ mediasFiles }) {
   const mediaSelected = mediasFiles.filter(
     (a) => a.media_id == router.query.media
   );
+  const [playing, setPlay] = useState(false);
+  const [played, setPlayed] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const player = useRef();
 
   return (
     <Container fluid className="text-center">
@@ -42,17 +60,80 @@ export default function CarouselComp({ mediasFiles }) {
               </ListGroup.Item>
             </ListGroup>
           </Row>
-
           <Row>
-            <Col className="player-wrapper">
-              <ReactPlayer
-                className="react-player"
-                width="100%"
-                height="100%"
-                controls
-                url={mediaSelected[0].media_video}
-              />
-            </Col>
+            {mediaSelected[0].media_video?.includes("soundcloud") ? (
+              <div>
+                <Card className="p-2 d-flex flex-row flex-nowrap justify-content-center align-items-center card-audio">
+                  <Col md={1}>
+                    {playing ? (
+                      <FontAwesomeIcon
+                        icon={faPauseCircle}
+                        className="m-2 cursor "
+                        width="5em"
+                        onClick={() => setPlay(!playing)}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faPlayCircle}
+                        className="m-2 cursor "
+                        width="5em"
+                        onClick={() => setPlay(!playing)}
+                      />
+                    )}
+                  </Col>
+                  <Col md={1}>
+                    {new Date(played * 1000).toISOString().substr(14, 5)}
+                  </Col>
+
+                  <ProgressBar
+                    className="progress-top"
+                    now={(played * 100) / duration}
+                  />
+
+                  <Col md={9}>
+                    {" "}
+                    <Form.Range
+                      value={played}
+                      min={0}
+                      max={duration}
+                      onChange={(e) => setPlayed(parseFloat(e.target.value))}
+                      onMouseUp={(e) => {
+                        player.current.seekTo(parseFloat(e.target.value));
+                      }}
+                    />
+                  </Col>
+                  <Col md={1}>
+                    {new Date(duration * 1000).toISOString().substr(14, 5)}
+                  </Col>
+                </Card>
+
+                <Col className="react-player-soundcloud">
+                  <ReactPlayer
+                    ref={player}
+                    playing={playing}
+                    controls
+                    url={mediaSelected[0].media_video}
+                    onProgress={(p) => {
+                      setPlayed(p.playedSeconds.toFixed(0));
+                    }}
+                    onSeek={(s) => {
+                      console.log(s);
+                    }}
+                    onDuration={(d) => setDuration(d)}
+                  />
+                </Col>
+              </div>
+            ) : (
+              <Col className="player-wrapper">
+                <ReactPlayer
+                  className="react-player"
+                  width="100%"
+                  height="100%"
+                  controls
+                  url={mediaSelected[0].media_video}
+                />
+              </Col>
+            )}
           </Row>
         </>
       ) : (
