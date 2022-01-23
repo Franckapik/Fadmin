@@ -1,50 +1,22 @@
-import { useState } from "react";
-import { Button, Modal, Row, Table } from "react-bootstrap";
-import { CardAdmin } from "../../../components/cardadmin";
-import Layout_Admin from "../../../layouts/layout_admin";
-import axios from "axios";
-import { useRouter } from "next/dist/client/router";
-import { getSession } from "next-auth/client";
 import { traverse } from "fs-tree-utils";
-import "react-folder-tree/dist/style.css";
+import { getSession } from "next-auth/client";
+import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
+import { Row } from "react-bootstrap";
+import "react-folder-tree/dist/style.css";
+import Layout_Admin from "../../../layouts/layout_admin";
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
+//dynamic import instead of require
 const DynamicFileTreeImport = dynamic(() => import("react-folder-tree"), {
   ssr: false, // needed to prevent warning about dynamic component
 });
 
-const treeState = {
-  name: "root [half checked and opened]",
-  checked: 0.5, // half check: some children are checked
-  isOpen: true, // this folder is opened, we can see it's children
-  children: [
-    { name: "children 1 [not checked]", checked: 0 },
-    {
-      name: "children 2 [half checked and not opened]",
-      checked: 0.5,
-      isOpen: false,
-      children: [
-        { name: "children 2-1 [not checked]", checked: 0 },
-        { name: "children 2-2 [checked]", checked: 1 },
-      ],
-    },
-  ],
-};
-
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
-const MediaPage = ({ db_media, files }) => {
-  const [show, setShow] = useState(false);
-  const [selected, setSelected] = useState(false);
+const ExplorerPage = ({ db_media, files }) => {
   const router = useRouter();
 
-  const onDelete = async (data) => {
-    await axios.post("/api/media/deleteMedia", { id: data });
-    setShow(!show);
-    router.push("/admin/media");
-  };
-  var arr2 = files.map((a) => {
+  /*   var arr2 = files.map((a) => {
     var b = {};
     b["name"] = a.item;
     b["type"] = a.path.includes(".") ? "file" : "folder";
@@ -53,13 +25,30 @@ const MediaPage = ({ db_media, files }) => {
     b["parent"] = a.container;
     b["path"] = a.path;
     return b;
-  });
+  }); */
 
-  const onTreeStateChange = (state, event) => console.log(state, event);
+  function getlastValue(arr, path, i) {
+    if (i < path.length - 1) {
+      let b = i + 1;
+      return getlastValue(arr.children[path[i]], path, b);
+    } else {
+      return arr.children[path[i]];
+    }
+  }
 
-  var arr3 = arr2.map((a, i) => a.path);
+  const onTreeStateChange = (state, event) => {
+    switch (event.type) {
+      case "renameNode":
+        console.log(getlastValue(state, event.path, 0));
+        //doing some rename on api
+        break;
 
-  function buildTree(pathes, getValueCB) {
+      default:
+    }
+  };
+
+  function buildTree(files) {
+    //variables
     var currentPath,
       lastPath,
       node,
@@ -71,98 +60,57 @@ const MediaPage = ({ db_media, files }) => {
       },
       stack = [""];
 
-    for (let path of pathes) {
+    //get all pathes
+    var pathes = files.map((a, i) => a.path);
+
+    //pathes loop
+    for (let [index, path] of pathes.entries()) {
       let nodes = path.split("/");
+
       for (let i = 0; i < nodes.length; i++) {
         currentPath = "/" + nodes.slice(1, i + 1).join("/");
         lastPath = stack[stack.length - 1];
         parent = map[lastPath];
+
         if (!map[currentPath]) {
           node = {
-            name: currentPath,
-            value: getValueCB(currentPath),
+            name: currentPath.split("/").pop(),
+            chemin: currentPath,
+            value: files[index].item,
+            type: files[index].path.includes(".") ? "file" : "folder",
             children: [],
           };
+
           parent.children.push(node);
           map[currentPath] = node;
         }
+
         stack.push(currentPath);
       }
+
       stack = stack.slice(0, 1);
     }
+    //return the tree object
     return map[""].children[0];
   }
 
-  function getFileSizeSync() {
-    return 200;
-  }
-  var tree = buildTree(arr3, function (path) {
-    return getFileSizeSync(path);
-  });
-
-  console.log(tree);
+  var tree = buildTree(files);
 
   return (
     <Layout_Admin title={"Medias"}>
-      <Row>
+      <Row className="no-upper">
         <DynamicFileTreeImport
           data={tree}
           onChange={onTreeStateChange}
           showCheckbox={false}
-          indentPixels={100}
+          indentPixels={30}
         />
-        {
-          <Table striped borderless hover className="mt-5">
-            <thead>
-              <tr>
-                <th>Artistes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tree &&
-                Object.keys(tree).map((a, i) => {
-                  return (
-                    <tr key={"jenesaispas"}>
-                      <td key={"a" + i}>{a}</td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
-        }
       </Row>
-
-      <Modal show={show} onHide={() => setShow(false)}>
-        <Modal.Header closeButton className="cursor"></Modal.Header>
-        <Modal.Body className="text-center">
-          {" "}
-          <p>
-            Etes vous certain de vouloir supprimer le media{" "}
-            {selected.media_title || selected.category?.category_name} ?
-          </p>
-          <Button
-            variant="danger"
-            className="m-3 mb-3"
-            onClick={() => onDelete(selected.media_id)}
-          >
-            {" "}
-            CONFIRMER
-          </Button>
-          <Button
-            variant="primary"
-            className="m-3 mb-3"
-            onClick={() => setShow(!show)}
-          >
-            {" "}
-            ANNULER
-          </Button>
-        </Modal.Body>
-      </Modal>
     </Layout_Admin>
   );
 };
 
-export default MediaPage;
+export default ExplorerPage;
 
 export async function getServerSideProps(ctx) {
   const db_media = await prisma.media.findMany({
@@ -190,3 +138,22 @@ export async function getServerSideProps(ctx) {
     props: { user: session.user, db_media, files: files },
   };
 }
+
+//example of tree state
+/* const treeState = {
+  name: "root [half checked and opened]",
+  checked: 0.5, // half check: some children are checked
+  isOpen: true, // this folder is opened, we can see it's children
+  children: [
+    { name: "children 1 [not checked]", checked: 0 },
+    {
+      name: "children 2 [half checked and not opened]",
+      checked: 0.5,
+      isOpen: false,
+      children: [
+        { name: "children 2-1 [not checked]", checked: 0 },
+        { name: "children 2-2 [checked]", checked: 1 },
+      ],
+    },
+  ],
+}; */
