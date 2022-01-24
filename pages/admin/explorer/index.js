@@ -4,6 +4,8 @@ import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 import { Row } from "react-bootstrap";
 import "react-folder-tree/dist/style.css";
+import axios from "axios";
+
 import Layout_Admin from "../../../layouts/layout_admin";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -36,11 +38,20 @@ const ExplorerPage = ({ db_media, files }) => {
     }
   }
 
-  const onTreeStateChange = (state, event) => {
+  const onTreeStateChange = async (state, event) => {
     switch (event.type) {
       case "renameNode":
         console.log(getlastValue(state, event.path, 0));
+        const s = getlastValue(state, event.path, 0);
         //doing some rename on api
+        const data = {
+          old: s.container + "/" + s.initialName,
+          new: s.container + "/" + s.name,
+          type: s.type,
+        };
+        console.log(data);
+        await axios.post("/api/explorer/rename", data);
+        //reload the page to avoid error
         break;
 
       default:
@@ -75,10 +86,11 @@ const ExplorerPage = ({ db_media, files }) => {
         if (!map[currentPath]) {
           node = {
             name: currentPath.split("/").pop(),
-            chemin: currentPath,
-            value: files[index].item,
+            initialChemin: currentPath,
+            initialName: files[index].item,
             type: files[index].path.includes(".") ? "file" : "folder",
             children: [],
+            container: files[index].container,
           };
 
           parent.children.push(node);
