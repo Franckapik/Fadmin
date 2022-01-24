@@ -28,10 +28,14 @@ const ExplorerPage = ({ files }) => {
   }
 
   const onTreeStateChange = async (state, event) => {
+    console.log(event);
+    let s = [];
+
     switch (event.type) {
       case "renameNode":
+        s = getlastValue(state, event.path, 0);
+
         console.log(getlastValue(state, event.path, 0));
-        const s = getlastValue(state, event.path, 0);
         //doing some rename on api
         const data = {
           old:
@@ -39,11 +43,22 @@ const ExplorerPage = ({ files }) => {
           new: s.container.replace("./public/", "public/") + "/" + s.name,
           type: s.type,
         };
-        console.log(data);
         await axios.post("/api/explorer/rename", data);
         //reload the page to avoid error
         router.reload(window.location.pathname);
         break;
+      case "addNode":
+        s = getlastValue(state, event.path, 0);
+        await axios.post("/api/explorer/create", {
+          folderpath: s.initialChemin,
+        });
+        break;
+      /*  case "deleteNode":
+        s = getlastValue(state, event.path, 0);
+        console.log(state, event);
+        await axios.post("/api/explorer/delete", {
+          folderpath: s.initialChemin,
+        }); */
 
       default:
     }
