@@ -383,6 +383,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
               <Controller
                 control={control}
                 name="media_draft"
+                defaultValue={false}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Check
                     type={"checkbox"}
