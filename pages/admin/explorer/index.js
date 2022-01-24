@@ -1,13 +1,12 @@
+import axios from "axios";
 import { traverse } from "fs-tree-utils";
 import { getSession } from "next-auth/client";
 import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 import { Row } from "react-bootstrap";
 import "react-folder-tree/dist/style.css";
-import axios from "axios";
-
 import Layout_Admin from "../../../layouts/layout_admin";
-import { useEffect, useState } from "react";
+
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -16,7 +15,7 @@ const DynamicFileTreeImport = dynamic(() => import("react-folder-tree"), {
   ssr: false, // needed to prevent warning about dynamic component
 });
 
-const ExplorerPage = ({ db_media, files }) => {
+const ExplorerPage = ({ files }) => {
   const router = useRouter();
 
   function getlastValue(arr, path, i) {
@@ -35,14 +34,14 @@ const ExplorerPage = ({ db_media, files }) => {
         const s = getlastValue(state, event.path, 0);
         //doing some rename on api
         const data = {
-          old: s.container + "/" + s.initialName,
-          new: s.container + "/" + s.name,
+          old:
+            s.container.replace("./public/", "public/") + "/" + s.initialName,
+          new: s.container.replace("./public/", "public/") + "/" + s.name,
           type: s.type,
         };
         console.log(data);
         await axios.post("/api/explorer/rename", data);
         //reload the page to avoid error
-        console.log("here");
         router.reload(window.location.pathname);
         break;
 
