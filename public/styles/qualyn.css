@@ -127,6 +127,7 @@ h1:before {
 }
 
 .sticker {
+  font-family: 'Cormorant-Garamond', serif;
   position: fixed;
   top : 50%;
   transform: rotate(-90deg);
