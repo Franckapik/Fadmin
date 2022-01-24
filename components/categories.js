@@ -79,7 +79,7 @@ export const Categories = ({
             )}
             {comment && (
               <Nav.Item key="comment">
-                <Nav.Link href={`/comment?author=${author.author_id}`}>
+                <Nav.Link href={`/comment?author=${author?.author_id}`}>
                   Comments
                 </Nav.Link>
               </Nav.Item>

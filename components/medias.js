@@ -51,7 +51,7 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                           width="100%"
                           height="20vw"
                           playing={true}
-                          volume="0"
+                          volume={0}
                           muted
                           loop
                           controls={false}
