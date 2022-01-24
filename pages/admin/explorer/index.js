@@ -7,6 +7,7 @@ import "react-folder-tree/dist/style.css";
 import axios from "axios";
 
 import Layout_Admin from "../../../layouts/layout_admin";
+import { useEffect, useState } from "react";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -17,17 +18,6 @@ const DynamicFileTreeImport = dynamic(() => import("react-folder-tree"), {
 
 const ExplorerPage = ({ db_media, files }) => {
   const router = useRouter();
-
-  /*   var arr2 = files.map((a) => {
-    var b = {};
-    b["name"] = a.item;
-    b["type"] = a.path.includes(".") ? "file" : "folder";
-    b["size"] = a.stats.size;
-    b["createdAt"] = a.stats.atime;
-    b["parent"] = a.container;
-    b["path"] = a.path;
-    return b;
-  }); */
 
   function getlastValue(arr, path, i) {
     if (i < path.length - 1) {
@@ -52,6 +42,8 @@ const ExplorerPage = ({ db_media, files }) => {
         console.log(data);
         await axios.post("/api/explorer/rename", data);
         //reload the page to avoid error
+        console.log("here");
+        router.reload(window.location.pathname);
         break;
 
       default:
@@ -106,7 +98,7 @@ const ExplorerPage = ({ db_media, files }) => {
     return map[""].children[0];
   }
 
-  var tree = buildTree(files);
+  const tree = buildTree(files);
 
   return (
     <Layout_Admin title={"Medias"}>
@@ -169,3 +161,14 @@ export async function getServerSideProps(ctx) {
     },
   ],
 }; */
+
+/*   var arr2 = files.map((a) => {
+    var b = {};
+    b["name"] = a.item;
+    b["type"] = a.path.includes(".") ? "file" : "folder";
+    b["size"] = a.stats.size;
+    b["createdAt"] = a.stats.atime;
+    b["parent"] = a.container;
+    b["path"] = a.path;
+    return b;
+  }); */
