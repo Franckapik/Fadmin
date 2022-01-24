@@ -16,6 +16,8 @@ export default async (req, res) => {
       try {
         if (!fs.existsSync(dir)) {
           fs.mkdirSync(dir);
+        } else {
+          console.log("Existing folder");
         }
       } catch (err) {
         console.error(err);

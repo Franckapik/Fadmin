@@ -48,10 +48,12 @@ const ExplorerPage = ({ files }) => {
         router.reload(window.location.pathname);
         break;
       case "addNode":
-        s = getlastValue(state, event.path, 0);
-        await axios.post("/api/explorer/create", {
-          folderpath: s.initialChemin,
-        });
+        if (event.params[0]) {
+          s = getlastValue(state, event.path, 0);
+          await axios.post("/api/explorer/create", {
+            folderpath: s.initialChemin,
+          });
+        }
         break;
       /*  case "deleteNode":
         s = getlastValue(state, event.path, 0);
