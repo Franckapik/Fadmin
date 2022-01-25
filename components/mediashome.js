@@ -1,11 +1,19 @@
 import { useRouter } from "next/router";
 import { Card, Container, Figure } from "react-bootstrap";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 export const MediasHome = ({ mediasFiles, setShow, show }) => {
   const router = useRouter();
+  const [pos, setPos] = useState(25);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPos((pos) => pos + 1);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Container
@@ -24,10 +32,8 @@ export const MediasHome = ({ mediasFiles, setShow, show }) => {
                   className="cursor m-3 filtre barre "
                   key={i}
                   style={{
-                    top: `${i * Math.random()}vh`,
-                    height: `${Math.floor(
-                      Math.random() * (40 - 25 + 1) + 25
-                    )}vh`,
+                    top: `${20 * Math.random()}vh`,
+                    height: `${Math.floor(1 * (40 - 25 + 1) + 25)}vh`,
                   }}
                 >
                   <Card.Body

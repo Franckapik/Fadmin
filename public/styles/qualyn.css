@@ -91,8 +91,8 @@ top: 0;
 }
 
 .barre {
-  transition-duration: 500ms;
-}
+  transition: 5000ms !important  ;
+  transition-timing-function: ease-in;}
 
 .barre:hover {
   top : -20px;
