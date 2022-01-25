@@ -6,14 +6,16 @@ import ReactPlayer from "react-player";
 
 export const MediasHome = ({ mediasFiles, setShow, show }) => {
   const router = useRouter();
-  const [pos, setPos] = useState(25);
+  const [pos, setPos] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPos((pos) => pos + 1);
-    }, 3000);
+      setPos((pos) => ++pos);
+    }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [pos]);
+
+  console.info(mediasFiles.length);
 
   return (
     <Container
@@ -23,33 +25,33 @@ export const MediasHome = ({ mediasFiles, setShow, show }) => {
       {" "}
       {/*justify-content-between */}
       {mediasFiles && mediasFiles != 0
-        ? mediasFiles
-            .sort((a, b) => a.media_position - b.media_position)
-            .map((a, i) => {
-              return (
-                <Card
-                  border="0"
-                  className="cursor m-3 filtre barre "
-                  key={i}
+        ? mediasFiles.map((a, i) => {
+            return (
+              <Card
+                border="0"
+                className="cursor m-3 filtre barre"
+                key={i}
+                style={{
+                  top: `${i * Math.random()}vh`,
+                  height: `${Math.floor(1 * (40 - 25 + 1) + 25)}vh`,
+                }}
+              >
+                <Card.Body
+                  className="fade-short "
                   style={{
-                    top: `${20 * Math.random()}vh`,
-                    height: `${Math.floor(1 * (40 - 25 + 1) + 25)}vh`,
+                    width: "70px",
+                    backgroundImage: `url("${
+                      mediasFiles[(i + pos) % mediasFiles.length].media_path
+                    }")`, ///medias/1/03/03.png
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center center",
+                    backgroundSize: "cover",
+                    borderRadius: "50px 50px 3%",
                   }}
-                >
-                  <Card.Body
-                    className="fade-short "
-                    style={{
-                      width: "70px",
-                      backgroundImage: `url("${a.media_path}")`, ///medias/1/03/03.png
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center center",
-                      backgroundSize: "cover",
-                      borderRadius: "50px 50px 3%",
-                    }}
-                  ></Card.Body>
-                </Card>
-              );
-            })
+                ></Card.Body>
+              </Card>
+            );
+          })
         : null}{" "}
     </Container>
   );
