@@ -91,12 +91,12 @@ top: 0;
 }
 
 .barre {
-  transition: 5000ms !important  ;
-  transition-timing-function: ease-in;}
+  transition: 500ms !important  ;
+  transition-timing-function: ease-out;
+}
 
 .barre:hover {
-  top : -20px;
-  height: 30vh;
+  top : -20px !important;
 }
 
 .left {
@@ -418,8 +418,14 @@ height: 100%;
   filter: saturate(70%);
   transition-duration: 700ms;
 }
+.filtre-hard {
+  filter: saturate(50%);
+}
 
 .filtre:hover {
+  filter: saturate(100%)
+}
+.filtre-hard:hover {
   filter: saturate(100%)
 }
 
