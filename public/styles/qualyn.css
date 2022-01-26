@@ -149,7 +149,7 @@ h1:before {
   opacity: 1;
 }
   
-.active {
+.active-author {
   color: inherit;
   border:1px solid rgb(0, 0, 0) !important  
 }

@@ -69,7 +69,7 @@ export default function Layout_Home({
                           href={`/authors/${a.author_id}`}
                           className={
                             router.query.author == a.author_id
-                              ? "active nav-authors  "
+                              ? "active-author nav-authors  "
                               : "nav-authors frame"
                           }
                         >
