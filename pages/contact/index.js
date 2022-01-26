@@ -1,9 +1,7 @@
 import { CommentList } from "../../components/commentlist";
 import { ContactForm } from "../../components/contactform";
 import Layout_Home from "../../layouts/layout_home";
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import prisma from "../../prisma/prisma";
 
 export default function Comment({ db_authors }) {
   return (

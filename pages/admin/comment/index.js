@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/dist/client/router";
+import "quill/dist/quill.snow.css";
+import { useState } from "react";
 import { Button, Modal, Row } from "react-bootstrap";
 import { CardAdmin } from "../../../components/cardadmin";
 import Layout_Admin from "../../../layouts/layout_admin";
-import axios from "axios";
-import { useRouter } from "next/dist/client/router";
-import { useQuill } from "react-quilljs";
-import "quill/dist/quill.snow.css";
+import prisma from "../../../prisma/prisma";
 
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
 const CommentPage = ({ db_comment }) => {
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState(false);

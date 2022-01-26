@@ -5,9 +5,7 @@ import Layout_Admin from "../../../layouts/layout_admin";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import prisma from "../../../prisma/prisma";
 
 const AuthorPage = ({ db_author, user }) => {
   const [show, setShow] = useState(false);

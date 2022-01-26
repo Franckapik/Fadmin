@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import Layout_Admin from "../../../layouts/layout_admin";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from "../../../prisma/prisma";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useQuill } from "react-quilljs";

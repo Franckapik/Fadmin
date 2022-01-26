@@ -5,9 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import prisma from "../../../prisma/prisma";
 
 const CategoryPage = ({ db_category }) => {
   const [show, setShow] = useState(false);

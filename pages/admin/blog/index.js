@@ -7,9 +7,7 @@ import { useRouter } from "next/dist/client/router";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import prisma from "../../../prisma/prisma";
 const BlogPage = ({ db_post }) => {
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState(false);

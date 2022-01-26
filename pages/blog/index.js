@@ -1,8 +1,6 @@
 import { PostList } from "../../components/postlist";
 import Layout_Home from "../../layouts/layout_home";
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import prisma from "../../prisma/prisma";
 
 export default function Blog({ db_post, db_authors }) {
   return (

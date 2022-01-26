@@ -16,9 +16,7 @@ import Moment from "react-moment";
 import Layout_Home from "../../layouts/layout_home";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from "../../prisma/prisma";
 
 const Post = ({ db_post, post_length }) => {
   const [html, setHTML] = useState();

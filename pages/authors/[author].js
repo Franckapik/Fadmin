@@ -6,10 +6,9 @@ import { Modal } from "react-bootstrap";
 import CarouselComp from "../../components/carousel";
 import { Medias } from "../../components/medias";
 import Layout_Home from "../../layouts/layout_home";
-const { PrismaClient } = require("@prisma/client");
 const fsPromises = fs.promises;
 
-const prisma = new PrismaClient();
+import prisma from "../../prisma/prisma";
 
 export default function Home({
   db_authors,

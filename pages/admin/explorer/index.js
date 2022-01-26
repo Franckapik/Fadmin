@@ -6,9 +6,7 @@ import { Row } from "react-bootstrap";
 import "react-folder-tree/dist/style.css";
 import Layout_Admin from "../../../layouts/layout_admin";
 
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
-
+import prisma from "../../../prisma/prisma";
 //dynamic import instead of require
 const DynamicFileTreeImport = dynamic(() => import("react-folder-tree"), {
   ssr: false, // needed to prevent warning about dynamic component

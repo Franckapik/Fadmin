@@ -2,9 +2,7 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { MediasHome } from "../components/mediashome";
 import Layout_Home from "../layouts/layout_home";
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import prisma from "../prisma/prisma";
 
 export default function Home({ db_authors, mediasFiles }) {
   const [index, setIndex] = useState(0);

@@ -6,8 +6,7 @@ import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { useQuill } from "react-quilljs";
 import Layout_Admin from "../../../layouts/layout_admin";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from "../../../prisma/prisma";
 
 const CommentAdmin = ({ db_comment, db_author }) => {
   const {
