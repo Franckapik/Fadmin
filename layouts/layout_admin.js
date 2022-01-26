@@ -1,11 +1,11 @@
-import { signOut, useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { Col, Container, Dropdown, Nav, Row } from "react-bootstrap";
 import Moment from "react-moment";
 import Sidebar from "../components/sidebaradmin";
 
 export default function Layout_Admin({ children, title }) {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
   return (
     <Container fluid style={{ paddingLeft: "0" }} className="admin">
       {session ? (

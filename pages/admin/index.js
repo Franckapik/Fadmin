@@ -1,4 +1,4 @@
-import { getProviders, signIn, signOut, useSession } from "next-auth/client";
+import { getProviders, signIn, signOut, useSession } from "next-auth/react";
 import { Button, Card, Col, Container, Nav, Row, Table } from "react-bootstrap";
 import Moment from "react-moment";
 import Sidebar from "../../components/sidebaradmin";
@@ -14,7 +14,7 @@ export default function Page({
   db_comment,
   db_author,
 }) {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
   return (
     <>
       {!session && (

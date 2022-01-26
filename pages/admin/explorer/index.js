@@ -1,6 +1,6 @@
 import axios from "axios";
 import { traverse } from "fs-tree-utils";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 import { Row } from "react-bootstrap";

@@ -1,14 +1,16 @@
-import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+//https://next-auth.js.org/getting-started/upgrade-v4
+
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
+import NextAuth from "next-auth";
+import EmailProvider from "next-auth/providers/email";
+
 const prisma = new PrismaClient();
 
 export default NextAuth({
-  // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
-    Providers.Email({
+    EmailProvider({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
         port: process.env.EMAIL_SERVER_PORT,
@@ -20,7 +22,5 @@ export default NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
-
-  // A database is optional, but required to persist accounts in a database
-  database: process.env.DATABASE_URL,
+  secret: "kKykB8gCwy6pFPJVOj5YyXHN/7r4CxO6UFwfQXH5Ips=",
 });

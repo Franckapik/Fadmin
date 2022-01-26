@@ -4,7 +4,7 @@ import { CardAdmin } from "../../../components/cardadmin";
 import Layout_Admin from "../../../layouts/layout_admin";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 
 const { PrismaClient } = require("@prisma/client");
 
