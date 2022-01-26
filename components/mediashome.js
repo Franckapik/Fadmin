@@ -18,7 +18,11 @@ export const MediasHome = ({ mediasFiles, setShow, show }) => {
       {mediasFiles && mediasFiles != 0
         ? mediasFiles.map((a, i) => {
             return (
-              <Link href={`/authors/${a.author.author_id}`} key={i} passHref>
+              <Link
+                href={`/authors/${a.author.author_id}`}
+                key={"mediasFile" + i}
+                passHref
+              >
                 <Card
                   border="0"
                   className="cursor m-3 filtre-hard barre"

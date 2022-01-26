@@ -63,7 +63,7 @@ export default function Layout_Home({
               {authors && authors.length
                 ? authors.map((a, i) => {
                     return (
-                      <Nav.Item key={i + 1}>
+                      <Nav.Item key={"author" + i + 1}>
                         <Nav.Link
                           eventKey={i}
                           href={`/authors/${a.author_id}`}

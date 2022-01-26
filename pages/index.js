@@ -1,15 +1,9 @@
-import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { MediasHome } from "../components/mediashome";
 import Layout_Home from "../layouts/layout_home";
 import prisma from "../prisma/prisma";
 
 export default function Home({ db_authors, mediasFiles }) {
-  const [index, setIndex] = useState(0);
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
-
   return (
     <Layout_Home authors={db_authors}>
       <Row>

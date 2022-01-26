@@ -12,7 +12,7 @@ export const PostList = ({ postList }) => {
       {postList && postList != 0
         ? postList.map((a, i) => {
             return (
-              <a href={`/blog/${a.post_id}`} key={i}>
+              <a href={`/blog/${a.post_id}`} key={"post" + i}>
                 <Card border="0" className="cursor m-3">
                   <Card.Body
                     className="fade-short rounded no-hover"

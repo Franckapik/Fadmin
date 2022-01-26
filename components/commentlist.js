@@ -39,23 +39,24 @@ export const CommentList = ({ commentList }) => {
             .sort((a, b) => b.comment_id - a.comment_id)
             .map((a, i) => {
               return (
-                <>
-                  <Row className="p-5 text-center align-items-center mt-5 no-upper">
-                    <Col md={2} className="quote-t ">
-                      “
-                    </Col>
-                    <Col md={8} style={{ fontSize: "1em" }}>
-                      <p className="comment">{a.comment_msg}</p>
-                      <div style={{ textAlign: "right", paddingTop: "15px" }}>
-                        <strong>{a.comment_author}</strong>, le{" "}
-                        <Moment format="DD/MM/YYYY">{a.comment_create}</Moment>
-                      </div>
-                    </Col>
-                    <Col md={2} className="quote-b">
-                      ”
-                    </Col>
-                  </Row>
-                </>
+                <Row
+                  key={"comment" + i}
+                  className="p-5 text-center align-items-center mt-5 no-upper"
+                >
+                  <Col md={2} className="quote-t ">
+                    “
+                  </Col>
+                  <Col md={8} style={{ fontSize: "1em" }}>
+                    <p className="comment">{a.comment_msg}</p>
+                    <div style={{ textAlign: "right", paddingTop: "15px" }}>
+                      <strong>{a.comment_author}</strong>, le{" "}
+                      <Moment format="DD/MM/YYYY">{a.comment_create}</Moment>
+                    </div>
+                  </Col>
+                  <Col md={2} className="quote-b">
+                    ”
+                  </Col>
+                </Row>
               );
             })
         : null}

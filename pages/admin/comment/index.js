@@ -33,7 +33,7 @@ const CommentPage = ({ db_comment }) => {
         {db_comment && db_comment.length
           ? db_comment.map((a, i) => {
               return (
-                <div key={i}>
+                <div key={"comment" + i}>
                   <CardAdmin
                     all={a}
                     setSelected={setSelected}

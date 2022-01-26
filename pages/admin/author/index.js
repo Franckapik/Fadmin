@@ -35,7 +35,7 @@ const AuthorPage = ({ db_author, user }) => {
           ? db_author.map((a, i) => {
               return (
                 <CardAdmin
-                  key={i}
+                  key={"db_author" + i}
                   all={a}
                   setSelected={setSelected}
                   title={a.author_name}
