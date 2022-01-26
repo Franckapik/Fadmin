@@ -4,22 +4,16 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../public/styles/qualyn.css";
 
 import Head from "next/head";
+import { SSRProvider } from "react-bootstrap";
 // own css files here
 
-import { SessionProvider } from "next-auth/react";
-
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+export default function App({ Component, pageProps }) {
   return (
-    // `session` comes from `getServerSideProps` or `getInitialProps`.
-    // Avoids flickering/session loading on first load.
-    <SessionProvider session={session} refetchInterval={5 * 60}>
+    <SSRProvider>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Component {...pageProps} />
-    </SessionProvider>
+    </SSRProvider>
   );
 }

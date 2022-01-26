@@ -1,6 +1,5 @@
 import axios from "axios";
 import { traverse } from "fs-tree-utils";
-import { getSession } from "next-auth/react";
 import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 import { Row } from "react-bootstrap";
@@ -139,23 +138,13 @@ export async function getServerSideProps(ctx) {
     },
   });
 
-  const session = await getSession(ctx);
-  //if no session found(user hasn’t logged in)
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/admin/", //redirect user to homepage
-        permanent: false,
-      },
-    };
-  }
   const deep = ({ item }) => item !== "Old";
   const files0 = await traverse("." + process.env.medias_folder, { deep });
   const f1 = JSON.stringify(files0);
   const files = JSON.parse(f1); //serialize issue
 
   return {
-    props: { user: session.user, db_media, files: files },
+    props: { db_media, files: files },
   };
 }
 
