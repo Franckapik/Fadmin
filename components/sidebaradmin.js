@@ -12,11 +12,7 @@ const Sidebar = () => (
     className="sidebar_container flex-column position-fixed"
     activeKey="/home"
   >
-    <Nav.Item className="text-center">
-      {/*       <Nav.Link>
-        <img src="/logo/logo.png" className="logo" alt=""></img>
-      </Nav.Link> */}
-    </Nav.Item>
+    <Nav.Item className="text-center"></Nav.Item>
     <h2 className="p-5">
       <Link href="/admin/">Qualyn Admin</Link>
     </h2>

@@ -1,9 +1,9 @@
-import Image from "next/image";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { Col, Container, Dropdown, Nav, Row } from "react-bootstrap";
-import Moment from "react-moment";
 import Sidebar from "../components/sidebaradmin";
 
 export default function Layout_Admin({ children, title }) {
+  const { firstName, publicMetadata } = useUser();
   return (
     <Container fluid style={{ paddingLeft: "0" }} className="admin">
       <>
@@ -13,30 +13,20 @@ export default function Layout_Admin({ children, title }) {
           </Col>
           <Col xs={10}>
             <header>
-              <Nav className="justify-content-between align-items-center mt-2">
-                {title}
-                <Nav.Item>
-                  <Dropdown>
-                    <Dropdown.Toggle id="dropdown-basic">
-                      username{" "}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="/admin">Home</Dropdown.Item>
-                      <Dropdown.Item onClick={() => signOut()}>
-                        Sign out
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+              <Nav className="justify-content-center align-items-center mt-2">
+                <Nav.Item className="m-3">
+                  <UserButton />
                 </Nav.Item>
+                <Nav.Item className="m-3">{firstName}</Nav.Item>
               </Nav>
             </header>
-            <main className="p-5">{children}</main>
+            {publicMetadata.isAdmin ? (
+              <main className="p-5">{children}</main>
+            ) : (
+              "No authorized"
+            )}
           </Col>
         </Row>
-        <div className="text-center small mb-5">
-          Expiration de la session : Expiration
-        </div>
       </>
     </Container>
   );

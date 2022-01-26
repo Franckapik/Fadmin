@@ -84,4 +84,8 @@ export default AuthorPage;
 
 export async function getServerSideProps(ctx) {
   const db_author = await prisma.author.findMany();
+
+  return {
+    props: { db_author },
+  };
 }
