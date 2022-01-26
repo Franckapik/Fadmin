@@ -94,12 +94,10 @@ export async function getServerSideProps(ctx) {
     },
   });
 
-  }
-
   const db_comment_s = JSON.stringify(db_comment_0);
   const db_comment = JSON.parse(db_comment_s); //serialize issue
 
   return {
-    props: {db_comment },
+    props: { db_comment },
   };
 }
