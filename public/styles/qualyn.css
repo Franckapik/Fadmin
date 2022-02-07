@@ -188,9 +188,8 @@ strong {
 
 .nav-authors {
   width: 310px;
-  padding: 1em;
   font-size: 15px;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.15em;
   font-weight: 800;
   margin-top: 0;
   margin-left: 3em;
@@ -397,17 +396,6 @@ height: 100%;
   animation-fill-mode: forwards;
 }
 
-.frame {position:relative}
-.frame:before, .frame:after, .frame>:first-child:before, .frame>:first-child:after {
-    position:absolute; content:' ';
-    width:70px; height: 80px;
-    border-color: rgb(151, 151, 151);
-    border-style:solid; /* or whatever style */
-}
-.frame:before {top:0;left:0;border-width: 1px 0 0 1px}
-.frame:after {top:0;right:0;border-width: 1px 1px 0 0}
-.frame>:first-child:before {bottom:0;right:0;border-width: 0 1px 1px 0}
-.frame>:first-child:after {bottom:0;left:0;border-width: 0 0 1px 1px}
 
 
 .filtre {
