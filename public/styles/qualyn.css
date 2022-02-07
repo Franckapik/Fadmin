@@ -73,8 +73,49 @@ body::-webkit-scrollbar-thumb {
 }
 
 .card-audio {
-  margin : 3em;
-  height: 200px;
+  margin : 14em 3em 3em 3em;
+  height: 120px;
+  width : 50vw;
+  
+}
+
+.burger {
+  font-size: 3em;
+  position: fixed;
+  right: 0.5em;
+  z-index: 2;
+}
+
+.burger-menu {
+  position: fixed;
+  background-color: rgb(252, 246, 233); 
+  padding-top: 8em;
+  width: 100vw;
+  height: 100vh;
+  z-index : 1
+}
+
+.burger-menu-title {
+font-size: 1.7em;
+font-weight: bold;
+margin-bottom : 20px;
+}
+
+.burger-menu-subtitle {
+font-size: 1.2sem;
+font-weight: 200;
+margin-bottom : 30px;
+}
+
+.menu-contact {
+  text-align: center;
+  position : fixed;
+  bottom : 2em;
+  width : 100%;
+}
+
+.burger-menu .nav-item {
+  width : 90%;
 }
 
 .progress-top {
@@ -106,10 +147,13 @@ top: 0;
   text-align: right !important
 }
 
+h1 img {
+  width: 60vw;
+}
+
 h1 {
   position: relative;
   overflow: hidden;
-  text-align: center;
 }
 
 h1:before, h1:after {
@@ -154,11 +198,6 @@ h1:before {
   border:1px solid rgb(0, 0, 0) !important  
 }
 
-h1 {
-  font-size: 5em;
-  font-weight: 400;
-  font-family: 'Cormorant-Garamond', serif;
-}
 
 h2 {
   font-size: 20px;
@@ -191,7 +230,7 @@ strong {
   font-size: 15px;
   letter-spacing: 0.15em;
   font-weight: 800;
-  margin-top: 0;
+  margin-top: 2em;
   margin-left: 3em;
   margin-right: 3em;
   margin-bottom: 2em;;
@@ -344,6 +383,8 @@ background-color: inherit;
 .container_main {
 padding-left: 6vw;
 padding-right: 6vw;
+padding-top: 2em;
+
 }
 
 .media_position {
@@ -535,13 +576,7 @@ z-index: -6;
   font-size : 5rem;
 }
 
-.title {
-  font-size: 4rem;
-  font-family: 'Cormorant-Garamond', serif;
-  text-transform: none;
 
-
-}
 
 .comment {
   font-size: 1.2em;
@@ -550,6 +585,24 @@ z-index: -6;
 
 @media (max-width: 575.98px) { 
 
+  h1 {
+    padding-top: 3em;
+  }
+
+  h1:before, h1:after {
+    height: 0;
+    content: inherit;
+    background-color: transparent;
+    margin-left: 2%;
+  }
+  h1:before {
+    margin-left: -52%;
+    text-align: right;
+  }
+
+  .nav-authors {
+    display: none;
+  }
   
   .card_media {
     width: 80vw !important;

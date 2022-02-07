@@ -60,81 +60,82 @@ export default function CarouselComp({ mediasFiles }) {
               </ListGroup.Item>
             </ListGroup>
           </Row>
-          <Row>
-            {mediaSelected[0].media_video?.includes("soundcloud") ? (
-              <div>
-                <Card className="p-2 d-flex flex-row flex-nowrap justify-content-center align-items-center card-audio">
-                  <Col md={1}>
+
+          {mediaSelected[0].media_video?.includes("soundcloud") ? (
+            <Row className="justify-content-center">
+              {" "}
+              <Card className="p-2 d-flex flex-row flex-nowrap justify-content-center align-items-center card-audio">
+                <Col md={1}>
+                  <div>
                     {playing ? (
                       <FontAwesomeIcon
                         icon={faPauseCircle}
                         className="m-2 cursor "
-                        width="5em"
+                        width={50}
                         onClick={() => setPlay(!playing)}
                       />
                     ) : (
                       <FontAwesomeIcon
                         icon={faPlayCircle}
                         className="m-2 cursor "
-                        width="5em"
+                        width={50}
                         onClick={() => setPlay(!playing)}
                       />
                     )}
-                  </Col>
-                  <Col md={1}>
-                    {new Date(played * 1000).toISOString().substr(14, 5)}
-                  </Col>
+                  </div>
+                </Col>
+                <Col md={1}>
+                  {new Date(played * 1000).toISOString().substr(14, 5)}
+                </Col>
 
-                  <ProgressBar
-                    className="progress-top"
-                    now={(played * 100) / duration}
-                  />
+                <ProgressBar
+                  className="progress-top"
+                  now={(played * 100) / duration}
+                />
 
-                  <Col md={9}>
-                    {" "}
-                    <Form.Range
-                      value={played}
-                      min={0}
-                      max={duration}
-                      onChange={(e) => setPlayed(parseFloat(e.target.value))}
-                      onMouseUp={(e) => {
-                        player.current.seekTo(parseFloat(e.target.value));
-                      }}
-                    />
-                  </Col>
-                  <Col md={1}>
-                    {new Date(duration * 1000).toISOString().substr(14, 5)}
-                  </Col>
-                </Card>
-
-                <Col className="react-player-soundcloud">
-                  <ReactPlayer
-                    ref={player}
-                    playing={playing}
-                    controls
-                    url={mediaSelected[0].media_video}
-                    onProgress={(p) => {
-                      setPlayed(p.playedSeconds.toFixed(0));
+                <Col md={5}>
+                  {" "}
+                  <Form.Range
+                    value={played}
+                    min={0}
+                    max={duration}
+                    onChange={(e) => setPlayed(parseFloat(e.target.value))}
+                    onMouseUp={(e) => {
+                      player.current.seekTo(parseFloat(e.target.value));
                     }}
-                    onSeek={(s) => {
-                      console.log(s);
-                    }}
-                    onDuration={(d) => setDuration(d)}
                   />
                 </Col>
-              </div>
-            ) : (
-              <Col className="player-wrapper">
+                <Col md={1}>
+                  {new Date(duration * 1000).toISOString().substr(14, 5)}
+                </Col>
+              </Card>
+              <Col className="react-player-soundcloud">
                 <ReactPlayer
-                  className="react-player"
-                  width="100%"
-                  height="100%"
+                  ref={player}
+                  playing={playing}
                   controls
                   url={mediaSelected[0].media_video}
+                  onProgress={(p) => {
+                    setPlayed(p.playedSeconds.toFixed(0));
+                  }}
+                  onSeek={(s) => {
+                    console.log(s);
+                  }}
+                  onDuration={(d) => setDuration(d)}
                 />
               </Col>
-            )}
-          </Row>
+            </Row>
+          ) : (
+            <Col className="player-wrapper">
+              <ReactPlayer
+                className="react-player"
+                width="100%"
+                height="100%"
+                controls
+                url={mediaSelected[0].media_video}
+              />
+            </Col>
+          )}
         </>
       ) : (
         <>
