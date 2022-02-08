@@ -2,6 +2,7 @@
 
 import "bootstrap/dist/css/bootstrap.css";
 import "../public/styles/qualyn.css";
+import "../public/styles/all.min.css"; //font awesome pro
 
 import Head from "next/head";
 import { SSRProvider } from "react-bootstrap";
@@ -24,7 +25,10 @@ export default function App({ Component, pageProps }) {
   return (
     <SSRProvider>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
       </Head>
       <ClerkProvider>
         {!isPrivate ? (

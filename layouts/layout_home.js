@@ -76,17 +76,9 @@ export default function Layout_Home({
 
         <div className="burger d-xs-block d-sm-none">
           {isOpen ? (
-            <FontAwesomeIcon
-              icon={faTimes}
-              width="1em"
-              onClick={() => setOpen(!isOpen)}
-            />
+            <i className="fal fa-times" onClick={() => setOpen(!isOpen)}></i>
           ) : (
-            <FontAwesomeIcon
-              icon={faBars}
-              width="1em"
-              onClick={() => setOpen(!isOpen)}
-            />
+            <i className="fal fa-bars" onClick={() => setOpen(!isOpen)}></i>
           )}
         </div>
 
