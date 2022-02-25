@@ -1,34 +1,10 @@
-import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useForm } from "react-hook-form";
 import Moment from "react-moment";
 
 export const CommentList = ({ commentList }) => {
-  const [show, setShow] = useState(false);
-
-  const {
-    setError,
-    handleSubmit,
-    control,
-    reset,
-    watch,
-    formState: { errors },
-    getValues,
-  } = useForm();
-
-  const [success, setSuccess] = useState(false);
   const router = useRouter();
-
-  const onSubmit = async (data) => {
-    data.comment_author_id = parseInt(2); //integer issue
-    data.comment_create = new Date();
-    data.comment_draft = true;
-
-    await axios.post("/api/comment/addComment", data);
-    setSuccess(true);
-  };
 
   return (
     <Container fluid>
