@@ -95,16 +95,12 @@ body::-webkit-scrollbar-thumb {
   z-index : 1
 }
 
-.burger-menu-title {
-font-size: 1.7em;
-font-weight: bold;
-margin-bottom : 20px;
+.burger_item {
+  padding : 1em;
 }
 
-.burger-menu-subtitle {
-font-size: 1.2sem;
-font-weight: 200;
-margin-bottom : 30px;
+.burger_item h2 {
+  font-weight: bold;
 }
 
 .menu-contact {
@@ -119,7 +115,7 @@ margin-bottom : 30px;
 }
 
 .burger-menu .nav-item {
-  width : 90%;
+  width : 100vw;
 }
 
 .progress-top {
@@ -274,6 +270,7 @@ a, .nav-link {
 
 .nav {
   font-size: 12px;
+  padding : 0em;
 }
 
 .cursor {

@@ -35,20 +35,23 @@ export default function Layout_Home({
               {authors && authors.length
                 ? authors.map((a, i) => {
                     return (
-                      <Nav.Item key={"author" + i + 1}>
+                      <Nav.Item key={"author" + i + 1} className="burger_item">
                         <Nav.Link eventKey={i} href={`/authors/${a.author_id}`}>
-                          <h2 className="burger-menu-title">{a.author_art}</h2>
-                          <p className="burger-menu-subtitle">
-                            {a.author_name}
-                          </p>{" "}
+                          <h2>{a.author_art}</h2>
+                          <span>{a.author_name}</span>{" "}
                         </Nav.Link>
                       </Nav.Item>
                     );
                   })
                 : null}
-              <Nav.Item key={"contact"}>
+              <Nav.Item key={"blog"} className="burger_item">
+                <Nav.Link eventKey={"blog"} href={`/blog`}>
+                  <h2>Blog</h2>
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item key={"contact"} className="burger_item">
                 <Nav.Link eventKey={"contact"} href={`/contact`}>
-                  <h2 className="burger-menu-title">Contact</h2>
+                  <h2>Contact</h2>
                 </Nav.Link>
               </Nav.Item>
             </Nav>
