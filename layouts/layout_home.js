@@ -58,14 +58,19 @@ export default function Layout_Home({
           </Row>
           <div className="menu-contact ">
             {" "}
-            <a href={author?.author_fb} className="m-4" target="_blank">
+            <a
+              href={"https://www.facebook.com/qualynofficial"}
+              className="m-4"
+              target="_blank"
+            >
               <FontAwesomeIcon icon={faFacebookSquare} width="2em" />{" "}
             </a>
-            <a href={author?.author_insta} className="m-4" target="_blank">
+            <a
+              href={"https://www.instagram.com/qualyn_official"}
+              className="m-4"
+              target="_blank"
+            >
               <FontAwesomeIcon icon={faInstagram} width="2em" />{" "}
-            </a>
-            <a href={author?.author_twitter} className="m-4" target="_blank">
-              <FontAwesomeIcon icon={faTwitterSquare} width="2em" />{" "}
             </a>
           </div>
         </div>

@@ -49,32 +49,33 @@ export const MediasHome = ({ mediasFiles, setShow, show }) => {
             })
           : null}{" "}
       </div>
-      {/*  <Row className="d-sm-none d-md-block">
-        {" "}
-        <Carousel
-          fade
-          variant="dark"
-          activeIndex={index}
-          onSelect={handleSelect}
-          className="carousel-home"
-          controls={false}
-        >
-          {mediasFiles &&
-            mediasFiles.map((a, i) => {
-              return (
-                <Carousel.Item key={i}>
-                  <div className="d-flex justify-content-center">
-                    <img
-                      className="d-block media-view"
-                      src={`/medias/${a.media_author_id}/${a.media_folder}/${a.media_photo}`}
-                      alt="slider image"
-                    />
-                  </div>
-                </Carousel.Item>
-              );
-            })}
-        </Carousel>
-      </Row> */}
+      <div className="d-sm-none mt-5">
+        <Row>
+          {" "}
+          <Carousel
+            variant="dark"
+            activeIndex={index}
+            onSelect={handleSelect}
+            className="carousel-home"
+            controls={false}
+          >
+            {mediasFiles &&
+              mediasFiles.map((a, i) => {
+                return (
+                  <Carousel.Item key={i}>
+                    <div className="d-flex justify-content-center">
+                      <img
+                        className="d-block media-view"
+                        src={`/medias/${a.media_author_id}/${a.media_folder}/${a.media_photo}`}
+                        alt="slider image"
+                      />
+                    </div>
+                  </Carousel.Item>
+                );
+              })}
+          </Carousel>
+        </Row>
+      </div>
     </Container>
   );
 };
