@@ -9,9 +9,8 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
   const router = useRouter();
 
   const addQuery = (key, value) => {
-    setShow(!show);
     router.query[key] = value;
-    router.push(router);
+    router.replace(router);
   };
 
   return (
@@ -26,7 +25,10 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                 <Card
                   border="0"
                   className="cursor mx-auto m-3 filtre "
-                  onClick={() => addQuery("media", a.media_id)}
+                  onClick={() => {
+                    addQuery("media", a.media_id);
+                    setShow(!show);
+                  }}
                   key={i}
                 >
                   <Card.Body

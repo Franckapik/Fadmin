@@ -1,8 +1,3 @@
-import {
-  faFacebookSquare,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Nav } from "react-bootstrap";

@@ -591,6 +591,10 @@ z-index: -6;
     padding-top: 3em;
   }
 
+  h1 img { 
+    width: 60vw;
+  }
+
   h1:before, h1:after {
     height: 0;
     content: inherit;
