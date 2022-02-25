@@ -38,7 +38,7 @@ export default function CarouselComp({ mediasFiles }) {
   const player = useRef();
 
   return (
-    <Container fluid className="text-center">
+    <Container fluid className="text-center ">
       {mediaSelected && mediaSelected[0]?.media_video ? (
         <>
           <Row className="mb-3">
@@ -172,10 +172,7 @@ export default function CarouselComp({ mediasFiles }) {
             </Col>
           </Row>
           <Row>
-            <ListGroup
-              horizontal
-              className="mt-5 justify-content-center legend"
-            >
+            <ListGroup horizontal className="legend justify-content-center ">
               <ListGroup.Item>
                 {mediaSelected[0].media_subtitle}{" "}
               </ListGroup.Item>
@@ -193,7 +190,11 @@ export default function CarouselComp({ mediasFiles }) {
                     String(mediaSelected[0]?.files.length - 1).padStart(2, "0")}
                 </ListGroup.Item>
               )}
-              <ListGroup.Item>{mediaSelected[0].media_content}</ListGroup.Item>
+              {mediaSelected[0].media_content ? (
+                <ListGroup.Item>
+                  {mediaSelected[0].media_content}
+                </ListGroup.Item>
+              ) : null}
             </ListGroup>
           </Row>
         </>

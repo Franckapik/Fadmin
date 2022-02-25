@@ -63,6 +63,8 @@ body::-webkit-scrollbar-thumb {
   border-radius: 20px; /* roundness of the scroll thumb */
   border: 3px solid rgb(253, 252, 251); /* creates padding around scroll thumb */
 }
+
+
  
 .blogocontact {
   position: relative;
@@ -220,7 +222,9 @@ h7 {
 
 .legend {
   font-size: 0.8em;
+  margin-top : 2vw;
 }
+
 
 strong {
   font-size: 1.4em;
@@ -294,8 +298,12 @@ margin-left: 5em;
 
 
 .list-group-item {
-  padding : 25px;
   border: 0;
+  width: 33%;
+}
+
+.list-group {
+  padding-left: 0vw!important;
 }
 
 .modal-body {
@@ -625,6 +633,7 @@ z-index: -6;
 
   .legend {
     font-size: 0.6em;
+    letter-spacing: 2px;
   }
 
 
