@@ -6,7 +6,7 @@ const Biography = ({ author, show, fullscreen, setShow }) => {
 
   return (
     <>
-      <Row className="mt-5 bio_transition justify-content-center ">
+      <Row className="mt-4 bio_transition justify-content-center ">
         <Col md={8} className="bio text-center no-upper">
           {lang === "FR" ? (
             <p className="lines_spaces"> {author.author_biography_fr} </p>
