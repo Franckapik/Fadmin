@@ -2,7 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 
-const prisma = new PrismaClient();
+import prisma from "../../../prisma/prisma";
 
 export default async (req, res) => {
   return new Promise((resolve) => {
