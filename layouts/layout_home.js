@@ -104,7 +104,7 @@ export default function Layout_Home({
                   <img
                     src={"/title.svg"}
                     alt="qualyn title"
-                    className={"cursor"}
+                    className={"cursor title"}
                   ></img>
                 </h1>
               </Link>
@@ -132,10 +132,7 @@ export default function Layout_Home({
                                 : "nav-authors frame"
                             }
                           >
-                            <h2>
-                              {" "}
-                              <p>{a.author_name}</p>{" "}
-                            </h2>
+                            <h2> {a.author_name}</h2>
                             <span className="subtitle thin">
                               {" "}
                               {a.author_art}
