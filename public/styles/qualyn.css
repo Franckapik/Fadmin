@@ -201,7 +201,7 @@ h1:before {
   
 .active-author {
   color: inherit;
-  border:1px solid rgb(0, 0, 0) !important  
+  border:1px solid rgba(0, 0, 0, 0.5)!important;  
 }
 
 
@@ -245,7 +245,7 @@ strong {
 
 .nav-authors:focus {
   color: inherit;
-  border:1px solid rgb(0, 0, 0);  
+  border:1px solid rgba(0, 0, 0, 0.8);  
 }
 
 
@@ -265,7 +265,7 @@ a, .nav-link {
 
  .nav-link:focus {
   color: inherit;
-  border:1px solid rgb(0, 0, 0);  
+  border:1px solid rgba(0, 0, 0, 0.5);  
 }
 
 .thin {
@@ -497,33 +497,36 @@ footer {
   height: 50px;
 }
 
+.quote-t, .quote-b {
+  font-size: 2em;
+  font-weight: 600;
+
+}
+
 .quote-t {
-  font-size: 5em;
-  font-weight: 300;
   font-family: 'Cormorant-Garamond', serif;
-  vertical-align: text-top !important;
-padding: 0;
-margin: 0;
+margin-right: 0.5em;
 }
 
 .quote-b {
-  font-size: 5em;
-  font-weight: 300;
   font-family: 'Cormorant-Garamond', serif;
-  vertical-align: text-bottom;
-padding: 0;
-margin: 0;
+margin-left: 0.5em;
+
 }
 
-.addcomment {
-  position: fixed;
-  right: 60px;
-  bottom : 5vh; 
-  font-size: 0.8em;
+.comment_author {
+  text-align: right;
+  margin-right: 2em;
+  font-weight: bold;
+
 }
 
-.modal_comment .modal-dialog {
-  max-width: 1000px;
+.comment_row {
+  border:1px solid rgba(0, 0, 0, 0.2);  
+  margin : 5em 15em 0em 15em;
+  border-radius: 0.2em;
+padding : 2em;
+background-color: rgba(252, 246, 250, 0.5); 
 }
 
 
@@ -582,12 +585,10 @@ z-index: -6;
   font-size : 5rem;
 }
 
-
-
 .comment {
-  font-size: 1.2em;
-  line-height: 3em;
+  font-size: 1em;
 }
+
 
 @media (max-width: 575.98px) { 
 
@@ -627,12 +628,10 @@ z-index: -6;
     font-size: 0.6em;
   }
 
-  .comment {
-    font-size: 0.5em;
-  }
+
 
   .quote-t, .quote-b {
-    font-size: 5em;
+    font-size: 2em;
   }
 
   .addcomment {
