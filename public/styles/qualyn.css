@@ -80,9 +80,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 .burger {
-  font-size: 3em;
+  font-size: 2em;
   position: fixed;
   right: 0.5em;
+  top : 0.8em;
   z-index: 2;
 }
 
@@ -589,7 +590,7 @@ z-index: -6;
 @media (max-width: 575.98px) { 
 
   h1 {
-    padding-top: 3em;
+    padding-top: 2em;
   }
 
   h1 img { 
