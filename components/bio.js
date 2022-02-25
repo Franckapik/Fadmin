@@ -1,8 +1,5 @@
-import { Button, Col, Modal, Row } from "react-bootstrap";
-import Flags from "country-flag-icons/react/3x2";
 import { useState } from "react";
-
-//https://catamphetamine.gitlab.io/country-flag-icons/3x2/
+import { Button, Col, Row } from "react-bootstrap";
 
 const Biography = ({ author, show, fullscreen, setShow }) => {
   const [lang, setlang] = useState("FR");
@@ -11,8 +8,9 @@ const Biography = ({ author, show, fullscreen, setShow }) => {
     <>
       <Row className="mt-5 bio_transition justify-content-center ">
         <Col md={8} className="bio text-center no-upper">
-          {" "}
-          {lang === "FR" ? <p> {author.author_biography_fr} </p> : null}
+          {lang === "FR" ? (
+            <p className="lines_spaces"> {author.author_biography_fr} </p>
+          ) : null}
           {lang === "GB" ? <p> {author.author_biography_en} </p> : null}
         </Col>
       </Row>

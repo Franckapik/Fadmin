@@ -115,6 +115,10 @@ margin-bottom : 30px;
   width : 100%;
 }
 
+.lines_spaces {
+  white-space: pre-line;
+}
+
 .burger-menu .nav-item {
   width : 90%;
 }
@@ -321,7 +325,6 @@ margin-left: 5em;
 
 .bio {
   font-size: 1em;
-  line-height: 2.5em;
 }
 
 .sidebar_container {
