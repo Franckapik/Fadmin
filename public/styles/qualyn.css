@@ -64,6 +64,13 @@ body::-webkit-scrollbar-thumb {
   border: 3px solid rgb(253, 252, 251); /* creates padding around scroll thumb */
 }
 
+.blog_card {
+  padding: 0;
+  margin: auto;
+  height: 20vw;
+  width: 20vw;
+}
+
 
  
 .blogocontact {
@@ -646,4 +653,12 @@ z-index: -6;
     margin : 5vw 5vw 0vw 5vw;
   padding : 1em;
   }
+
+  .blog_card {
+    padding: 0;
+    margin: auto;
+    height: 80vw;
+    width: 80vw;
+  }
+
 }

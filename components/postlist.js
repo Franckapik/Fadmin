@@ -15,12 +15,8 @@ export const PostList = ({ postList }) => {
               <a href={`/blog/${a.post_id}`} key={"post" + i}>
                 <Card border="0" className="cursor m-3">
                   <Card.Body
-                    className="fade-short rounded no-hover"
+                    className="fade-short rounded no-hover blog_card"
                     style={{
-                      padding: 0,
-                      margin: "auto",
-                      height: "20vw",
-                      width: "20vw",
                       backgroundImage: `url("/blog/${a.post_image}")`,
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center center",
