@@ -14,7 +14,7 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
   };
 
   return (
-    <Container fluid className="d-flex justify-content-center flex-wrap ">
+    <Container className="d-flex justify-content-center flex-wrap ">
       {" "}
       {/*justify-content-between */}
       {mediasFiles && mediasFiles != 0

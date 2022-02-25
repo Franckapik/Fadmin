@@ -67,7 +67,7 @@ body::-webkit-scrollbar-thumb {
  
 .blogocontact {
   position: relative;
-  top: -30px;
+  top: -20px;
   width: 90%;
   margin : auto;
 }
@@ -174,11 +174,12 @@ h1:before {
 .sticker {
   font-family: 'Cormorant-Garamond', serif;
   position: fixed;
-  top : 50%;
+  bottom : 25vh;
+  transform-origin: top left;
   transform: rotate(-90deg);
   color: rgb(138, 141, 156);
   font-size: 2.5em;
-  left : -6vw
+  left: 0.8em;
 ;}
 
 .rotate {
