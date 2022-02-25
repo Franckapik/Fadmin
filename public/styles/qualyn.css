@@ -523,7 +523,7 @@ margin-left: 0.5em;
 
 .comment_row {
   border:1px solid rgba(0, 0, 0, 0.2);  
-  margin : 5em 15em 0em 15em;
+  margin : 5vw 15vw 0vw 15vw;
   border-radius: 0.2em;
 padding : 2em;
 background-color: rgba(252, 246, 250, 0.5); 
@@ -634,8 +634,8 @@ z-index: -6;
     font-size: 2em;
   }
 
-  .addcomment {
-    font-size: 0.6em;
-
+  .comment_row {
+    margin : 5vw 5vw 0vw 5vw;
+  padding : 1em;
   }
 }
