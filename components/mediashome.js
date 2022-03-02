@@ -1,11 +1,9 @@
 import { useRouter } from "next/router";
-import { Card, Carousel, Container, Figure, Row } from "react-bootstrap";
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import ReactPlayer from "react-player";
-import Link from "next/link";
 
-export const MediasHome = ({ mediasFiles, setShow, show }) => {
+export const MediasHome = ({ mediasFiles, setShow, show, db_home }) => {
   const router = useRouter();
 
   const [index, setIndex] = useState(0);
@@ -13,21 +11,22 @@ export const MediasHome = ({ mediasFiles, setShow, show }) => {
     setIndex(selectedIndex);
   };
 
+  console.log(db_home.home_video_url);
+
   return (
-    <Container fluid className="d-flex justify-content-center flex-wrap">
-      <>
+    <Container className="d-flex justify-content-center flex-wrap">
+      <div className="react-player-home fade_short no_hover">
         <ReactPlayer
-          className="react-player "
-          url={a.media_video}
-          width="100%"
-          height="20vw"
+          url={db_home.home_video_url}
           playing={true}
+          height="100%"
+          width="100%"
           volume={0}
           muted
           loop
           controls={false}
         />
-      </>
+      </div>
     </Container>
   );
 };

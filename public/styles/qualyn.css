@@ -91,7 +91,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 2em;
   position: fixed;
   right: 0.5em;
-  top : 0.8em;
+  top : 1em;
   z-index: 2;
 }
 
@@ -216,7 +216,7 @@ h2 {
 }
 
 h5 {
-  letter-spacing: 0.3em;
+  letter-spacing: 0.1em;
 }
 
 h7 {
@@ -229,7 +229,6 @@ h7 {
 
 .legend {
   font-size: 0.8em;
-  margin-top : 2vw;
 }
 
 
@@ -306,7 +305,7 @@ margin-left: 5em;
 
 .list-group-item {
   border: 0;
-  width: 33%;
+  margin : 0vw 2vw 1vw 2vw;
 }
 
 .list-group {
@@ -603,15 +602,16 @@ z-index: -6;
   font-size: 1em;
 }
 
+.react-player-home {
+  height: 65vh ;
+  width: 65vw ;
+}
 
 @media (max-width: 575.98px) { 
 
-  h1 {
-    padding-top: 2em;
-  }
 
   h1 img { 
-    width: 60vw;
+    width: 50vw;
   }
 
   h1:before, h1:after {
@@ -635,7 +635,13 @@ z-index: -6;
   }
 
   .react-player {
-    height: 40vh ! important;
+    height: 40vh !important;
+  }
+
+  .react-player-home {
+    padding-top: 25%;
+    height: auto;
+    width: 90vw ;
   }
 
   .legend {

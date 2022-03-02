@@ -41,18 +41,13 @@ export default function CarouselComp({ mediasFiles }) {
     <Container fluid className="text-center ">
       {mediaSelected && mediaSelected[0]?.media_video ? (
         <>
-          <Row className="mb-3">
-            <ListGroup
-              horizontal
-              className="mt-3 justify-content-center legend"
-            >
+          <Row>
+            <ListGroup horizontal className="legend justify-content-center">
               <ListGroup.Item>
-                {" "}
-                <small>{mediaSelected[0].category.category_name}</small>
+                <small>{mediaSelected[0].media_content}</small> /{" "}
+                <small>{mediaSelected[0].media_subtitle}</small>
               </ListGroup.Item>
-              <ListGroup.Item
-                style={{ paddingLeft: "1em", paddingRight: "1em" }}
-              >
+              <ListGroup.Item>
                 <strong>{mediaSelected[0].author.author_name}</strong>
               </ListGroup.Item>
               <ListGroup.Item>

@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Layout_Home({
   children,
@@ -25,6 +25,25 @@ export default function Layout_Home({
   const router = useRouter();
 
   const [isOpen, setOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const listenToScroll = () => {
+    let heightToHideFrom = 100;
+    const winScroll =
+      document.body.scrollTop || document.documentElement.scrollTop;
+
+    if (winScroll > heightToHideFrom) {
+      isVisible && // to limit setting state only the first time
+        setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", listenToScroll);
+    return () => window.removeEventListener("scroll", listenToScroll);
+  }, []);
 
   return (
     <>
@@ -82,13 +101,15 @@ export default function Layout_Home({
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <div className="burger d-xs-block d-sm-none">
-          {isOpen ? (
-            <i className="fal fa-times" onClick={() => setOpen(!isOpen)}></i>
-          ) : (
-            <i className="fal fa-bars" onClick={() => setOpen(!isOpen)}></i>
-          )}
-        </div>
+        {isVisible && (
+          <div className="burger d-xs-block d-sm-none">
+            {isOpen ? (
+              <i className="fal fa-times" onClick={() => setOpen(!isOpen)}></i>
+            ) : (
+              <i className="fal fa-bars" onClick={() => setOpen(!isOpen)}></i>
+            )}
+          </div>
+        )}
 
         <div className="paper"></div>
         <div className="shapes"></div>
