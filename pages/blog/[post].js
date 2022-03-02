@@ -151,6 +151,6 @@ export async function getServerSideProps({ params }) {
   const db_author = await prisma.author.findMany();
 
   return {
-    props: { db_post, db_author, post_length, db_authors },
+    props: { db_post, db_author, post_length },
   };
 }
