@@ -46,9 +46,13 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
     data.media_id = db_media.media_id || 0;
     data.media_category_id = parseInt(data.media_category_id); //integer issue
     data.media_author_id = parseInt(data.media_author_id); //integer issue
-    data.media_path = path + image.name.replace(/\.[^/.]+$/, "") + ".jpg";
 
-    uploadToServer(allFiles);
+    if (allFiles) {
+      data.media_path = path + image?.name.replace(/\.[^/.]+$/, "") + ".jpg"; //new upload
+      uploadToServer(allFiles);
+    } else {
+      data.media_path = db_media.media_path || 0; //original db
+    }
 
     await axios.post("/api/media/addMedia", data);
     router.push("/admin/media");
