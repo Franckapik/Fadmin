@@ -649,7 +649,10 @@ z-index: -6;
     letter-spacing: 2px;
   }
 
-
+  .list-group-item {
+    border: 0;
+    margin : 10vw 0vw 5vw 0vw;
+  }
 
   .quote-t, .quote-b {
     font-size: 2em;

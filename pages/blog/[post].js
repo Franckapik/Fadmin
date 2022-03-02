@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import prisma from "../../prisma/prisma";
 
-const Post = ({ db_post, post_length }) => {
+const Post = ({ db_post, post_length, db_author }) => {
   const [html, setHTML] = useState();
 
   const router = useRouter();
@@ -33,7 +33,7 @@ const Post = ({ db_post, post_length }) => {
   };
 
   return (
-    <Layout_Home>
+    <Layout_Home authors={db_author}>
       <Row>
         <h4 className="text-center">
           <Link href="/blog">Blog</Link>
@@ -151,6 +151,6 @@ export async function getServerSideProps({ params }) {
   const db_author = await prisma.author.findMany();
 
   return {
-    props: { db_post, db_author, post_length },
+    props: { db_post, db_author, post_length, db_authors },
   };
 }
