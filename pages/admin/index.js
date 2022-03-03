@@ -5,6 +5,7 @@ import Layout_Admin from "../../layouts/layout_admin";
 import prisma from "../../prisma/prisma";
 
 export default function Page({ db_medias, db_post, db_comment, db_author }) {
+  console.log(db_post);
   return (
     <Layout_Admin>
       <Row>
@@ -96,7 +97,7 @@ export default function Page({ db_medias, db_post, db_comment, db_author }) {
                         key={"a"}
                         dangerouslySetInnerHTML={{
                           __html:
-                            db_post[db_comment.length - 1].post_html.slice(
+                            db_post[db_post.length - 1].post_html.slice(
                               0,
                               200
                             ) + "[...]",
