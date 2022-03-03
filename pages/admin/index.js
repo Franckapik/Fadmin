@@ -1,17 +1,109 @@
-import { Button, Card, Col, Container, Nav, Row, Table } from "react-bootstrap";
-import Moment from "react-moment";
-import Sidebar from "../../components/sidebaradmin";
+import { useRouter } from "next/router";
+import { Button, Col, Form, InputGroup, Row, Table } from "react-bootstrap";
+import { Controller, useForm } from "react-hook-form";
 import Layout_Admin from "../../layouts/layout_admin";
 import prisma from "../../prisma/prisma";
+import axios from "axios";
+import { useState } from "react";
 
-export default function Page({ db_medias, db_post, db_comment, db_author }) {
-  console.log(db_post);
+export default function Page({
+  db_medias,
+  db_post,
+  db_comment,
+  db_author,
+  db_home,
+}) {
+  const {
+    setError,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+    getValues,
+  } = useForm({
+    defaultValues: {
+      home_video_url: db_home.home_video_url,
+    },
+  });
+
+  const [success, setSuccess] = useState(false);
+
+  const router = useRouter();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    await axios.post("/api/home/modifyVideo", data).then(
+      (response) => {
+        console.log(response);
+        setSuccess(true);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
   return (
     <Layout_Admin>
       <Row>
         <Col id="page-content-wrapper">
           <main>
             <h2>Qualyn Dashboard</h2>
+            <Row>
+              <Table striped borderless hover className="mt-5">
+                <thead>
+                  <tr>
+                    <th>Accueil</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr key={"db_home"}>
+                    <td key={"video_url"}>
+                      {" "}
+                      <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="db_home_home_video_url"
+                        >
+                          <Form.Label>Lien vidéo</Form.Label>
+                          <InputGroup>
+                            <Controller
+                              control={control}
+                              name="home_video_url"
+                              render={({
+                                field: { onChange, onBlur, value, ref },
+                              }) => (
+                                <Form.Control
+                                  onChange={onChange}
+                                  value={value}
+                                  ref={ref}
+                                  isInvalid={errors.home_video_url}
+                                  placeholder="Url of media home"
+                                />
+                              )}
+                            />
+                            <Button
+                              variant={success ? "success" : "primary"}
+                              type="submit"
+                            >
+                              Valider
+                            </Button>
+                          </InputGroup>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.home_video_url?.message}
+                          </Form.Control.Feedback>
+                          {success ? (
+                            <div className="pt-2">
+                              Le nouveau lien à bien été pris en compte !
+                            </div>
+                          ) : null}
+                        </Form.Group>
+                      </Form>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Row>
             <Row>
               <Table striped borderless hover className="mt-5">
                 <thead>
@@ -133,6 +225,11 @@ export async function getServerSideProps(context) {
   const db_post = JSON.parse(db_post_s); //serialize issue
 
   const db_author = await prisma.author.findMany();
+  const db_home = await prisma.home.findUnique({
+    where: {
+      home_id: 1,
+    },
+  });
 
   const db_comment_0 = await prisma.comment.findMany({
     include: {
@@ -144,6 +241,6 @@ export async function getServerSideProps(context) {
   const db_comment = JSON.parse(db_comment_s); //serialize issue
 
   return {
-    props: { db_medias, db_post, db_comment, db_author },
+    props: { db_medias, db_post, db_comment, db_author, db_home },
   };
 }
