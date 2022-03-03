@@ -7,8 +7,15 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { traverse } from "fs-tree-utils";
 
-const MediaAdmin = ({ db_media, db_category, db_author, db_medias }) => {
+const MediaAdmin = ({
+  db_media,
+  db_category,
+  db_author,
+  db_medias,
+  folders,
+}) => {
   const {
     setError,
     handleSubmit,
@@ -478,7 +485,13 @@ export async function getServerSideProps({ params }) {
   const db_author = await prisma.author.findMany();
   const db_medias = await prisma.media.findMany();
 
+  const deep = ({ item }) => item !== "Old";
+  const files0 = await traverse("." + process.env.medias_folder, { deep });
+  const containers = files0.map((a, i) => a.container);
+  const folders = [...new Set(containers)];
+  console.log(folders);
+
   return {
-    props: { db_media, db_category, db_author, db_medias },
+    props: { db_media, db_category, db_author, db_medias, folders },
   };
 }

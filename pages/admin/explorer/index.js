@@ -140,7 +140,6 @@ export async function getServerSideProps(ctx) {
   const files0 = await traverse("." + process.env.medias_folder, { deep });
   const f1 = JSON.stringify(files0);
   const files = JSON.parse(f1); //serialize issue
-
   return {
     props: { db_media, files: files },
   };
