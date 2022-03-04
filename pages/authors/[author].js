@@ -84,7 +84,7 @@ export async function getServerSideProps({ params, query }) {
 
   const mediasFiles = await Promise.all(
     db_medias.map(async (a, i) => {
-      const pathFolder = `${process.env.medias_folder}/${params?.author}/${a.media_folder}`;
+      const pathFolder = `${process.env.medias_folder}/${params?.author}/${a.media_folder}`; //change path with media_path directly and operation in array reduce
       const absoluteFolder = path.join(
         getConfig().serverRuntimeConfig.PROJECT_ROOT,
         pathFolder
