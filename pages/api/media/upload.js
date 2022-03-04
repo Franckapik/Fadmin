@@ -1,33 +1,10 @@
-import nextConnect from "next-connect";
-import multer from "multer";
 import fs from "fs";
+import multer from "multer";
+import nextConnect from "next-connect";
 import sharp from "sharp";
-import { resolve } from "path";
-import { rejects } from "assert";
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      console.log(
-        "Receveid: " + file.originalname + " Destination: " + req.body.path
-      );
-
-      //constructing path
-      const { chemin } = req.body;
-      const oldDir = "./public/medias/Old/";
-      const dir = `./public${chemin}/`;
-
-      //creating folder according to new path
-      try {
-        if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-      //creating file in old path to be converted next
-      cb(null, oldDir);
-    },
     filename: (req, file, cb) => cb(null, file.originalname),
   }),
 });

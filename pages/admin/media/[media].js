@@ -60,7 +60,6 @@ const MediaAdmin = ({
     Object.keys(files).map((i) => {
       body.append("file", files[i]);
     });
-    body.append("chemin", allFields.media_folder);
     return await axios.post("/api/media/upload", body).then(
       (response) => {
         console.log(response);
