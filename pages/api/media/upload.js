@@ -2,6 +2,8 @@ import nextConnect from "next-connect";
 import multer from "multer";
 import fs from "fs";
 import sharp from "sharp";
+import { resolve } from "path";
+import { rejects } from "assert";
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -47,28 +49,31 @@ apiRoute.use(upload.array("file"));
 apiRoute.post((req, res) => {
   //creating new file path
   //resizing and converting to jpg in new path
-  req.files.map((a, i) => {
-    const newFile = `./public${req.body.path}/${a.filename}`;
+  Promise.all(
+    //How to return all responses here ?
+    req.files.map((a, i) => {
+      const newFile = `./public${req.body.path}/${a.filename}`;
+      console.log("Converting " + a.filename + " ...");
 
-    /*  console.log(req.files); */ //to have all informations
-    console.log("Converting " + a.filename + " ...");
+      /*  console.log(req.files); */ //to have all informations
 
-    sharp(a.path)
-      .resize(1000)
-      .jpeg({ mozjpeg: true, progressive: true })
-      .toFile(newFile)
-      .then((data) => {
-        data.newFile = newFile;
-        console.log("Converted: " + newFile);
-        /*         res.status(200).json(data);
-         */
-      })
-      .catch((err) => {
-        console.log(err);
-        /*         res.status(500).json(err);
-         */
-      });
-  });
+      sharp(a.path)
+        .resize(1000)
+        .jpeg({ mozjpeg: true, progressive: true })
+        .toFile(newFile)
+        .then((data) => {
+          data.newFile = newFile;
+          console.log("Converted: " + newFile);
+          return data;
+        })
+        .catch((err) => {
+          console.log(err);
+          return err;
+        });
+    })
+  )
+    .then((values) => res.status(200).json(values))
+    .catch((err) => res.status(500).json(err));
 });
 
 export default apiRoute;
