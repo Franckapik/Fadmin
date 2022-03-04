@@ -62,11 +62,9 @@ const MediaAdmin = ({
     });
     return await axios.post("/api/media/upload", body).then(
       (response) => {
-        console.log(response);
         return response;
       },
       (error) => {
-        console.log(error);
         return error;
       }
     );
@@ -91,21 +89,28 @@ const MediaAdmin = ({
     data.media_author_id = parseInt(data.media_author_id); //integer issue
 
     if (filesSelected) {
-      uploadToServer(filesSelected).then((response) => {
-        /*         data.media_path = response.data.newFile;
-         console.log(data.media_path);*/
-      }),
-        (error) => {
+      await uploadToServer(filesSelected)
+        .then((response) => {
+          data.media_path = response.data[0].newFile;
+          console.log(data.media_path);
+        })
+        .catch((error) => {
           console.log(error);
-        };
-      /*       data.media_path = path + image?.name.replace(/\.[^/.]+$/, "") + ".jpg"; //new upload
-       */
+        });
     } else {
       data.media_path = db_media.media_path || 0; //original db
     } /* router.push("/admin/media"); */
 
-    /*     await axios.post("/api/media/addMedia", data);
-     */
+    console.log(data);
+
+    await axios.post("/api/media/addMedia", data).then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
 
   // a là! C'est quoi path et image ? faire plus simple

@@ -12,6 +12,8 @@ export default async (req, res) => {
 
   data.media_id = data.media_id || lastId + 1;
 
+  console.log(data);
+
   try {
     const result = await prisma.media.upsert({
       where: {
