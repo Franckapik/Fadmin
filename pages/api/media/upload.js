@@ -6,15 +6,16 @@ import sharp from "sharp";
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      const { path } = req.body;
+      console.log(
+        "Receveid: " + file.originalname + " Destination: " + req.body.path
+      );
+
+      //constructing path
+      const { chemin } = req.body;
       const oldDir = "./public/medias/Old/";
-      const dir = `./public/${path}`;
+      const dir = `./public${chemin}/`;
 
-      req.oldImage = oldDir + file.originalname;
-      req.dir = dir;
-      req.oldDir = oldDir;
-      req.filename = file.originalname.replace(/\.[^/.]+$/, "");
-
+      //creating folder according to new path
       try {
         if (!fs.existsSync(dir)) {
           fs.mkdirSync(dir);
@@ -22,6 +23,7 @@ const upload = multer({
       } catch (err) {
         console.error(err);
       }
+      //creating file in old path to be converted next
       cb(null, oldDir);
     },
     filename: (req, file, cb) => cb(null, file.originalname),
@@ -33,6 +35,7 @@ const apiRoute = nextConnect({
     res.status(501).json({
       error: `Sorry something happened on the upload middleware! ${error.message}`,
     });
+    console.log(error);
   },
   onNoMatch(req, res) {
     res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
@@ -42,14 +45,30 @@ const apiRoute = nextConnect({
 apiRoute.use(upload.array("file"));
 
 apiRoute.post((req, res) => {
-  sharp(req.oldImage)
-    .resize(1000)
-    .jpeg({ mozjpeg: true, progressive: true })
-    .toFile(req.dir + req.filename + ".jpg")
-    .then((data) => {
-      res.status(200).json({ data: "success" });
-    })
-    .catch((err) => {});
+  //creating new file path
+  //resizing and converting to jpg in new path
+  req.files.map((a, i) => {
+    const newFile = `./public${req.body.path}/${a.filename}`;
+
+    /*  console.log(req.files); */ //to have all informations
+    console.log("Converting " + a.filename + " ...");
+
+    sharp(a.path)
+      .resize(1000)
+      .jpeg({ mozjpeg: true, progressive: true })
+      .toFile(newFile)
+      .then((data) => {
+        data.newFile = newFile;
+        console.log("Converted: " + newFile);
+        /*         res.status(200).json(data);
+         */
+      })
+      .catch((err) => {
+        console.log(err);
+        /*         res.status(500).json(err);
+         */
+      });
+  });
 });
 
 export default apiRoute;

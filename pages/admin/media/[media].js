@@ -43,55 +43,75 @@ const MediaAdmin = ({
   });
 
   const [image, setImage] = useState(null);
-  const [createObjectURL, setCreateObjectURL] = useState(null);
-  const [newFolder, setNewFolder] = useState(false);
-  const [allFiles, setAllFiles] = useState(false);
+  const [filesSelected, setfilesSelected] = useState(false);
   const [path, setPath] = useState(false);
   const router = useRouter();
 
-  const onSubmit = async (data) => {
-    data.media_id = db_media.media_id || 0;
-    data.media_category_id = parseInt(data.media_category_id); //integer issue
-    data.media_author_id = parseInt(data.media_author_id); //integer issue
-
-    if (allFiles) {
-      data.media_path = path + image?.name.replace(/\.[^/.]+$/, "") + ".jpg"; //new upload
-      uploadToServer(allFiles);
-    } else {
-      data.media_path = db_media.media_path || 0; //original db
-    }
-
-    await axios.post("/api/media/addMedia", data);
-    router.push("/admin/media");
-  };
   const allFields = watch();
 
+  //refaire d'ici
   useEffect(() => {
     setPath(`/medias/${allFields.media_author_id}/${allFields.media_folder}/`);
   }, [allFields]);
 
   const uploadToServer = async (files) => {
     const body = new FormData();
-
-    body.append("path", path);
+    body.append("path", allFields.media_folder);
     Object.keys(files).map((i) => {
       body.append("file", files[i]);
     });
 
-    body.append("file", image);
-    body.append("path", path);
-    await axios.post("/api/media/upload", body);
+    /*     body.append("file", image);
+     */ body.append("chemin", allFields.media_folder);
+    return await axios.post("/api/media/upload", body).then(
+      (response) => {
+        console.log(response);
+        return response;
+      },
+      (error) => {
+        console.log(error);
+        return error;
+      }
+    );
   };
 
-  const uploadToClient = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
+  const onChangeFiles = (event) => {
+    //when selecting files on local
+    const e = event.target.files;
 
-      setImage(i);
-      setCreateObjectURL(URL.createObjectURL(i));
-      setAllFiles(event.target.files);
+    if (e && e[0]) {
+      setImage(e);
+      console.log(e);
+      setfilesSelected(event.target.files);
+    } else {
+      console.log("No file selected");
     }
   };
+
+  const onSubmit = async (data) => {
+    data.media_id = db_media.media_id || 0; //id
+    data.media_category_id = parseInt(data.media_category_id); //integer issue
+    data.media_author_id = parseInt(data.media_author_id); //integer issue
+
+    if (filesSelected) {
+      uploadToServer(filesSelected).then((response) => {
+        /*         data.media_path = response.data.newFile;
+         console.log(data.media_path);*/
+      }),
+        (error) => {
+          console.log(error);
+        };
+      /*       data.media_path = path + image?.name.replace(/\.[^/.]+$/, "") + ".jpg"; //new upload
+       */
+    } else {
+      data.media_path = db_media.media_path || 0; //original db
+    } /* router.push("/admin/media"); */
+
+    /*     await axios.post("/api/media/addMedia", data);
+     */
+  };
+
+  // a là! C'est quoi path et image ? faire plus simple
 
   return (
     <Layout_Admin>
@@ -138,17 +158,14 @@ const MediaAdmin = ({
                   <Form.Control
                     type="file"
                     multiple
-                    onChange={uploadToClient}
+                    onChange={onChangeFiles}
                     ref={ref}
                     isInvalid={errors.media_photo}
                     placeholder="Enter photography"
                   />
                 )}
               />
-              <small>
-                {path}
-                {image?.name}
-              </small>
+              <small>{allFields.media_photo}</small>
 
               <Form.Control.Feedback type="invalid">
                 {errors.media_photo?.message}
@@ -265,60 +282,32 @@ const MediaAdmin = ({
               </Form.Control.Feedback>
             </Form.Group>
 
-            {newFolder ? (
-              <Form.Group className="mb-3" controlId="media_folder_id">
-                <Form.Label>Nom du dossier</Form.Label>
-                <InputGroup>
-                  <Controller
-                    control={control}
-                    name="media_folder"
-                    defaultValue=""
-                    render={({ field: { onChange, onBlur, value, ref } }) => (
-                      <Form.Control
-                        onChange={onChange}
-                        value={value}
-                        ref={ref}
-                        isInvalid={errors.media_folder}
-                        placeholder="Enter folder name of the media"
-                      />
-                    )}
-                  />
-                  <Button onClick={() => setNewFolder(false)}>Selection</Button>
-                </InputGroup>
-                <Form.Control.Feedback type="invalid">
-                  {errors.media_folder?.message}
-                </Form.Control.Feedback>
-              </Form.Group>
-            ) : (
-              <Form.Group className="mb-3" controlId="media_folder_id">
-                <Form.Label>Selection du dossier</Form.Label>
-                <InputGroup>
-                  <Controller
-                    control={control}
-                    name="media_folder"
-                    defaultValue=""
-                    render={({ field: { onChange, onBlur, value, ref } }) => (
-                      <Form.Select
-                        onChange={onChange}
-                        value={value}
-                        ref={ref}
-                        isInvalid={errors.media_folder}
-                      >
-                        {db_medias.map((a, i) => (
-                          <option key={"media" + i} value={a.media_folder}>
-                            {a.media_folder}
-                          </option>
-                        ))}
-                      </Form.Select>
-                    )}
-                  />
-                  <Button onClick={() => setNewFolder(true)}>Nouveau</Button>
-                </InputGroup>
-                <Form.Control.Feedback type="invalid">
-                  {errors.media_folder?.message}
-                </Form.Control.Feedback>
-              </Form.Group>
-            )}
+            <Form.Group className="mb-3" controlId="media_folder_id">
+              <Form.Label>Selection du dossier</Form.Label>
+
+              <Controller
+                control={control}
+                name="media_folder"
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <Form.Select
+                    onChange={onChange}
+                    value={value}
+                    ref={ref}
+                    isInvalid={errors.media_folder}
+                  >
+                    {folders.map((a, i) => (
+                      <option key={"folder" + i} value={a}>
+                        {a}
+                      </option>
+                    ))}
+                  </Form.Select>
+                )}
+              />
+
+              <Form.Control.Feedback type="invalid">
+                {errors.media_folder?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
 
             <Form.Group className="mb-3" controlId="media_subtitle_id">
               <Form.Label>Sous-titres</Form.Label>
@@ -442,11 +431,15 @@ const MediaAdmin = ({
         <Col>
           <Card>
             <Row className="text-center">
-              <Card.Img
+              {/* <Card.Img
                 variant="top"
                 className="mx-auto"
-                src={allFields.media_path || createObjectURL}
-              ></Card.Img>
+                src={
+                 allFields.media_path ||  URL.createObjectURL(
+                    filesSelected[0]
+                  ) 
+                }
+              ></Card.Img>*/}
 
               {allFields.media_title ? (
                 <Card.Title className="mt-4">
@@ -455,6 +448,11 @@ const MediaAdmin = ({
               ) : null}
               {allFields.media_content ? (
                 <Card.Text>
+                  <h5>
+                    {" "}
+                    {allFields.media_folder + "/" + allFields.media_photo}{" "}
+                    {/* entire path from form */}
+                  </h5>
                   <h6>{allFields.media_subtitle}</h6>
                   <hr></hr>
                   <h6>{allFields.media_content}</h6>
@@ -487,9 +485,10 @@ export async function getServerSideProps({ params }) {
 
   const deep = ({ item }) => item !== "Old";
   const files0 = await traverse("." + process.env.medias_folder, { deep });
-  const containers = files0.map((a, i) => a.container);
+  const containers = files0.map((a, i) =>
+    a.container.slice(a.container.lastIndexOf("/medias"))
+  );
   const folders = [...new Set(containers)];
-  console.log(folders);
 
   return {
     props: { db_media, db_category, db_author, db_medias, folders },
