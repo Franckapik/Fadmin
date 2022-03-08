@@ -1,10 +1,10 @@
-import { Button, Modal, Row } from "react-bootstrap";
-import Layout_Admin from "../../../layouts/layout_admin";
-import { CardAdmin } from "../../../components/cardadmin";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
-
+import { Button, Modal, Row } from "react-bootstrap";
+import { AlertValidation } from "../../../components/alertValidation";
+import { CardAdmin } from "../../../components/cardadmin";
+import Layout_Admin from "../../../layouts/layout_admin";
 import prisma from "../../../prisma/prisma";
 
 const CategoryPage = ({ db_category }) => {
@@ -12,6 +12,7 @@ const CategoryPage = ({ db_category }) => {
   const [selected, setSelected] = useState(false);
 
   const router = useRouter();
+  const { operation, type, value } = router.query;
 
   const onDelete = async (data) => {
     await axios.post("/api/category/deleteCategory", { id: data });
@@ -21,6 +22,12 @@ const CategoryPage = ({ db_category }) => {
 
   return (
     <Layout_Admin title={"Categories"}>
+      <AlertValidation
+        operation={operation}
+        value={value}
+        type={type}
+      ></AlertValidation>
+
       <Row xs={1} md={4} className="g-4" key={"addForm"}>
         <CardAdmin
           title={"Ajouter une catégorie"}

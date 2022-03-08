@@ -4,6 +4,7 @@ import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 import { Row } from "react-bootstrap";
 import "react-folder-tree/dist/style.css";
+import { AlertValidation } from "../../../components/alertValidation";
 import Layout_Admin from "../../../layouts/layout_admin";
 
 import prisma from "../../../prisma/prisma";
@@ -14,6 +15,7 @@ const DynamicFileTreeImport = dynamic(() => import("react-folder-tree"), {
 
 const ExplorerPage = ({ files }) => {
   const router = useRouter();
+  const { operation, type, value } = router.query;
 
   function getlastValue(arr, path, i) {
     if (i < path.length - 1) {
@@ -115,6 +117,12 @@ const ExplorerPage = ({ files }) => {
 
   return (
     <Layout_Admin title={"Medias"}>
+      <AlertValidation
+        operation={operation}
+        value={value}
+        type={type}
+      ></AlertValidation>
+
       <Row className="no-upper">
         <DynamicFileTreeImport
           data={tree}

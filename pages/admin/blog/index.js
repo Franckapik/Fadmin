@@ -8,11 +8,13 @@ import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 
 import prisma from "../../../prisma/prisma";
+import { AlertValidation } from "../../../components/alertValidation";
 const BlogPage = ({ db_post }) => {
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState(false);
 
   const router = useRouter();
+  const { operation, type, value } = router.query;
 
   const onDelete = async (data) => {
     await axios.post("/api/blog/deletePost", { id: data });
@@ -22,6 +24,11 @@ const BlogPage = ({ db_post }) => {
 
   return (
     <Layout_Admin title={"Blog"}>
+      <AlertValidation
+        operation={operation}
+        value={value}
+        type={type}
+      ></AlertValidation>
       <Row xs={1} md={4} className="g-4" key="MedList">
         <CardAdmin
           title={"Ajouter un article"}

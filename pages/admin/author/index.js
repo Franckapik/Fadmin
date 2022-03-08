@@ -6,12 +6,14 @@ import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 
 import prisma from "../../../prisma/prisma";
+import { AlertValidation } from "../../../components/alertValidation";
 
 const AuthorPage = ({ db_author, user }) => {
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState(false);
 
   const router = useRouter();
+  const { operation, type, value } = router.query;
 
   const onDelete = async (data) => {
     await axios.post("/api/author/deleteAuthor", { id: data });
@@ -21,6 +23,12 @@ const AuthorPage = ({ db_author, user }) => {
 
   return (
     <Layout_Admin title={"Authors"}>
+      <AlertValidation
+        operation={operation}
+        value={value}
+        type={type}
+      ></AlertValidation>
+
       <Row xs={1} md={4} className="g-4">
         <CardAdmin
           title={"Ajouter un artiste"}

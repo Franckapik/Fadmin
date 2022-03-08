@@ -3,6 +3,7 @@ import { useRouter } from "next/dist/client/router";
 import "quill/dist/quill.snow.css";
 import { useState } from "react";
 import { Button, Modal, Row } from "react-bootstrap";
+import { AlertValidation } from "../../../components/alertValidation";
 import { CardAdmin } from "../../../components/cardadmin";
 import Layout_Admin from "../../../layouts/layout_admin";
 import prisma from "../../../prisma/prisma";
@@ -12,6 +13,7 @@ const CommentPage = ({ db_comment }) => {
   const [selected, setSelected] = useState(false);
 
   const router = useRouter();
+  const { operation, type, value } = router.query;
 
   const onDelete = async (data) => {
     await axios.comment("/api/comment/deletecomment", { id: data });
@@ -21,6 +23,11 @@ const CommentPage = ({ db_comment }) => {
 
   return (
     <Layout_Admin title={"Comments"}>
+      <AlertValidation
+        operation={operation}
+        value={value}
+        type={type}
+      ></AlertValidation>
       <Row xs={1} md={4} className="g-4" key="ComList">
         <CardAdmin
           title={"Ajouter un commentaire"}

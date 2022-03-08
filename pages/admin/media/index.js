@@ -1,12 +1,11 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import { Button, Modal, Row } from "react-bootstrap";
+import { AlertValidation } from "../../../components/alertValidation";
 import { CardAdmin } from "../../../components/cardadmin";
 import Layout_Admin from "../../../layouts/layout_admin";
 import prisma from "../../../prisma/prisma";
-import { AlertValidation } from "../../../components/alertValidation";
 
 const MediaPage = ({ db_media }) => {
   const [show, setShow] = useState(false);
