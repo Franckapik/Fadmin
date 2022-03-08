@@ -11,6 +11,9 @@ export default async (req, res) => {
     });
     res.status(200).json(deletePost);
   } catch (err) {
-    res.status(403).json({ err: "Error occured while deleting a post." });
+    console.log(err);
+    res
+      .status(403)
+      .json({ err: "Error occured while deleting a post : " + err });
   }
 };
