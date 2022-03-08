@@ -1,19 +1,19 @@
-import { faCheck, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
-import { Alert, Button, Modal, Row } from "react-bootstrap";
+import { Button, Modal, Row } from "react-bootstrap";
 import { CardAdmin } from "../../../components/cardadmin";
 import Layout_Admin from "../../../layouts/layout_admin";
 import prisma from "../../../prisma/prisma";
+import { AlertValidation } from "../../../components/alertValidation";
 
 const MediaPage = ({ db_media }) => {
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState(false);
   const router = useRouter();
 
-  const { success, deleted } = router.query;
+  const { operation, type, value } = router.query;
   const [alert, setAlert] = useState(true);
 
   const onDelete = async (data) => {
@@ -22,7 +22,10 @@ const MediaPage = ({ db_media }) => {
       .then((response) => {
         console.log(response);
         setShow(!show);
-        router.push("/admin/media?deleted=" + response.data.media_title);
+        router.push(
+          "/admin/media?operation=supprimé&type=media&value=" +
+            response.data.media_title
+        );
       })
       .catch((err) => console.log(err));
   };
@@ -30,26 +33,11 @@ const MediaPage = ({ db_media }) => {
   return (
     <Layout_Admin title={"Medias"}>
       <Row>
-        {success && alert ? (
-          <Alert
-            variant={"success"}
-            onClose={() => setAlert(false)}
-            dismissible
-          >
-            <div>
-              <FontAwesomeIcon icon={faCheck} width="2em" /> Ajout/Modification
-              du media {success}
-            </div>
-          </Alert>
-        ) : null}
-        {deleted && alert ? (
-          <Alert variant={"danger"} onClose={() => setAlert(false)} dismissible>
-            <div>
-              <FontAwesomeIcon icon={faTrash} width="2em" /> Le media {deleted}{" "}
-              a été supprimé.
-            </div>
-          </Alert>
-        ) : null}
+        <AlertValidation
+          operation={operation}
+          value={value}
+          type={type}
+        ></AlertValidation>
       </Row>
       <Row xs={1} md={4} className="g-4" key="MedList">
         <CardAdmin

@@ -93,7 +93,10 @@ const MediaAdmin = ({
     await axios.post("/api/media/addMedia", data).then(
       (response) => {
         console.log(response);
-        router.push("/admin/media?success=" + response.data.media_title);
+        router.push(
+          "/admin/media?operation=ajouté&type=media&value=" +
+            response.data.media_title
+        );
       },
       (error) => {
         console.log(error);
