@@ -69,6 +69,14 @@ export default function Page({
                           <InputGroup>
                             <Controller
                               control={control}
+                              rules={{
+                                required: "Ce champ est manquant",
+                                maxLength: {
+                                  value: 200,
+                                  message:
+                                    "Ce champ contient trop de caractères",
+                                },
+                              }}
                               name="home_video_url"
                               render={({
                                 field: { onChange, onBlur, value, ref },

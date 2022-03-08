@@ -92,6 +92,13 @@ const PostAdmin = ({ db_post, db_author }) => {
               <Form.Label>Titre de l&apos;article</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                  maxLength: {
+                    value: 200,
+                    message: "Ce champ contient trop de caractères",
+                  },
+                }}
                 name="post_title"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -136,6 +143,8 @@ const PostAdmin = ({ db_post, db_author }) => {
                 <div ref={quillRef} />
               </div>
               <Form.Control.Feedback type="invalid">
+                {" "}
+                {/* no validation */}
                 {errors.post_content?.message}
               </Form.Control.Feedback>
             </Form.Group>
@@ -144,6 +153,13 @@ const PostAdmin = ({ db_post, db_author }) => {
               <Form.Label>Auteur</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                  maxLength: {
+                    value: 200,
+                    message: "Ce champ contient trop de caractères",
+                  },
+                }}
                 name="post_author_id"
                 defaultValue={1}
                 render={({ field: { onChange, onBlur, value, ref } }) => (

@@ -61,6 +61,13 @@ export const ContactForm = ({ db_authors }) => {
                 <Form.Label>Name</Form.Label>
                 <Controller
                   control={control}
+                  rules={{
+                    required: "Ce champ est manquant",
+                    maxLength: {
+                      value: 200,
+                      message: "Ce champ contient trop de caractères",
+                    },
+                  }}
                   name="mail_author"
                   defaultValue=""
                   render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -81,6 +88,13 @@ export const ContactForm = ({ db_authors }) => {
                 <Form.Label>Email</Form.Label>
                 <Controller
                   control={control}
+                  rules={{
+                    required: "Ce champ est manquant",
+                    pattern: {
+                      value: "^w+([-+.']w+)*@w+([-.]w+)*.w+([-.]w+)*$",
+                      message: "Un email est requis",
+                    },
+                  }}
                   name="mail_email"
                   defaultValue=""
                   render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -102,6 +116,13 @@ export const ContactForm = ({ db_authors }) => {
                 <Form.Label>Your message</Form.Label>
                 <Controller
                   control={control}
+                  rules={{
+                    required: "Ce champ est manquant",
+                    maxLength: {
+                      value: 4000,
+                      message: "Ce champ contient trop de caractères",
+                    },
+                  }}
                   name="mail_content"
                   defaultValue=""
                   render={({ field: { onChange, onBlur, value, ref } }) => (

@@ -123,6 +123,13 @@ const MediaAdmin = ({
               <Form.Label>Titre du media</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                  maxLength: {
+                    value: 200,
+                    message: "Ce champ contient trop de caractères",
+                  },
+                }}
                 name="media_title"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -169,6 +176,12 @@ const MediaAdmin = ({
               <Form.Label>Video/Sound</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  maxLength: {
+                    value: 200,
+                    message: "Ce champ contient trop de caractères",
+                  },
+                }}
                 name="media_video"
                 defaultValue="video"
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -189,6 +202,13 @@ const MediaAdmin = ({
               <Form.Label>Contenu</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                  maxLength: {
+                    value: 200,
+                    message: "Ce champ contient trop de caractères",
+                  },
+                }}
                 name="media_content"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -210,6 +230,13 @@ const MediaAdmin = ({
               <Form.Label>Lien</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                  maxLength: {
+                    value: 200,
+                    message: "Ce champ contient trop de caractères",
+                  },
+                }}
                 name="media_link"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -231,6 +258,12 @@ const MediaAdmin = ({
               <Form.Label>Partage</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  maxLength: {
+                    value: 200,
+                    message: "Ce champ contient trop de caractères",
+                  },
+                }}
                 name="media_share"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -252,6 +285,9 @@ const MediaAdmin = ({
               <Form.Label>Categorie</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                }}
                 name="media_category_id"
                 defaultValue={1}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -280,6 +316,9 @@ const MediaAdmin = ({
 
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                }}
                 name="media_folder"
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Select
@@ -306,6 +345,13 @@ const MediaAdmin = ({
               <Form.Label>Sous-titres</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                  maxLength: {
+                    value: 100,
+                    message: "Ce champ contient trop de caractères",
+                  },
+                }}
                 name="media_subtitle"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -327,6 +373,9 @@ const MediaAdmin = ({
               <Form.Label>Auteur</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                }}
                 name="media_author_id"
                 defaultValue={1}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -362,7 +411,7 @@ const MediaAdmin = ({
                     value={value}
                     defaultChecked={db_media.media_home}
                     ref={ref}
-                    isInvalid={errors.media_draft}
+                    isInvalid={errors.media_home}
                     placeholder="home media"
                   />
                 )}
@@ -406,7 +455,7 @@ const MediaAdmin = ({
                     value={value}
                     defaultChecked={db_media.media_large}
                     ref={ref}
-                    isInvalid={errors.media_draft}
+                    isInvalid={errors.media_large}
                     placeholder="width of the media"
                   />
                 )}

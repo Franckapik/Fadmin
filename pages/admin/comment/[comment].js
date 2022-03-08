@@ -95,6 +95,13 @@ const CommentAdmin = ({ db_comment, db_author }) => {
               <Form.Label>Auteur du commentaire</Form.Label>
               <Controller
                 control={control}
+                rules={{
+                  required: "Ce champ est manquant",
+                  maxLength: {
+                    value: 200,
+                    message: "Ce champ contient trop de caractères",
+                  },
+                }}
                 name="comment_author"
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (

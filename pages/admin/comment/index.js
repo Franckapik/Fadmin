@@ -17,7 +17,7 @@ const CommentPage = ({ db_comment }) => {
 
   const onDelete = async (data) => {
     await axios
-      .comment("/api/comment/deletecomment", { id: data })
+      .post("/api/comment/deleteComment", { id: data })
       .then((response) => {
         console.log(response);
         setShow(!show);

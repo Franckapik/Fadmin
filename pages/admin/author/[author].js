@@ -56,6 +56,13 @@ const AuthorAdmin = ({ db_author }) => {
           <Form.Label>Nom de l&apos;artiste</Form.Label>
           <Controller
             control={control}
+            rules={{
+              required: "Ce champ est manquant",
+              maxLength: {
+                value: 200,
+                message: "Ce champ contient trop de caractères",
+              },
+            }}
             name="author_name"
             defaultValue=""
             render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -77,6 +84,13 @@ const AuthorAdmin = ({ db_author }) => {
           <Form.Label>Domaine artistique</Form.Label>
           <Controller
             control={control}
+            rules={{
+              required: "Ce champ est manquant",
+              maxLength: {
+                value: 80,
+                message: "Ce champ contient trop de caractères",
+              },
+            }}
             name="author_art"
             defaultValue=""
             render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -98,6 +112,13 @@ const AuthorAdmin = ({ db_author }) => {
           <Form.Label>Biographie (FR)</Form.Label>
           <Controller
             control={control}
+            rules={{
+              required: "Ce champ est manquant",
+              maxLength: {
+                value: 5000,
+                message: "Ce champ contient trop de caractères",
+              },
+            }}
             name="author_biography_fr"
             defaultValue=""
             render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -121,6 +142,13 @@ const AuthorAdmin = ({ db_author }) => {
           <Form.Label>Biography (EN)</Form.Label>
           <Controller
             control={control}
+            rules={{
+              required: "Ce champ est manquant",
+              maxLength: {
+                value: 5000,
+                message: "Ce champ contient trop de caractères",
+              },
+            }}
             name="author_biography_en"
             defaultValue=""
             render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -187,7 +215,7 @@ const AuthorAdmin = ({ db_author }) => {
           <Controller
             control={control}
             name="author_draft"
-            defaultValue="true"
+            defaultValue={false}
             render={({ field: { onChange, onBlur, value, ref } }) => (
               <Form.Check
                 type={"checkbox"}
@@ -208,6 +236,13 @@ const AuthorAdmin = ({ db_author }) => {
           <Form.Label>E-mail</Form.Label>
           <Controller
             control={control}
+            rules={{
+              required: "Ce champ est manquant",
+              pattern: {
+                value: "^w+([-+.']w+)*@w+([-.]w+)*.w+([-.]w+)*$",
+                message: "Un email est requis",
+              },
+            }}
             name="author_email"
             defaultValue=""
             render={({ field: { onChange, onBlur, value, ref } }) => (

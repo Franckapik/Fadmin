@@ -54,6 +54,13 @@ const CategoryAdmin = ({ db_category, db_author }) => {
           <Form.Label>Nom de categorie</Form.Label>
           <Controller
             control={control}
+            rules={{
+              required: "Ce champ est manquant",
+              maxLength: {
+                value: 200,
+                message: "Ce champ contient trop de caractères",
+              },
+            }}
             name="category_name"
             defaultValue=""
             render={({ field: { onChange, onBlur, value, ref } }) => (
@@ -75,6 +82,13 @@ const CategoryAdmin = ({ db_category, db_author }) => {
           <Form.Label>Description</Form.Label>
           <Controller
             control={control}
+            rules={{
+              required: "Ce champ est manquant",
+              maxLength: {
+                value: 2000,
+                message: "Ce champ contient trop de caractères",
+              },
+            }}
             name="category_description"
             defaultValue=""
             render={({ field: { onChange, onBlur, value, ref } }) => (
