@@ -10,8 +10,8 @@ export const AlertValidation = ({ operation, type, value }) => {
     <Row>
       {operation && alert ? (
         <Alert variant={"success"} onClose={() => setAlert(false)} dismissible>
-          <FontAwesomeIcon icon={faCheck} width="2em" /> Le media {value} a bien
-          été {operation} !
+          <FontAwesomeIcon icon={faCheck} width="2em" /> Le {type} {value} a
+          bien été {operation} !
         </Alert>
       ) : null}
     </Row>
