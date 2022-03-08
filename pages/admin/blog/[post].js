@@ -37,8 +37,18 @@ const PostAdmin = ({ db_post, db_author }) => {
     data.post_content = quill.getContents();
     data.post_html = innerHTML;
 
-    await axios.post("/api/blog/addPost", data);
-    router.push("/admin/blog");
+    await axios
+      .post("/api/blog/addPost", data)
+      .then((response) => {
+        console.log(response);
+        router.push(
+          "/admin/blog?operation=ajouté&type=article&value=" +
+            response.data.post_title
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const allFields = watch();

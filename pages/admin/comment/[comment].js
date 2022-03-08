@@ -38,8 +38,18 @@ const CommentAdmin = ({ db_comment, db_author }) => {
     data.comment_msg = quill.getText();
     data.comment_create = db_comment?.create || new Date();
 
-    await axios.post("/api/comment/addComment", data);
-    router.push("/admin/comment");
+    await axios
+      .post("/api/comment/addComment", data)
+      .then((response) => {
+        console.log(response);
+        router.push(
+          "/admin/comment?operation=ajouté&type=commentaire&value=" +
+            response.data.comment_id
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const allFields = watch();

@@ -30,8 +30,18 @@ const AuthorAdmin = ({ db_author }) => {
   const router = useRouter();
 
   const onSubmit = async (data) => {
-    await axios.post("/api/author/addAuthor", data);
-    router.push("/admin/author");
+    await axios
+      .post("/api/author/addAuthor", data)
+      .then((response) => {
+        console.log(response);
+        router.push(
+          "/admin/author?operation=ajouté&type=artiste&value=" +
+            response.data.author_name
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

@@ -28,8 +28,18 @@ const CategoryAdmin = ({ db_category, db_author }) => {
   const onSubmit = async (data) => {
     data.category_author = parseInt(data.category_author); //integer issue
 
-    await axios.post("/api/category/addCategory", data);
-    router.push("/admin/category");
+    await axios
+      .post("/api/category/addCategory", data)
+      .then((response) => {
+        console.log(response);
+        router.push(
+          "/admin/category?operation=ajoutée&type=categorie&value=" +
+            response.data.category_name
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

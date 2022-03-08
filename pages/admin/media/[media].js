@@ -90,18 +90,18 @@ const MediaAdmin = ({
       data.media_path = db_media.media_path || 0; //original db
     }
 
-    await axios.post("/api/media/addMedia", data).then(
-      (response) => {
+    await axios
+      .post("/api/media/addMedia", data)
+      .then((response) => {
         console.log(response);
         router.push(
           "/admin/media?operation=ajouté&type=media&value=" +
             response.data.media_title
         );
-      },
-      (error) => {
+      })
+      .catch((error) => {
         console.log(error);
-      }
-    );
+      });
   };
 
   // a là! C'est quoi path et image ? faire plus simple
