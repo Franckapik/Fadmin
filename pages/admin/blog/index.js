@@ -17,9 +17,17 @@ const BlogPage = ({ db_post }) => {
   const { operation, type, value } = router.query;
 
   const onDelete = async (data) => {
-    await axios.post("/api/blog/deletePost", { id: data });
-    setShow(!show);
-    router.push("/admin/blog");
+    await axios
+      .post("/api/blog/deletePost", { id: data })
+      .then((response) => {
+        console.log(response);
+        setShow(!show);
+        router.push(
+          "/admin/blog?operation=supprimé&type=article&value=" +
+            response.data.post_title
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

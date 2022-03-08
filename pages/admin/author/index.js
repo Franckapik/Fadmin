@@ -16,9 +16,17 @@ const AuthorPage = ({ db_author, user }) => {
   const { operation, type, value } = router.query;
 
   const onDelete = async (data) => {
-    await axios.post("/api/author/deleteAuthor", { id: data });
-    setShow(!show);
-    router.push("/admin/author");
+    await axios
+      .post("/api/author/deleteAuthor", { id: data })
+      .then((response) => {
+        console.log(response);
+        setShow(!show);
+        router.push(
+          "/admin/author?operation=supprimé&type=artiste&value=" +
+            response.data.author_name
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

@@ -16,9 +16,17 @@ const CommentPage = ({ db_comment }) => {
   const { operation, type, value } = router.query;
 
   const onDelete = async (data) => {
-    await axios.comment("/api/comment/deletecomment", { id: data });
-    setShow(!show);
-    router.push("/admin/comment");
+    await axios
+      .comment("/api/comment/deletecomment", { id: data })
+      .then((response) => {
+        console.log(response);
+        setShow(!show);
+        router.push(
+          "/admin/comment?operation=supprimé&type=commentaire&value=" +
+            response.data.comment_id
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

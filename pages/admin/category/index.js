@@ -15,9 +15,17 @@ const CategoryPage = ({ db_category }) => {
   const { operation, type, value } = router.query;
 
   const onDelete = async (data) => {
-    await axios.post("/api/category/deleteCategory", { id: data });
-    setShow(!show);
-    router.push("/admin/category");
+    await axios
+      .post("/api/category/deleteCategory", { id: data })
+      .then((response) => {
+        console.log(response);
+        setShow(!show);
+        router.push(
+          "/admin/category?operation=supprimée&type=catégorie&value=" +
+            response.data.category_name
+        );
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
