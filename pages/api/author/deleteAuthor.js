@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import prisma from "../../../prisma/prisma";
 
 export default async (req, res) => {

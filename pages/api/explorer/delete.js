@@ -1,8 +1,5 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { PrismaClient } from "@prisma/client";
+//need res.json and catch errors
 import fs from "fs";
-
-import prisma from "../../../prisma/prisma";
 
 export default async (req, res) => {
   return new Promise((resolve) => {

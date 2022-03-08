@@ -1,8 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { PrismaClient } from "@prisma/client";
 import fs from "fs";
-
-import prisma from "../../../prisma/prisma";
 
 export default async (req, res) => {
   return new Promise((resolve) => {
@@ -16,11 +12,14 @@ export default async (req, res) => {
       try {
         if (!fs.existsSync(dir)) {
           fs.mkdirSync(dir);
+          res.status(200).json(dir);
         } else {
           console.log("Existing folder");
+          res.status(403).json({ err: "Existing folder" });
         }
       } catch (err) {
         console.error(err);
+        res.status(403).json({ err: err });
       }
     } else {
       console.log("The created folder is too high in the tree");
