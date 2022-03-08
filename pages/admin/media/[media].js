@@ -1,13 +1,11 @@
-import { useRouter } from "next/router";
-import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
-import Layout_Admin from "../../../layouts/layout_admin";
-
-import prisma from "../../../prisma/prisma";
-import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
 import { traverse } from "fs-tree-utils";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Controller, useForm } from "react-hook-form";
+import Layout_Admin from "../../../layouts/layout_admin";
+import prisma from "../../../prisma/prisma";
 
 const MediaAdmin = ({
   db_media,
@@ -42,17 +40,10 @@ const MediaAdmin = ({
     },
   });
 
-  const [image, setImage] = useState(null);
   const [filesSelected, setfilesSelected] = useState(false);
-  const [path, setPath] = useState(false);
   const router = useRouter();
 
   const allFields = watch();
-
-  //refaire d'ici
-  useEffect(() => {
-    setPath(`/medias/${allFields.media_author_id}/${allFields.media_folder}/`);
-  }, [allFields]);
 
   const uploadToServer = async (files) => {
     const body = new FormData();
@@ -73,13 +64,11 @@ const MediaAdmin = ({
   const onChangeFiles = (event) => {
     //when selecting files on local
     const e = event.target.files;
-
     if (e && e[0]) {
-      setImage(e);
-      console.log(e);
       setfilesSelected(event.target.files);
     } else {
       console.log("No file selected");
+      setfilesSelected(false);
     }
   };
 
@@ -99,13 +88,12 @@ const MediaAdmin = ({
         });
     } else {
       data.media_path = db_media.media_path || 0; //original db
-    } /* router.push("/admin/media"); */
-
-    console.log(data);
+    }
 
     await axios.post("/api/media/addMedia", data).then(
       (response) => {
         console.log(response);
+        router.push("/admin/media?success=" + response.data.media_title);
       },
       (error) => {
         console.log(error);
