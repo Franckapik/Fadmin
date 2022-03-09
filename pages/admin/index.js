@@ -184,7 +184,7 @@ export default function Page({
               </Table>
             </Row>
             <Row>
-              {db_post ? (
+              {db_post && db_post.length ? (
                 <Table className="mt-3">
                   <thead>
                     <tr>
