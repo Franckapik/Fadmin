@@ -197,7 +197,7 @@ export default function Page({
                         key={"a"}
                         dangerouslySetInnerHTML={{
                           __html:
-                            db_post[db_post.length - 1].post_html.slice(
+                            db_post[db_post.length - 1]?.post_html.slice(
                               0,
                               200
                             ) + "[...]",
