@@ -87,6 +87,16 @@ body::-webkit-scrollbar-thumb {
   
 }
 
+.tree svg { /* font awesome icons*/
+font-size: 0.8em;
+margin-left: 1em;
+cursor: pointer;
+}
+
+.tree li {
+  list-style-type: none;
+}
+
 .burger {
   font-size: 2em;
   position: fixed;

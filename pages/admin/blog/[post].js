@@ -10,13 +10,11 @@ import { useEffect, useState } from "react";
 
 const PostAdmin = ({ db_post, db_author }) => {
   const {
-    setError,
     handleSubmit,
     control,
     reset,
     watch,
     formState: { errors },
-    getValues,
   } = useForm({
     defaultValues: {
       post_title: db_post.post_title,
@@ -58,7 +56,7 @@ const PostAdmin = ({ db_post, db_author }) => {
 
   useEffect(() => {
     if (quill) {
-      quill.on("text-change", (delta, oldDelta, source) => {
+      quill.on("text-change", () => {
         /*         
         console.log(quill.getText()); // Get text only
         console.log(quill.getContents()); // Get delta contents
@@ -103,7 +101,7 @@ const PostAdmin = ({ db_post, db_author }) => {
                 }}
                 name="post_title"
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
                     value={value}
@@ -124,7 +122,7 @@ const PostAdmin = ({ db_post, db_author }) => {
                 control={control}
                 name="post_image"
                 defaultValue="photo"
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, ref } }) => (
                   <Form.Control
                     type="file"
                     onChange={onChange}
@@ -164,7 +162,7 @@ const PostAdmin = ({ db_post, db_author }) => {
                 }}
                 name="post_author_id"
                 defaultValue={1}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Select
                     onChange={onChange}
                     value={value}
@@ -191,7 +189,7 @@ const PostAdmin = ({ db_post, db_author }) => {
                 control={control}
                 name="post_draft"
                 defaultValue={false}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Check
                     type={"checkbox"}
                     onChange={onChange}
