@@ -71,7 +71,8 @@ const ExplorerPage = ({ data }) => {
 export default ExplorerPage;
 
 export async function getServerSideProps(ctx) {
-  const { data } = await axios.get(`http://localhost:3000/api/explorer/list`);
+  console.log(process.env.DOMAIN);
+  const { data } = await axios.get(process.env.DOMAIN + `/api/explorer/list`);
 
   return {
     props: { data },
