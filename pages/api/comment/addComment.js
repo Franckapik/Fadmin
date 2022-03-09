@@ -17,6 +17,7 @@ export default async (req, res) => {
     });
     res.status(200).json(result);
   } catch (err) {
+    console.log(data);
     console.log(err);
     res
       .status(403)

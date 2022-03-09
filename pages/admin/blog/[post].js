@@ -25,14 +25,16 @@ const PostAdmin = ({ db_post, db_author }) => {
       post_draft: db_post.post_draft,
     },
   });
+
   const [content, setContent] = useState();
   const [innerHTML, setInnerHTML] = useState();
   const [text, setText] = useState();
 
   const router = useRouter();
+  const { post } = router.query;
 
   const onSubmit = async (data) => {
-    data.post_id = db_post.post_id || 0;
+    post !== "create" ? (data.post_id = db_post.post_id) : null;
     data.post_author_id = parseInt(data.post_author_id); //integer issue
     data.post_content = quill.getContents();
     data.post_html = innerHTML;
@@ -245,7 +247,7 @@ export default PostAdmin;
 export async function getServerSideProps({ params }) {
   let db_post_0 = 0;
 
-  if (params?.post !== "0") {
+  if (params?.post !== "create") {
     db_post_0 = await prisma.post.findUnique({
       where: {
         post_id: Number(params?.post) || -1,

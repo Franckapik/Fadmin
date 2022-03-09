@@ -15,7 +15,6 @@ const CategoryAdmin = ({ db_category, db_author }) => {
     getValues,
   } = useForm({
     defaultValues: {
-      category_id: db_category.category_id,
       category_name: db_category.category_name,
       category_description: db_category.category_description,
       category_draft: db_category.category_draft,
@@ -24,9 +23,11 @@ const CategoryAdmin = ({ db_category, db_author }) => {
   });
 
   const router = useRouter();
+  const { category } = router.query;
 
   const onSubmit = async (data) => {
     data.category_author = parseInt(data.category_author); //integer issue
+    category !== "create" ? (data.category_id = db_category.category_id) : null;
 
     await axios
       .post("/api/category/addCategory", data)
@@ -168,7 +169,7 @@ export default CategoryAdmin;
 export async function getServerSideProps({ params }) {
   let db_category = 0;
 
-  if (params?.category !== "0") {
+  if (params?.category !== "create") {
     db_category = await prisma.category.findUnique({
       where: {
         category_id: Number(params?.category) || -1,

@@ -40,7 +40,7 @@ const CommentPage = ({ db_comment }) => {
         <CardAdmin
           title={"Ajouter un commentaire"}
           text={"____"}
-          edit_link={"/admin/comment/0"}
+          edit_link={"/admin/comment/create"}
           setShow={setShow}
           show={show}
           add

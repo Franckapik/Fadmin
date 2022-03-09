@@ -7,21 +7,13 @@ import { Controller, useForm } from "react-hook-form";
 import Layout_Admin from "../../../layouts/layout_admin";
 import prisma from "../../../prisma/prisma";
 
-const MediaAdmin = ({
-  db_media,
-  db_category,
-  db_author,
-  db_medias,
-  folders,
-}) => {
+const MediaAdmin = ({ db_media, db_category, db_author, folders }) => {
   const {
-    setError,
     handleSubmit,
     control,
     reset,
     watch,
     formState: { errors },
-    getValues,
   } = useForm({
     defaultValues: {
       media_title: db_media.media_title,
@@ -42,6 +34,7 @@ const MediaAdmin = ({
 
   const [filesSelected, setfilesSelected] = useState(false);
   const router = useRouter();
+  const { media } = router.query;
 
   const allFields = watch();
 
@@ -73,7 +66,8 @@ const MediaAdmin = ({
   };
 
   const onSubmit = async (data) => {
-    data.media_id = db_media.media_id || 0; //id
+    media !== "create" ? (data.media_id = db_media.media_id) : null;
+
     data.media_category_id = parseInt(data.media_category_id); //integer issue
     data.media_author_id = parseInt(data.media_author_id); //integer issue
 
@@ -132,7 +126,7 @@ const MediaAdmin = ({
                 }}
                 name="media_title"
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
                     value={value}
@@ -154,7 +148,7 @@ const MediaAdmin = ({
                 control={control}
                 name="media_photo"
                 defaultValue="photo"
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { ref } }) => (
                   <Form.Control
                     type="file"
                     multiple
@@ -184,7 +178,7 @@ const MediaAdmin = ({
                 }}
                 name="media_video"
                 defaultValue="video"
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, ref } }) => (
                   <Form.Control
                     onChange={onChange}
                     ref={ref}
@@ -211,7 +205,7 @@ const MediaAdmin = ({
                 }}
                 name="media_content"
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
                     value={value}
@@ -239,7 +233,7 @@ const MediaAdmin = ({
                 }}
                 name="media_link"
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
                     value={value}
@@ -266,7 +260,7 @@ const MediaAdmin = ({
                 }}
                 name="media_share"
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
                     value={value}
@@ -290,7 +284,7 @@ const MediaAdmin = ({
                 }}
                 name="media_category_id"
                 defaultValue={1}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Select
                     onChange={onChange}
                     value={value}
@@ -320,7 +314,7 @@ const MediaAdmin = ({
                   required: "Ce champ est manquant",
                 }}
                 name="media_folder"
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Select
                     onChange={onChange}
                     value={value}
@@ -354,7 +348,7 @@ const MediaAdmin = ({
                 }}
                 name="media_subtitle"
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
                     value={value}
@@ -378,7 +372,7 @@ const MediaAdmin = ({
                 }}
                 name="media_author_id"
                 defaultValue={1}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Select
                     onChange={onChange}
                     value={value}
@@ -404,7 +398,7 @@ const MediaAdmin = ({
                 control={control}
                 name="media_home"
                 defaultValue={false}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Check
                     type={"checkbox"}
                     onChange={onChange}
@@ -426,7 +420,7 @@ const MediaAdmin = ({
                 control={control}
                 name="media_draft"
                 defaultValue={false}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Check
                     type={"checkbox"}
                     onChange={onChange}
@@ -448,7 +442,7 @@ const MediaAdmin = ({
                 control={control}
                 name="media_large"
                 defaultValue={false}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Check
                     type={"checkbox"}
                     onChange={onChange}
@@ -513,10 +507,10 @@ export default MediaAdmin;
 export async function getServerSideProps({ params }) {
   let db_media = 0;
 
-  if (params?.media !== "0") {
+  if (params?.media !== "create") {
     db_media = await prisma.media.findUnique({
       where: {
-        media_id: Number(params?.media) || -1,
+        media_id: Number(params?.media),
       },
     });
   }
@@ -527,7 +521,7 @@ export async function getServerSideProps({ params }) {
 
   const deep = ({ item }) => item !== "Old";
   const files0 = await traverse("." + process.env.medias_folder, { deep });
-  const containers = files0.map((a, i) =>
+  const containers = files0.map((a) =>
     a.container.slice(a.container.lastIndexOf("/medias"))
   );
   const folders = [...new Set(containers)];

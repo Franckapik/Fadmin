@@ -40,7 +40,7 @@ const CategoryPage = ({ db_category }) => {
         <CardAdmin
           title={"Ajouter une catégorie"}
           text={"____"}
-          edit_link={"/admin/category/0"}
+          edit_link={"/admin/category/create"}
           setShow={setShow}
           show={show}
           add

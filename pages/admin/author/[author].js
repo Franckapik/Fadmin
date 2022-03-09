@@ -15,7 +15,6 @@ const AuthorAdmin = ({ db_author }) => {
     getValues,
   } = useForm({
     defaultValues: {
-      author_id: db_author.author_id,
       author_name: db_author.author_name,
       author_art: db_author.author_art,
       author_biography_fr: db_author.author_biography_fr,
@@ -28,8 +27,11 @@ const AuthorAdmin = ({ db_author }) => {
   });
 
   const router = useRouter();
+  const { author } = router.query;
 
   const onSubmit = async (data) => {
+    author !== "create" ? (data.author_id = db_author.author_id) : null;
+
     await axios
       .post("/api/author/addAuthor", data)
       .then((response) => {
@@ -274,7 +276,7 @@ export default AuthorAdmin;
 export async function getServerSideProps({ params }) {
   let db_author = 0;
 
-  if (params?.author !== "0") {
+  if (params?.author !== "create") {
     db_author = await prisma.author.findUnique({
       where: {
         author_id: Number(params?.author) || -1,

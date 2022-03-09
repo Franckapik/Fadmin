@@ -41,7 +41,7 @@ const BlogPage = ({ db_post }) => {
         <CardAdmin
           title={"Ajouter un article"}
           text={"____"}
-          edit_link={"/admin/blog/0"}
+          edit_link={"/admin/blog/create"}
           setShow={setShow}
           show={show}
           add

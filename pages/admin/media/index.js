@@ -42,7 +42,7 @@ const MediaPage = ({ db_media }) => {
         <CardAdmin
           title={"Ajouter un média"}
           text={"____"}
-          edit_link={"/admin/media/0"}
+          edit_link={"/admin/media/create"}
           setShow={setShow}
           show={show}
           add

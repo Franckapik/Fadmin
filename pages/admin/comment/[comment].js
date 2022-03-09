@@ -10,13 +10,11 @@ import prisma from "../../../prisma/prisma";
 
 const CommentAdmin = ({ db_comment, db_author }) => {
   const {
-    setError,
     handleSubmit,
     control,
     reset,
     watch,
     formState: { errors },
-    getValues,
   } = useForm({
     defaultValues: {
       comment_msg: db_comment?.comment_msg,
@@ -29,11 +27,12 @@ const CommentAdmin = ({ db_comment, db_author }) => {
   const [content, setContent] = useState();
   const [innerHTML, setInnerHTML] = useState();
   const [text, setText] = useState();
-
   const router = useRouter();
+  const { comment } = router.query;
 
   const onSubmit = async (data) => {
-    data.comment_id = db_comment?.comment_id || 0;
+    comment !== "create" ? (data.comment_id = db_comment.comment_id) : null;
+
     data.comment_author_id = parseInt(data.comment_author_id); //integer issue
     data.comment_msg = quill.getText();
     data.comment_create = db_comment?.create || new Date();
@@ -57,7 +56,7 @@ const CommentAdmin = ({ db_comment, db_author }) => {
 
   useEffect(() => {
     if (quill) {
-      quill.on("text-change", (delta, oldDelta, source) => {
+      quill.on("text-change", () => {
         /*         
         console.log(quill.getText()); // Get text only
         console.log(quill.getContents()); // Get delta contents
@@ -82,7 +81,7 @@ const CommentAdmin = ({ db_comment, db_author }) => {
     <Layout_Admin>
       <Row>
         <Col>
-          {db_comment ? (
+          {db_comment && db_comment.comment_id ? (
             <h2 className="mb-4 text-center">
               {" "}
               Modérer le commentaire [ n°{db_comment.comment_id}]
@@ -104,7 +103,7 @@ const CommentAdmin = ({ db_comment, db_author }) => {
                 }}
                 name="comment_author"
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
                     value={value}
@@ -135,7 +134,7 @@ const CommentAdmin = ({ db_comment, db_author }) => {
                 control={control}
                 name="comment_author_id"
                 defaultValue={1}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Select
                     onChange={onChange}
                     value={value}
@@ -162,7 +161,7 @@ const CommentAdmin = ({ db_comment, db_author }) => {
                 control={control}
                 name="comment_draft"
                 defaultValue={false}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <Form.Check
                     type={"checkbox"}
                     onChange={onChange}
@@ -209,10 +208,11 @@ export default CommentAdmin;
 export async function getServerSideProps({ params }) {
   let db_comment_0 = 0;
 
-  if (params?.post !== "0") {
+  if (params?.comment !== "create") {
+    //not new comment
     db_comment_0 = await prisma.comment.findUnique({
       where: {
-        comment_id: Number(params?.comment) || -1,
+        comment_id: Number(params?.comment),
       },
     });
   }

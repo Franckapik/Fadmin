@@ -41,7 +41,7 @@ const AuthorPage = ({ db_author, user }) => {
         <CardAdmin
           title={"Ajouter un artiste"}
           text={"____"}
-          edit_link={"/admin/author/0"}
+          edit_link={"/admin/author/create"}
           setShow={setShow}
           show={show}
           add
