@@ -5,7 +5,7 @@ import React from "react";
 import ReactPlayer from "react-player";
 import Image from "next/image";
 
-export const Medias = ({ mediasFiles, setShow, show }) => {
+export const Medias = ({ db_medias, setShow, show }) => {
   const router = useRouter();
 
   const addQuery = (key, value) => {
@@ -17,8 +17,8 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
     <Container fluid className="d-flex justify-content-center flex-wrap ">
       {" "}
       {/*justify-content-between */}
-      {mediasFiles && mediasFiles != 0
-        ? mediasFiles
+      {db_medias && db_medias != 0
+        ? db_medias
             .sort((a, b) => a.media_position - b.media_position)
             .map((a, i) => {
               return (
@@ -41,7 +41,7 @@ export const Medias = ({ mediasFiles, setShow, show }) => {
                     }}
                   >
                     <img
-                      src={a.media_path}
+                      src={a.media_path.replace("./public", "")}
                       className="media_img"
                       alt="media video"
                     ></img>

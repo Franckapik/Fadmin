@@ -29,7 +29,7 @@ export default function Home({
       comment
       overview
     >
-      <Medias mediasFiles={db_medias} setShow={setShow} show={show}></Medias>
+      <Medias db_medias={db_medias} setShow={setShow} show={show}></Medias>
       <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
         <Modal.Header closeButton className="cursor">
           <span onClick={() => setShow(!show)}>Back</span>
@@ -84,20 +84,22 @@ export async function getServerSideProps({ params, query }) {
 
   const mediasFiles = await Promise.all(
     db_medias.map(async (a, i) => {
-      const pathFolder = `${process.env.medias_folder}/${params?.author}/${a.media_folder}`; //change path with media_path directly and operation in array reduce
+      const pathFolder = path.dirname(
+        a.media_path.replace("./public/", "/public/")
+      );
+
       const absoluteFolder = path.join(
         getConfig().serverRuntimeConfig.PROJECT_ROOT,
         pathFolder
       );
       if (fs.existsSync(absoluteFolder)) {
-        const data2 = await fsPromises.readdir(absoluteFolder);
-        const data3 = data2.filter((f) =>
-          [".jpeg", ".jpg", ".png"].includes(path.extname(f).toLowerCase())
-        );
+        const files = await fsPromises.readdir(absoluteFolder);
         return {
           folder_name: a.media_folder,
           folder_path: pathFolder,
-          files: data3,
+          files: files.filter((f) =>
+            [".jpeg", ".jpg", ".png"].includes(path.extname(f).toLowerCase())
+          ),
           ...a,
         };
       } else {
