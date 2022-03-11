@@ -11,8 +11,6 @@ export const MediasHome = ({ mediasFiles, setShow, show, db_home }) => {
     setIndex(selectedIndex);
   };
 
-  console.log(db_home.home_video_url);
-
   return (
     <Container className="d-flex justify-content-center flex-wrap">
       <div className="react-player-home fade_short no_hover">
