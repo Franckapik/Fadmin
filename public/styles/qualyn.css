@@ -621,33 +621,17 @@ z-index: -6;
   width: auto;
 }
 
-.react-player-home video {
+.react-player-home .essai {
  height: 150%!important;
  width: 120%!important;
- margin-top: -16vh;
- margin-left: -8vw;
+ margin-top: -10em;
+ margin-left: -8em;
 }
 
 @media (min-width: 1400px) { /* video wide */
  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
     max-width: 1558px;
 } 
-}
-
-@media (max-width: 1200px) { /* video wide */
- .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1558px;
-} 
-
-.react-player-home {
-  margin-top : 5em;
-}
-
-.react-player-home video {
-
- margin-top : -8.5%;
-}
-
 }
 
 
@@ -683,18 +667,9 @@ z-index: -6;
   }
 
   .react-player-home {
-    overflow:hidden;
-    display:block;
-    height: 65vh ;
-    width: auto;
-    margin-top : 5em;
-  }
-  
-  .react-player-home video {
-   height: auto!important;
-   width: 350%!important;
-   margin-left: -126%;
-   margin-top : -23%;
+    padding-top: 25%;
+    height: auto;
+    width: 90vw ;
   }
 
   .legend {

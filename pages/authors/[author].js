@@ -4,7 +4,7 @@ import path from "path";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import CarouselComp from "../../components/carousel";
-import { Medias } from "../../components/medias";
+import { Medias } from "../../components/mediaslist";
 import Layout_Home from "../../layouts/layout_home";
 const fsPromises = fs.promises;
 
