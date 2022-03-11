@@ -5,10 +5,8 @@ import { Categories } from "../components/categories";
 import {
   faFacebookSquare,
   faInstagram,
-  faTwitterSquare,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -21,6 +19,7 @@ export default function Layout_Home({
   overview,
   contact,
   comment,
+  home,
 }) {
   const router = useRouter();
 
@@ -116,11 +115,19 @@ export default function Layout_Home({
         <div className="title_bg">Qualyn</div>
         <div className="sticker d-none d-lg-flex">
           <div>
-            Qualyn{" "}
-            <a href={author?.author_insta} className="m-2" target="_blank">
+            Qualyn
+            <a
+              href={home?.home_insta || author?.author_insta}
+              className="m-2 cursor"
+              target="_blank"
+            >
               <FontAwesomeIcon icon={faInstagram} width="1em" />{" "}
             </a>
-            <a href={author?.author_fb} className="m-2" target="_blank">
+            <a
+              href={home?.home_fb || author?.author_fb}
+              className="m-2 cursor"
+              target="_blank"
+            >
               <FontAwesomeIcon icon={faFacebookSquare} width="1em" />{" "}
             </a>
           </div>
