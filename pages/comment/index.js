@@ -2,9 +2,9 @@ import { CommentList } from "../../components/commentlist";
 import Layout_Home from "../../layouts/layout_home";
 import prisma from "../../prisma/prisma";
 
-export default function Comment({ db_comment, db_authors }) {
+export default function Comment({ db_comment, db_authors, db_author }) {
   return (
-    <Layout_Home authors={db_authors} contact>
+    <Layout_Home authors={db_authors} author={db_author} contact>
       <CommentList commentList={db_comment}></CommentList>
     </Layout_Home>
   );
@@ -29,7 +29,13 @@ export async function getServerSideProps({ params, query }) {
     },
   });
 
+  const db_author = await prisma.author.findUnique({
+    where: {
+      author_id: Number(query?.author) || -1,
+    },
+  });
+
   return {
-    props: { db_comment, db_authors },
+    props: { db_comment, db_authors, db_author },
   };
 }
