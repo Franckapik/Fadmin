@@ -637,6 +637,24 @@ z-index: -6;
 
 @media (max-width: 575.98px) { 
 
+  .react-player-home {
+    overflow:hidden;
+    display:block;
+    height: unset ;
+    width: auto;
+  }
+  
+  .react-player-home .essai {
+   height: unset!important;
+   width: 200%!important;
+   margin-top: 0em;
+   margin-left: -10em;
+  }
+
+  .react-player-home video {
+    width : 150%;
+    height : auto;
+  }
 
   h1 img { 
     width: 50vw;
