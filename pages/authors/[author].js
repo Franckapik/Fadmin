@@ -95,7 +95,6 @@ export async function getServerSideProps({ params, query }) {
       if (fs.existsSync(absoluteFolder)) {
         const files = await fsPromises.readdir(absoluteFolder);
         return {
-          folder_name: a.media_folder,
           folder_path: pathFolder,
           files: files.filter((f) =>
             [".jpeg", ".jpg", ".png"].includes(path.extname(f).toLowerCase())

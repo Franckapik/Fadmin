@@ -44,7 +44,6 @@ model media {
   media_created     DateTime? @db.Timestamp(6)
   media_number      Int?      @db.SmallInt
   media_category_id Int?
-  media_folder      String?   @db.VarChar(30)
   media_subtitle    String    @db.VarChar(50)
   media_author_id   Int?      @db.SmallInt
   media_draft       Boolean
