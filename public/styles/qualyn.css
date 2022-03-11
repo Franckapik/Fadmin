@@ -176,6 +176,8 @@ h1 {
   overflow: hidden;
 }
 
+
+
 h1:before, h1:after {
   position: absolute;
   top: 55%;
@@ -613,9 +615,41 @@ z-index: -6;
 }
 
 .react-player-home {
+  overflow:hidden;
+  display:block;
   height: 65vh ;
-  width: 65vw ;
+  width: auto;
 }
+
+.react-player-home video {
+ height: 150%!important;
+ width: 120%!important;
+ margin-top: -16vh;
+ margin-left: -8vw;
+}
+
+@media (min-width: 1400px) { /* video wide */
+ .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+    max-width: 1558px;
+} 
+}
+
+@media (max-width: 1200px) { /* video wide */
+ .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+    max-width: 1558px;
+} 
+
+.react-player-home {
+  margin-top : 5em;
+}
+
+.react-player-home video {
+
+ margin-top : -8.5%;
+}
+
+}
+
 
 @media (max-width: 575.98px) { 
 
@@ -649,9 +683,18 @@ z-index: -6;
   }
 
   .react-player-home {
-    padding-top: 25%;
-    height: auto;
-    width: 90vw ;
+    overflow:hidden;
+    display:block;
+    height: 65vh ;
+    width: auto;
+    margin-top : 5em;
+  }
+  
+  .react-player-home video {
+   height: auto!important;
+   width: 350%!important;
+   margin-left: -126%;
+   margin-top : -23%;
   }
 
   .legend {

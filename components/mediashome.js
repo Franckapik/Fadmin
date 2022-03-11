@@ -12,16 +12,15 @@ export const MediasHome = ({ mediasFiles, setShow, show, db_home }) => {
   };
 
   return (
-    <Container className="d-flex justify-content-center flex-wrap">
+    <Container className="d-flex justify-content-center flex-wrap no-overflow">
       <div className="react-player-home fade_short no_hover">
         <ReactPlayer
           url={db_home.home_video_url}
           playing={true}
-          height="100%"
-          width="100%"
           volume={0}
           muted
           loop
+          className="essai"
           controls={false}
         />
       </div>
