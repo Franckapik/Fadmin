@@ -44,19 +44,42 @@ const ExplorerPage = ({ data }) => {
 
   const onSubmit = async (data) => {
     data.old = selected;
-    await axios
-      .post("/api/explorer/rename", data)
-      .then((response) => {
-        console.log(response);
-        setShow(false);
-        router.push(
-          "/admin/explorer?operation=renommé&type=élément&value=" +
-            response.data.renamed
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    switch (op) {
+      case "rename":
+        await axios
+          .post("/api/explorer/rename", data)
+          .then((response) => {
+            console.log(response);
+            setShow(false);
+            router.push(
+              "/admin/explorer?operation=renommé&type=élément&value=" +
+                response.data.renamed
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        break;
+
+      case "delete":
+        await axios
+          .post("/api/explorer/delete", data)
+          .then((response) => {
+            console.log(response);
+            setShow(false);
+            router.push(
+              "/admin/explorer?operation=supprimé&type=élément&value=" +
+                response.data.deleted
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        break;
+
+      default:
+        break;
+    }
   };
 
   const FileTree = ({ data, folders }) => {
@@ -72,7 +95,10 @@ const ExplorerPage = ({ data }) => {
             {" "}
             <FontAwesomeIcon icon={faFile} /> {a.path.split("/").pop()} -
             {Math.ceil(a.stat.size / 1000) + "ko"}{" "}
-            <FontAwesomeIcon icon={faTrash} />
+            <FontAwesomeIcon
+              icon={faTrash}
+              onClick={() => modifyExplorer(a.path, "delete")}
+            />
             <FontAwesomeIcon
               icon={faPenSquare}
               onClick={() => modifyExplorer(a.path, "rename")}
@@ -85,7 +111,10 @@ const ExplorerPage = ({ data }) => {
           <div className="mt-3">
             <FontAwesomeIcon icon={faFolderOpen} /> {folders?.[i]} [
             {Object.keys(a).length + " fichiers"}]{" "}
-            <FontAwesomeIcon icon={faTrash} />
+            <FontAwesomeIcon
+              icon={faTrash}
+              onClick={() => modifyExplorer(a.path, "delete")}
+            />
             <FontAwesomeIcon
               icon={faPenSquare}
               onClick={() => modifyExplorer(path.dirname(a[0].path), "rename")}
@@ -152,6 +181,23 @@ const ExplorerPage = ({ data }) => {
                 </Form.Control.Feedback>
               </Form.Group>
             </Form>
+          ) : null}
+
+          {op === "delete" ? (
+            <>
+              {" "}
+              <Form.Label> Supprimer {selected} ?</Form.Label>
+              <Button type="submit" onClick={() => onSubmit({ data: "essai" })}>
+                Supprimer
+              </Button>{" "}
+              <Button
+                type="submit"
+                variant="danger"
+                onClick={() => setShow(!show)}
+              >
+                Annuler
+              </Button>
+            </>
           ) : null}
         </ModalBody>
       </Modal>

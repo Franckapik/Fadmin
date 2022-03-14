@@ -1,52 +1,42 @@
 //need res.json and catch errors
 import fs from "fs";
+import path from "path";
 
 export default async (req, res) => {
   return new Promise((resolve) => {
     console.log("Delete directory " + req.body.folderpath);
-    let nodes = req.body.folderpath.split("/");
-    const dir = "./public" + req.body.folderpath;
+    const oldFile = "./" + req.body.old;
 
-    function removeFolder(location, next) {
-      fs.readdir(location, function (err, files) {
-        async.each(
-          files,
-          function (file, cb) {
-            file = location + "/" + file;
-            fs.stat(file, function (err, stat) {
-              if (err) {
-                return cb(err);
-              }
-              if (stat.isDirectory()) {
-                removeFolder(file, cb);
-              } else {
-                fs.unlink(file, function (err) {
-                  if (err) {
-                    return cb(err);
-                  }
-                  return cb();
-                });
-              }
-            });
-          },
-          function (err) {
-            if (err) return next(err);
-            fs.rmdir(location, function (err) {
-              return next(err);
-            });
+    const deleteFolderRecursive = function (directoryPath) {
+      if (fs.existsSync(directoryPath)) {
+        fs.readdirSync(directoryPath).forEach((file, index) => {
+          const curPath = path.join(directoryPath, file);
+          if (fs.lstatSync(curPath).isDirectory()) {
+            // recurse
+            deleteFolderRecursive(curPath);
+          } else {
+            // delete file
+            fs.unlinkSync(curPath);
           }
-        );
-      });
-    }
+        });
+        fs.rmdirSync(directoryPath);
+      }
+    }; //response?
 
-    if (nodes.length > 3) {
+    const isDirectory = fs.lstatSync(oldFile).isDirectory();
+
+    if (isDirectory) {
+      deleteFolderRecursive(oldFile);
+    } else {
       try {
-        removeFolder(dir);
+        fs.unlinkSync(oldFile);
+        console.log(oldFile + " deleted");
+        res.status(200).json({ deleted: oldFile });
+        //file removed
       } catch (err) {
         console.error(err);
+        res.status(500).json({ error: err });
       }
-    } else {
-      console.log("The deleted folder is too high in the tree");
     }
   });
 };
