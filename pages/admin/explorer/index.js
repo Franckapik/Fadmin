@@ -43,7 +43,8 @@ const ExplorerPage = ({ data }) => {
   };
 
   const onSubmit = async (data) => {
-    data.old = selected;
+    data.file = selected;
+    console.log(data);
     switch (op) {
       case "rename":
         await axios
@@ -93,8 +94,14 @@ const ExplorerPage = ({ data }) => {
         return (
           <div className="mt-3">
             <FontAwesomeIcon icon={faFolderOpen} /> {a.name}
-            <FontAwesomeIcon icon={faTrash} />
-            <FontAwesomeIcon icon={faPenSquare} />
+            <FontAwesomeIcon
+              icon={faTrash}
+              onClick={() => modifyExplorer(a.path, "delete")}
+            />
+            <FontAwesomeIcon
+              icon={faPenSquare}
+              onClick={() => modifyExplorer(path.dirname(a[0].path), "rename")}
+            />
             <FontAwesomeIcon icon={faPlusCircle} />
             <ul>
               <FileTree data={a.content}></FileTree>
@@ -109,11 +116,11 @@ const ExplorerPage = ({ data }) => {
             <FontAwesomeIcon icon={faFile} />
             <FontAwesomeIcon
               icon={faTrash}
-              onClick={() => modifyExplorer(a.path, "delete")}
+              onClick={() => modifyExplorer(a, "delete")}
             />
             <FontAwesomeIcon
               icon={faPenSquare}
-              onClick={() => modifyExplorer(a.path, "rename")}
+              onClick={() => modifyExplorer(a, "rename")}
             />
           </li>
         );
@@ -180,9 +187,7 @@ const ExplorerPage = ({ data }) => {
           {op === "rename" ? (
             <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
               <Form.Group className="mb-3" controlId="renamed">
-                <Form.Label>
-                  Renommer l élément {selected.replace(/^.*[\\\/]/, "")}
-                </Form.Label>
+                <Form.Label>Renommer l élément {selected.name}</Form.Label>
                 <InputGroup>
                   <Controller
                     control={control}

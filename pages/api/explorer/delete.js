@@ -4,9 +4,10 @@ import path from "path";
 
 export default async (req, res) => {
   return new Promise((resolve) => {
-    console.log("Delete directory " + req.body.folderpath);
-    const oldFile = "./" + req.body.old;
+    const oldFile =
+      "." + req.body.old.substring(req.body.old.indexOf("/public/"));
 
+    console.log(oldFile);
     const deleteFolderRecursive = function (directoryPath) {
       if (fs.existsSync(directoryPath)) {
         fs.readdirSync(directoryPath).forEach((file, index) => {

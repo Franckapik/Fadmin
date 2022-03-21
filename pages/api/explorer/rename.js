@@ -4,21 +4,23 @@ import path from "path";
 
 export default async (req, res) => {
   return new Promise((resolve) => {
-    console.log("Renaming " + req.body.old + " to " + req.body.renamed);
-    const root = path.dirname(req.body.old);
-    const filename = path.basename(req.body.old);
+    const file = req.body.file;
+    const renamed = req.body.renamed;
+    const isDir = file.isDirectory;
 
-    const oldFile = "./" + req.body.old;
-    const newFile = "./" + root + "/" + req.body.renamed;
+    const oldFile =
+      "." + file.fullname.substring(file.fullname.indexOf("/public/"));
+    const newFile =
+      "." + file.path.substring(file.path.indexOf("/public/")) + "/" + renamed;
 
-    const isDirectory = fs.lstatSync(oldFile).isDirectory();
+    console.log("renaming " + oldFile + " to " + newFile);
 
     fs.rename(oldFile, newFile, async function (err) {
       if (err) {
         console.log("Rename error: " + err);
       } else {
         try {
-          if (!isDirectory) {
+          if (!isDir) {
             //file
             await prisma.media
               .updateMany({
@@ -30,7 +32,7 @@ export default async (req, res) => {
                 },
               })
               .then((response) => {
-                console.log(response.count + " media(s) modifié(s)");
+                console.log(response.count + " db media(s) modifié(s)");
                 resolve();
               });
           } else {
@@ -74,7 +76,7 @@ export default async (req, res) => {
 
             resolve();
           }
-          res.status(200).json({ renamed: req.body.old }); // josn necessaire pour le reload de la vue
+          res.status(200).json({ renamed: file.name }); // josn necessaire pour le reload de la vue
         } catch (err) {
           console.log(err);
           res
