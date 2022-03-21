@@ -17,17 +17,30 @@ const ExplorerPage = ({ data }) => {
   const { operation, type, value } = router.query;
 
   const FileTree = ({ data, folders }) => {
+    console.log(data);
     if (!folders) {
       folders = Object.keys(data);
     }
     return Object.values(data).map((a, i) => {
-      if (a.path) {
+      if (a.isDirectory) {
+        //folder
+        return (
+          <div className="mt-3">
+            <FontAwesomeIcon icon={faFolderOpen} /> {a.name}
+            <FontAwesomeIcon icon={faTrash} />
+            <FontAwesomeIcon icon={faPenSquare} />
+            <FontAwesomeIcon icon={faPlusCircle} />
+            <ul>
+              <FileTree data={a.content}></FileTree>
+            </ul>
+          </div>
+        );
+      } else {
         //file
         return (
           <li>
-            {" "}
-            <FontAwesomeIcon icon={faFile} /> {a.path.split("/").pop()} -
-            {Math.ceil(a.stat.size / 1000) + "ko"}{" "}
+            {a.name}
+            <FontAwesomeIcon icon={faFile} />
             <FontAwesomeIcon
               icon={faTrash}
               onClick={() => console.log(a.path)}
@@ -35,7 +48,17 @@ const ExplorerPage = ({ data }) => {
             <FontAwesomeIcon icon={faPenSquare} />
           </li>
         );
-      } else {
+      }
+    });
+  };
+
+  /* const FileTree = ({ data, folders }) => {
+    console.log(data);
+    if (!folders) {
+      folders = Object.keys(data);
+    }
+    return Object.values(data).map((a, i) => {
+      if (a.isDirectory) {
         //folder
         return (
           <div className="mt-3">
@@ -49,10 +72,23 @@ const ExplorerPage = ({ data }) => {
             </ul>
           </div>
         );
+      } else {
+        //file
+        return (
+          <li>
+            {" "}
+            <FontAwesomeIcon icon={faFile} /> {a.path.split("/").pop()} -
+            {Math.ceil(a.stat.size / 1000) + "ko"}{" "}
+            <FontAwesomeIcon
+              icon={faTrash}
+              onClick={() => console.log(a.path)}
+            />
+            <FontAwesomeIcon icon={faPenSquare} />
+          </li>
+        );
       }
     });
-  };
-
+  }; */
   return (
     <Layout_Admin title={"Medias"}>
       <AlertValidation
@@ -71,7 +107,6 @@ const ExplorerPage = ({ data }) => {
 export default ExplorerPage;
 
 export async function getServerSideProps(ctx) {
-  console.log(process.env.DOMAIN);
   const { data } = await axios.get(process.env.DOMAIN + `/api/explorer/list`);
 
   return {

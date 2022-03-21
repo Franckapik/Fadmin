@@ -36,6 +36,7 @@
     "react-moment": "^1.1.1",
     "react-player": "^2.9.0",
     "react-quilljs": "^1.2.17",
+    "recursive-readdir-async": "^1.2.1",
     "sharp": "^0.29.3",
     "swr": "^1.0.1"
   },
