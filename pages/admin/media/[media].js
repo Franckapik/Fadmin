@@ -412,8 +412,8 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
                 variant="top"
                 className="mx-auto"
                 src={
-                  allFields.media_path.replace("./public", "") ||
-                  filesSelected.pathFile.replace("./public", "")
+                  allFields.media_path?.replace("./public", "") ||
+                  filesSelected.pathFile?.replace("./public", "")
                 }
               ></Card.Img>
 
