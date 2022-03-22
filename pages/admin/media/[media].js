@@ -148,7 +148,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
                   },
                 }}
                 name="media_video"
-                defaultValue="video"
+                defaultValue=""
                 render={({ field: { onChange, ref } }) => (
                   <Form.Control
                     onChange={onChange}
@@ -439,12 +439,13 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
           </Card>
         </Col>
       </Row>
-
-      <Modal show={show} onHide={() => setShow(false)}>
-        <ModalBody>
-          <FileTree data={files} readOnly chooseFile={chooseFile}></FileTree>
-        </ModalBody>
-      </Modal>
+      <div className="modal_media">
+        <Modal show={show} onHide={() => setShow(false)}>
+          <ModalBody>
+            <FileTree data={files} readOnly chooseFile={chooseFile}></FileTree>
+          </ModalBody>
+        </Modal>
+      </div>
     </Layout_Admin>
   );
 };

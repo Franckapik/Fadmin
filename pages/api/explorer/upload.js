@@ -27,7 +27,12 @@ apiRoute.post((req, res) => {
     "." + req.body.path.substring(req.body.path.indexOf("/public/"));
 
   const convertion = req.files.map((a, i) => {
-    const newFile = pathDir + "/" + a.filename;
+    console.log(a);
+    const newFile =
+      pathDir +
+      "/" +
+      a.filename.substring(0, a.filename.lastIndexOf(".")) +
+      ".jpg";
     console.log("Converting " + a.filename + " ...");
     console.log("Adding to  " + newFile);
 
