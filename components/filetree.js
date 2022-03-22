@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
-const FileTree = ({ data, modifyOp }) => {
+const FileTree = ({ data, modifyOp, readOnly }) => {
   const [showM, setshowM] = useState(false);
   const [opened, setOpen] = useState(false);
 
@@ -32,46 +32,51 @@ const FileTree = ({ data, modifyOp }) => {
           <Card className="card_folder">
             <Card.Header>
               {a.name}
-              {showM === a.fullname ? (
-                a.isDirectory ? (
-                  <>
-                    <i
-                      className="fal fa-folder-plus"
-                      onClick={() => modifyOp(a, "create")}
-                    />
+              {!readOnly ? (
+                <>
+                  {showM === a.fullname ? (
+                    a.isDirectory ? (
+                      <>
+                        <i
+                          className="fal fa-folder-plus"
+                          onClick={() => modifyOp(a, "create")}
+                        />
 
-                    <i
-                      className="fal fa-pen"
-                      onClick={() => modifyOp(a, "rename")}
-                    />
+                        <i
+                          className="fal fa-pen"
+                          onClick={() => modifyOp(a, "rename")}
+                        />
 
-                    <i
-                      className="fal fa-file-plus"
-                      onClick={() => modifyOp(a, "upload")}
-                    />
-                    <i
-                      className="fal fa-trash"
-                      style={{ color: "red" }}
-                      onClick={() => modifyOp(a, "delete")}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <i
-                      className="fal fa-trash m-2"
-                      onClick={() => modifyOp(a, "delete")}
-                    />
-                    <i
-                      className="fal fa-pen m-2"
-                      onClick={() => modifyOp(a, "rename")}
-                    />
-                  </>
-                )
+                        <i
+                          className="fal fa-file-plus"
+                          onClick={() => modifyOp(a, "upload")}
+                        />
+                        <i
+                          className="fal fa-trash"
+                          style={{ color: "red" }}
+                          onClick={() => modifyOp(a, "delete")}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <i
+                          className="fal fa-trash m-2"
+                          onClick={() => modifyOp(a, "delete")}
+                        />
+                        <i
+                          className="fal fa-pen m-2"
+                          onClick={() => modifyOp(a, "rename")}
+                        />
+                      </>
+                    )
+                  ) : null}
+
+                  <FontAwesomeIcon
+                    icon={faEllipsisV}
+                    onClick={() => setshowM(showM ? false : a.fullname)}
+                  />
+                </>
               ) : null}
-              <FontAwesomeIcon
-                icon={faEllipsisV}
-                onClick={() => setshowM(showM ? false : a.fullname)}
-              />
             </Card.Header>
             <Card.Body onClick={() => setOpen(a.fullname)}>
               {" "}
@@ -80,7 +85,11 @@ const FileTree = ({ data, modifyOp }) => {
               )}
               {opened === a.fullname && a.content ? (
                 <Row>
-                  <FileTree data={a.content} modifyOp={modifyOp}></FileTree>
+                  <FileTree
+                    data={a.content}
+                    modifyOp={modifyOp}
+                    readOnly={readOnly}
+                  ></FileTree>
                 </Row>
               ) : null}
             </Card.Body>
@@ -91,7 +100,7 @@ const FileTree = ({ data, modifyOp }) => {
       //file
       return (
         <OverlayTrigger
-          show={a.fullname === showM}
+          show={a.fullname === showM && !readOnly}
           trigger="click"
           placement="right"
           overlay={popover(a)}

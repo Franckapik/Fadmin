@@ -2,12 +2,21 @@ import axios from "axios";
 import { traverse } from "fs-tree-utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Modal,
+  ModalBody,
+  Row,
+} from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import Layout_Admin from "../../../layouts/layout_admin";
 import prisma from "../../../prisma/prisma";
+import FileTree from "../../../components/filetree";
 
-const MediaAdmin = ({ db_media, db_category, db_author, folders }) => {
+const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
   const {
     handleSubmit,
     control,
@@ -498,6 +507,12 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders }) => {
           </Card>
         </Col>
       </Row>
+
+      <Modal show={true}>
+        <ModalBody>
+          <FileTree data={files} readOnly></FileTree>
+        </ModalBody>
+      </Modal>
     </Layout_Admin>
   );
 };
@@ -526,7 +541,11 @@ export async function getServerSideProps({ params }) {
   );
   const folders = [...new Set(containers)];
 
+  const { data: files } = await axios.get(
+    process.env.DOMAIN + `/api/explorer/list`
+  );
+
   return {
-    props: { db_media, db_category, db_author, db_medias, folders },
+    props: { db_media, db_category, db_author, db_medias, folders, files },
   };
 }

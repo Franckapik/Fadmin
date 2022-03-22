@@ -628,6 +628,11 @@ z-index: -6;
  margin-left: -8em;
 }
 
+
+.modal-dialog {
+  max-width : 800px;
+}
+
 .folder .card_folder {
   margin: 1em;
   text-align: center;
