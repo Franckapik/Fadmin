@@ -43,6 +43,17 @@ const ExplorerPage = ({ data }) => {
     setShow(true);
   };
 
+  const onChangeFiles = (event) => {
+    //when selecting files on local
+    const e = event.target.files;
+    if (e && e[0]) {
+      setfilesSelected(event.target.files);
+    } else {
+      console.log("No file selected");
+      setfilesSelected(false);
+    }
+  };
+
   const {
     control,
     reset,

@@ -3,17 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
-const onChangeFiles = (event) => {
-  //when selecting files on local
-  const e = event.target.files;
-  if (e && e[0]) {
-    setfilesSelected(event.target.files);
-  } else {
-    console.log("No file selected");
-    setfilesSelected(false);
-  }
-};
-
 const FileTree = ({ data, modifyOp }) => {
   const [showM, setshowM] = useState(false);
   const [opened, setOpen] = useState(false);
@@ -91,7 +80,7 @@ const FileTree = ({ data, modifyOp }) => {
               )}
               {opened === a.fullname && a.content ? (
                 <Row>
-                  <FileTree data={a.content}></FileTree>
+                  <FileTree data={a.content} modifyOp={modifyOp}></FileTree>
                 </Row>
               ) : null}
             </Card.Body>
