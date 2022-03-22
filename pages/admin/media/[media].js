@@ -90,16 +90,16 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
 
   return (
     <Layout_Admin>
-      <Row>
+      <Row style={{ alignItems: "center" }}>
+        {db_media ? (
+          <h2 className="mb-4 text-center">
+            {" "}
+            Modifier le media [ n°{db_media.media_id}]
+          </h2>
+        ) : (
+          <h2 className="mb-4 text-center"> Ajouter un media</h2>
+        )}
         <Col>
-          {db_media ? (
-            <h2 className="mb-4 text-center">
-              {" "}
-              Modifier le media [ n°{db_media.media_id}]
-            </h2>
-          ) : (
-            <h2 className="mb-4 text-center"> Ajouter un media</h2>
-          )}
           <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
             <Form.Group className="mb-3" controlId="media_title_id">
               <Form.Label>Titre du media</Form.Label>
@@ -408,33 +408,26 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
         <Col>
           <Card>
             <Row className="text-center">
-              {/* <Card.Img
+              <Card.Img
                 variant="top"
                 className="mx-auto"
                 src={
-                 allFields.media_path ||  URL.createObjectURL(
-                    filesSelected[0]
-                  ) 
+                  allFields.media_path.replace("./public", "") ||
+                  filesSelected.pathFile.replace("./public", "")
                 }
-              ></Card.Img>*/}
+              ></Card.Img>
 
               {allFields.media_title ? (
                 <Card.Title className="mt-4">
                   <h2>{allFields.media_title}</h2>
                 </Card.Title>
               ) : null}
-              {allFields.media_content ? (
-                <Card.Text>
-                  <h5>
-                    {" "}
-                    {allFields.media_folder + "/" + allFields.media_photo}{" "}
-                    {/* entire path from form */}
-                  </h5>
-                  <h6>{allFields.media_subtitle}</h6>
-                  <hr></hr>
-                  <h6>{allFields.media_content}</h6>
-                </Card.Text>
-              ) : null}
+              <Card.Text>
+                <h8> {filesSelected.pathFile || allFields.media_path}</h8>
+                <h6>{allFields.media_subtitle}</h6>
+                <hr></hr>
+                <h6>{allFields.media_content}</h6>
+              </Card.Text>
             </Row>
           </Card>
         </Col>
