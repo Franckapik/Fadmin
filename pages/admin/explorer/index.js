@@ -49,7 +49,6 @@ const ExplorerPage = ({ data }) => {
         await axios
           .post("/api/explorer/rename", data)
           .then((response) => {
-            console.log(response);
             setShow(false);
             router.push(
               "/admin/explorer?operation=renommé&type=élément&value=" +
@@ -65,7 +64,6 @@ const ExplorerPage = ({ data }) => {
         await axios
           .post("/api/explorer/delete", data)
           .then((response) => {
-            console.log(response);
             setShow(false);
             router.push(
               "/admin/explorer?operation=supprimé&type=élément&value=" +
@@ -81,7 +79,6 @@ const ExplorerPage = ({ data }) => {
         await axios
           .post("/api/explorer/create", data)
           .then((response) => {
-            console.log(response);
             setShow(false);
             router.push(
               "/admin/explorer?operation=créé&type=élément&value=" +
@@ -98,10 +95,8 @@ const ExplorerPage = ({ data }) => {
     }
   };
 
-  const FileTree = ({ data, folders }) => {
-    if (!folders) {
-      folders = Object.keys(data); //first
-    }
+  const FileTree = ({ data }) => {
+    console.log(data);
     return Object.values(data).map((a, i) => {
       if (a.isDirectory) {
         //folder
@@ -120,9 +115,15 @@ const ExplorerPage = ({ data }) => {
               icon={faPlusCircle}
               onClick={() => modifyExplorer(a, "create")}
             />
-            <ul>
-              <FileTree data={a.content}></FileTree>
-            </ul>
+            <FontAwesomeIcon
+              icon={faFile}
+              onClick={() => modifyExplorer(a, "upload")}
+            />
+            {a.content ? (
+              <ul>
+                <FileTree data={a.content}></FileTree>
+              </ul>
+            ) : null}
           </div>
         );
       } else {
@@ -130,7 +131,7 @@ const ExplorerPage = ({ data }) => {
         return (
           <li>
             {a.name}
-            <FontAwesomeIcon icon={faFile} />
+
             <FontAwesomeIcon
               icon={faTrash}
               onClick={() => modifyExplorer(a, "delete")}
@@ -273,7 +274,6 @@ export default ExplorerPage;
 
 export async function getServerSideProps() {
   const { data } = await axios.get(process.env.DOMAIN + `/api/explorer/list`);
-
   return {
     props: { data },
   };
