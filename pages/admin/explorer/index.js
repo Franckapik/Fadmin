@@ -184,11 +184,11 @@ const ExplorerPage = ({ data }) => {
         <Popover.Body>
           {" "}
           <i
-            className="fal fa-pen m-2"
+            className="fal fa-pen m-2 cursor "
             onClick={() => modifyExplorer(element, "rename")}
           />
           <i
-            className="fal fa-trash m-2"
+            className="fal fa-trash m-2 cursor "
             style={{ color: "red" }}
             onClick={() => modifyExplorer(element, "delete")}
           />

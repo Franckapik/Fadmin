@@ -632,7 +632,11 @@ z-index: -6;
   margin: 1em;
   text-align: center;
   min-width: 200px;
-  color:rgb(30, 32, 53);
+  color:rgb(3, 5, 20);
+}
+
+.folder i {
+  cursor: pointer;
 }
 
 .folder .card-text {
