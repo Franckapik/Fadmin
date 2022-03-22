@@ -1,6 +1,7 @@
 import { Card, Col, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
 const onChangeFiles = (event) => {
   //when selecting files on local
@@ -14,7 +15,6 @@ const onChangeFiles = (event) => {
 };
 
 const FileTree = ({ data, modifyOp }) => {
-  console.log(modifyOp);
   const [showM, setshowM] = useState(false);
   const [opened, setOpen] = useState(false);
 
@@ -35,45 +35,6 @@ const FileTree = ({ data, modifyOp }) => {
     </Popover>
   );
 
-  const ModifyDisplay = ({ element, dir }, modifyOp) => (
-    <>
-      {dir ? (
-        <>
-          <i
-            className="fal fa-folder-plus"
-            onClick={() => modifyOp(element, "create")}
-          />
-
-          <i
-            className="fal fa-pen"
-            onClick={() => modifyOp(element, "rename")}
-          />
-
-          <i
-            className="fal fa-file-plus"
-            onClick={() => modifyOp(element, "upload")}
-          />
-          <i
-            className="fal fa-trash"
-            style={{ color: "red" }}
-            onClick={() => modifyOp(element, "delete")}
-          />
-        </>
-      ) : (
-        <>
-          <i
-            className="fal fa-trash m-2"
-            onClick={() => modifyOp(element, "delete")}
-          />
-          <i
-            className="fal fa-pen m-2"
-            onClick={() => modifyOp(element, "rename")}
-          />
-        </>
-      )}
-    </>
-  );
-
   return Object.values(data).map((a, i) => {
     if (a.isDirectory) {
       //folder
@@ -83,10 +44,43 @@ const FileTree = ({ data, modifyOp }) => {
             <Card.Header>
               {a.name}
               {showM === a.fullname ? (
-                <ModifyDisplay element={a} dir={a.isDirectory}></ModifyDisplay>
+                a.isDirectory ? (
+                  <>
+                    <i
+                      className="fal fa-folder-plus"
+                      onClick={() => modifyOp(a, "create")}
+                    />
+
+                    <i
+                      className="fal fa-pen"
+                      onClick={() => modifyOp(a, "rename")}
+                    />
+
+                    <i
+                      className="fal fa-file-plus"
+                      onClick={() => modifyOp(a, "upload")}
+                    />
+                    <i
+                      className="fal fa-trash"
+                      style={{ color: "red" }}
+                      onClick={() => modifyOp(a, "delete")}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <i
+                      className="fal fa-trash m-2"
+                      onClick={() => modifyOp(a, "delete")}
+                    />
+                    <i
+                      className="fal fa-pen m-2"
+                      onClick={() => modifyOp(a, "rename")}
+                    />
+                  </>
+                )
               ) : null}
-              <i
-                className="fa-solid fa-ellipsis"
+              <FontAwesomeIcon
+                icon={faEllipsisV}
                 onClick={() => setshowM(showM ? false : a.fullname)}
               />
             </Card.Header>
