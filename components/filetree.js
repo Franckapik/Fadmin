@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
-const FileTree = ({ data, modifyOp, readOnly }) => {
+const FileTree = ({ data, modifyOp, readOnly, chooseFile }) => {
   const [showM, setshowM] = useState(false);
   const [opened, setOpen] = useState(false);
 
@@ -89,6 +89,7 @@ const FileTree = ({ data, modifyOp, readOnly }) => {
                     data={a.content}
                     modifyOp={modifyOp}
                     readOnly={readOnly}
+                    chooseFile={chooseFile}
                   ></FileTree>
                 </Row>
               ) : null}
@@ -105,7 +106,11 @@ const FileTree = ({ data, modifyOp, readOnly }) => {
           placement="right"
           overlay={popover(a)}
         >
-          <Card.Text onClick={() => setshowM(a.fullname)}>
+          <Card.Text
+            onClick={
+              !readOnly ? () => setshowM(a.fullname) : () => chooseFile(a)
+            }
+          >
             <i className="fal fa-file-image m-2" /> {a.name}
           </Card.Text>
         </OverlayTrigger>

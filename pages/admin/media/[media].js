@@ -7,6 +7,7 @@ import {
   Card,
   Col,
   Form,
+  InputGroup,
   Modal,
   ModalBody,
   Row,
@@ -32,7 +33,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
       media_link: db_media.media_link,
       media_share: db_media.media_share,
       media_category_id: db_media.media_category_id,
-      media_folder: db_media.media_folder,
       media_subtitle: db_media.media_subtitle,
       media_author_id: db_media.media_author_id,
       media_home: db_media.media_home,
@@ -47,31 +47,17 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
 
   const allFields = watch();
 
-  const uploadToServer = async (files) => {
-    const body = new FormData();
-    body.append("path", allFields.media_folder);
-    Object.keys(files).map((i) => {
-      body.append("file", files[i]);
-    });
-    return await axios.post("/api/media/upload", body).then(
-      (response) => {
-        return response;
-      },
-      (error) => {
-        return error;
-      }
-    );
-  };
+  const [show, setShow] = useState(false);
 
-  const onChangeFiles = (event) => {
-    //when selecting files on local
-    const e = event.target.files;
-    if (e && e[0]) {
-      setfilesSelected(event.target.files);
-    } else {
-      console.log("No file selected");
-      setfilesSelected(false);
-    }
+  const chooseFile = (element) => {
+    console.log(element);
+    const pathFile =
+      "." + element.fullname.substring(element.fullname.indexOf("/public/"));
+
+    element.pathFile = pathFile;
+
+    setfilesSelected(element);
+    setShow(false);
   };
 
   const onSubmit = async (data) => {
@@ -80,18 +66,13 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
     data.media_category_id = parseInt(data.media_category_id); //integer issue
     data.media_author_id = parseInt(data.media_author_id); //integer issue
 
-    if (filesSelected) {
-      await uploadToServer(filesSelected)
-        .then((response) => {
-          data.media_path = response.data[0].newFile;
-          console.log(data.media_path);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      data.media_path = db_media.media_path || 0; //original db
-    }
+    filesSelected
+      ? (data.media_path = filesSelected.pathFile)
+      : (data.media_path = db_media.media_path || 0);
+
+    filesSelected
+      ? (data.media_photo = filesSelected.name)
+      : (data.media_photo = db_media.media_photo || 0);
 
     await axios
       .post("/api/media/addMedia", data)
@@ -106,8 +87,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
         console.log(error);
       });
   };
-
-  // a là! C'est quoi path et image ? faire plus simple
 
   return (
     <Layout_Admin>
@@ -152,27 +131,10 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
 
             <Form.Group className="mb-3" controlId="media_photo_id">
               <Form.Label>Photographie(s)</Form.Label>
-
-              <Controller
-                control={control}
-                name="media_photo"
-                defaultValue="photo"
-                render={({ field: { ref } }) => (
-                  <Form.Control
-                    type="file"
-                    multiple
-                    onChange={onChangeFiles}
-                    ref={ref}
-                    isInvalid={errors.media_photo}
-                    placeholder="Enter photography"
-                  />
-                )}
+              <Form.Control
+                onClick={() => setShow(true)}
+                placeholder={filesSelected.fullname || db_media.media_path}
               />
-              <small>{allFields.media_photo}</small>
-
-              <Form.Control.Feedback type="invalid">
-                {errors.media_photo?.message}
-              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="media_video_id">
@@ -311,36 +273,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
               />
               <Form.Control.Feedback type="invalid">
                 {errors.media_category_id?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="media_folder_id">
-              <Form.Label>Selection du dossier</Form.Label>
-
-              <Controller
-                control={control}
-                rules={{
-                  required: "Ce champ est manquant",
-                }}
-                name="media_folder"
-                render={({ field: { onChange, value, ref } }) => (
-                  <Form.Select
-                    onChange={onChange}
-                    value={value}
-                    ref={ref}
-                    isInvalid={errors.media_folder}
-                  >
-                    {folders.map((a, i) => (
-                      <option key={"folder" + i} value={a}>
-                        {a}
-                      </option>
-                    ))}
-                  </Form.Select>
-                )}
-              />
-
-              <Form.Control.Feedback type="invalid">
-                {errors.media_folder?.message}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -508,9 +440,9 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
         </Col>
       </Row>
 
-      <Modal show={true}>
+      <Modal show={show} onHide={() => setShow(false)}>
         <ModalBody>
-          <FileTree data={files} readOnly></FileTree>
+          <FileTree data={files} readOnly chooseFile={chooseFile}></FileTree>
         </ModalBody>
       </Modal>
     </Layout_Admin>

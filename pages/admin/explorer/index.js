@@ -1,31 +1,17 @@
-import {
-  faEllipsisV,
-  faFile,
-  faFolderOpen,
-  faPenSquare,
-  faPlusCircle,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import {
   Button,
-  Card,
   Col,
   Form,
   InputGroup,
   Modal,
   ModalBody,
-  OverlayTrigger,
-  Popover,
-  Row,
 } from "react-bootstrap";
 import { AlertValidation } from "../../../components/alertValidation";
 import Layout_Admin from "../../../layouts/layout_admin";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import path from "path";
 import FileTree from "../../../components/filetree";
 
 const ExplorerPage = ({ data }) => {
