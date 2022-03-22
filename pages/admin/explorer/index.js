@@ -96,11 +96,11 @@ const ExplorerPage = ({ data }) => {
             <FontAwesomeIcon icon={faFolderOpen} /> {a.name}
             <FontAwesomeIcon
               icon={faTrash}
-              onClick={() => modifyExplorer(a.path, "delete")}
+              onClick={() => modifyExplorer(a, "delete")}
             />
             <FontAwesomeIcon
               icon={faPenSquare}
-              onClick={() => modifyExplorer(path.dirname(a[0].path), "rename")}
+              onClick={() => modifyExplorer(a, "rename")}
             />
             <FontAwesomeIcon icon={faPlusCircle} />
             <ul>
@@ -191,17 +191,26 @@ const ExplorerPage = ({ data }) => {
                 <InputGroup>
                   <Controller
                     control={control}
-                    rules={{
-                      required: "Ce champ est manquant",
-                      pattern: {
-                        value: /[^\\]*\.(\w+)$/,
-                        message: "extension du fichier manquante",
-                      },
-                      maxLength: {
-                        value: 100,
-                        message: "Ce champ contient trop de caractères",
-                      },
-                    }}
+                    rules={
+                      !selected.isDirectory
+                        ? {
+                            required: "Ce champ est manquant",
+                            pattern: {
+                              value: /[^\\]*\.(\w+)$/,
+                              message: "extension du fichier manquante",
+                            },
+                            maxLength: {
+                              value: 100,
+                              message: "Ce champ contient trop de caractères",
+                            },
+                          }
+                        : {
+                            maxLength: {
+                              value: 100,
+                              message: "Ce champ contient trop de caractères",
+                            },
+                          }
+                    }
                     name="renamed"
                     defaultValue=""
                     render={({ field: { onChange, value, ref } }) => (
