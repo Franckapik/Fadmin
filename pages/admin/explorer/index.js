@@ -26,6 +26,7 @@ import Layout_Admin from "../../../layouts/layout_admin";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import path from "path";
+import FileTree from "../../../components/filetree";
 
 const ExplorerPage = ({ data }) => {
   const router = useRouter();
@@ -36,29 +37,18 @@ const ExplorerPage = ({ data }) => {
 
   const [op, setOp] = useState();
 
+  const modifyOp = (file, operation) => {
+    setOp(operation);
+    setSelected(file);
+    setShow(true);
+  };
+
   const {
     control,
     reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const modifyExplorer = (file, operation) => {
-    setOp(operation);
-    setSelected(file);
-    setShow(true);
-  };
-
-  const onChangeFiles = (event) => {
-    //when selecting files on local
-    const e = event.target.files;
-    if (e && e[0]) {
-      setfilesSelected(event.target.files);
-    } else {
-      console.log("No file selected");
-      setfilesSelected(false);
-    }
-  };
 
   const onSubmit = async (data) => {
     data.file = selected;
@@ -134,119 +124,6 @@ const ExplorerPage = ({ data }) => {
     }
   };
 
-  const ModifyDisplay = ({ element, dir }) => {
-    return (
-      <>
-        {dir ? (
-          <>
-            <i
-              className="fal fa-folder-plus"
-              onClick={() => modifyExplorer(element, "create")}
-            />
-
-            <i
-              className="fal fa-pen"
-              onClick={() => modifyExplorer(element, "rename")}
-            />
-
-            <i
-              className="fal fa-file-plus"
-              onClick={() => modifyExplorer(element, "upload")}
-            />
-            <i
-              className="fal fa-trash"
-              style={{ color: "red" }}
-              onClick={() => modifyExplorer(element, "delete")}
-            />
-          </>
-        ) : (
-          <>
-            <i
-              className="fal fa-trash m-2"
-              onClick={() => modifyExplorer(element, "delete")}
-            />
-            <i
-              className="fal fa-pen m-2"
-              onClick={() => modifyExplorer(element, "rename")}
-            />
-          </>
-        )}
-      </>
-    );
-  };
-
-  const FileTree = ({ data }) => {
-    const [showM, setshowM] = useState(false);
-    const [opened, setOpen] = useState(false);
-
-    const popover = (element) => (
-      <Popover id="popover-basic">
-        <Popover.Body>
-          {" "}
-          <i
-            className="fal fa-pen m-2 cursor "
-            onClick={() => modifyExplorer(element, "rename")}
-          />
-          <i
-            className="fal fa-trash m-2 cursor "
-            style={{ color: "red" }}
-            onClick={() => modifyExplorer(element, "delete")}
-          />
-        </Popover.Body>
-      </Popover>
-    );
-
-    return Object.values(data).map((a, i) => {
-      if (a.isDirectory) {
-        //folder
-        return (
-          <Col className="folder">
-            <Card className="card_folder">
-              <Card.Header>
-                {a.name}
-                {showM === a.fullname ? (
-                  <ModifyDisplay
-                    element={a}
-                    dir={a.isDirectory}
-                  ></ModifyDisplay>
-                ) : null}
-                <FontAwesomeIcon
-                  icon={faEllipsisV}
-                  onClick={() => setshowM(showM ? false : a.fullname)}
-                />
-              </Card.Header>
-              <Card.Body onClick={() => setOpen(a.fullname)}>
-                {" "}
-                {a.fullname === opened ? null : (
-                  <i className="fad fa-folder folder_icon"></i>
-                )}
-                {opened === a.fullname && a.content ? (
-                  <Row>
-                    <FileTree data={a.content}></FileTree>
-                  </Row>
-                ) : null}
-              </Card.Body>
-            </Card>
-          </Col>
-        );
-      } else {
-        //file
-        return (
-          <OverlayTrigger
-            show={a.fullname === showM}
-            trigger="click"
-            placement="right"
-            overlay={popover(a)}
-          >
-            <Card.Text onClick={() => setshowM(a.fullname)}>
-              <i className="fal fa-file-image m-2" /> {a.name}
-            </Card.Text>
-          </OverlayTrigger>
-        );
-      }
-    });
-  };
-
   return (
     <Layout_Admin title={"Medias"}>
       <AlertValidation
@@ -256,7 +133,7 @@ const ExplorerPage = ({ data }) => {
       ></AlertValidation>
 
       <Col className="no-upper tree">
-        <FileTree data={data}></FileTree>
+        <FileTree data={data} modifyOp={modifyOp}></FileTree>
       </Col>
       <Modal show={show} onHide={() => setShow(false)}>
         <ModalBody>
