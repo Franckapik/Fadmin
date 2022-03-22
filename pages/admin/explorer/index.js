@@ -27,6 +27,8 @@ const ExplorerPage = ({ data }) => {
   const { operation, type, value } = router.query;
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState();
+  const [filesSelected, setfilesSelected] = useState(false);
+
   const [op, setOp] = useState();
 
   const {
@@ -40,6 +42,33 @@ const ExplorerPage = ({ data }) => {
     setOp(operation);
     setSelected(file);
     setShow(true);
+  };
+
+  const onChangeFiles = (event) => {
+    //when selecting files on local
+    const e = event.target.files;
+    if (e && e[0]) {
+      setfilesSelected(event.target.files);
+    } else {
+      console.log("No file selected");
+      setfilesSelected(false);
+    }
+  };
+
+  const uploadToServer = async (files) => {
+    const body = new FormData();
+    body.append("path", allFields.media_folder);
+    Object.keys(files).map((i) => {
+      body.append("file", files[i]);
+    });
+    return await axios.post("/api/media/upload", body).then(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        return error;
+      }
+    );
   };
 
   const onSubmit = async (data) => {
@@ -83,6 +112,27 @@ const ExplorerPage = ({ data }) => {
             router.push(
               "/admin/explorer?operation=créé&type=élément&value=" +
                 response.data.created
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        break;
+
+      case "upload":
+        const body = new FormData();
+        body.append("path", selected.fullname);
+        Object.keys(filesSelected).map((i) => {
+          body.append("file", filesSelected[i]);
+        });
+
+        await axios
+          .post("/api/explorer/upload", body)
+          .then((response) => {
+            setShow(false);
+            router.push(
+              "/admin/explorer?operation=téléversé&type=élément&value=" +
+                response.data.uploaded
             );
           })
           .catch((error) => {
@@ -204,6 +254,35 @@ const ExplorerPage = ({ data }) => {
                   {errors.author_name?.message}
                 </Form.Control.Feedback>
               </Form.Group>
+            </Form>
+          ) : null}
+
+          {op === "upload" ? (
+            <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
+              <Form.Group className="mb-3" controlId="uploaded">
+                <Form.Label>Ajouter une image : </Form.Label>
+
+                <Controller
+                  control={control}
+                  name="uploaded"
+                  defaultValue="photo"
+                  render={({ field: { ref } }) => (
+                    <Form.Control
+                      type="file"
+                      multiple
+                      onChange={onChangeFiles}
+                      ref={ref}
+                      isInvalid={errors.uploaded}
+                      placeholder="Enter photography"
+                    />
+                  )}
+                />
+
+                <Form.Control.Feedback type="invalid">
+                  {errors.uploaded?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Button type="submit">Téléverser</Button>
             </Form>
           ) : null}
           {op === "create" ? (
