@@ -39,6 +39,7 @@ apiRoute.post((req, res) => {
       .toFile(newFile)
       .then((data) => {
         data.newFile = newFile;
+        data.filename = a.filename;
         console.log("Converted: " + newFile);
         return data;
       })

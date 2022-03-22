@@ -119,10 +119,11 @@ const ExplorerPage = ({ data }) => {
         await axios
           .post("/api/explorer/upload", body)
           .then((response) => {
+            console.log(response);
             setShow(false);
             router.push(
               "/admin/explorer?operation=téléversé&type=élément&value=" +
-                response.data.uploaded
+                response.data[0].filename
             );
           })
           .catch((error) => {
