@@ -628,6 +628,30 @@ z-index: -6;
  margin-left: -8em;
 }
 
+.folder .card_folder {
+  margin: 1em;
+  text-align: center;
+  min-width: 200px;
+  color:rgb(30, 32, 53);
+}
+
+.folder .card-text {
+  text-align: left;
+  background-color: ivory;
+  cursor: pointer;
+}
+
+.folder .card-header {
+ display: flex;
+ justify-content: space-between;
+}
+
+.folder_icon {
+  font-size: 5em;
+}
+
+
+
 @media (min-width: 1400px) { /* video wide */
  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
     max-width: 1558px;

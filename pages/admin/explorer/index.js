@@ -1,4 +1,5 @@
 import {
+  faEllipsisV,
   faFile,
   faFolderOpen,
   faPenSquare,
@@ -10,10 +11,14 @@ import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import {
   Button,
+  Card,
+  Col,
   Form,
   InputGroup,
   Modal,
   ModalBody,
+  OverlayTrigger,
+  Popover,
   Row,
 } from "react-bootstrap";
 import { AlertValidation } from "../../../components/alertValidation";
@@ -53,22 +58,6 @@ const ExplorerPage = ({ data }) => {
       console.log("No file selected");
       setfilesSelected(false);
     }
-  };
-
-  const uploadToServer = async (files) => {
-    const body = new FormData();
-    body.append("path", allFields.media_folder);
-    Object.keys(files).map((i) => {
-      body.append("file", files[i]);
-    });
-    return await axios.post("/api/media/upload", body).then(
-      (response) => {
-        return response;
-      },
-      (error) => {
-        return error;
-      }
-    );
   };
 
   const onSubmit = async (data) => {
@@ -145,52 +134,114 @@ const ExplorerPage = ({ data }) => {
     }
   };
 
+  const ModifyDisplay = ({ element, dir }) => {
+    return (
+      <>
+        {dir ? (
+          <>
+            <i
+              className="fal fa-folder-plus"
+              onClick={() => modifyExplorer(element, "create")}
+            />
+
+            <i
+              className="fal fa-pen"
+              onClick={() => modifyExplorer(element, "rename")}
+            />
+
+            <i
+              className="fal fa-file-plus"
+              onClick={() => modifyExplorer(element, "upload")}
+            />
+            <i
+              className="fal fa-trash"
+              style={{ color: "red" }}
+              onClick={() => modifyExplorer(element, "delete")}
+            />
+          </>
+        ) : (
+          <>
+            <i
+              className="fal fa-trash m-2"
+              onClick={() => modifyExplorer(element, "delete")}
+            />
+            <i
+              className="fal fa-pen m-2"
+              onClick={() => modifyExplorer(element, "rename")}
+            />
+          </>
+        )}
+      </>
+    );
+  };
+
   const FileTree = ({ data }) => {
-    console.log(data);
+    const [showM, setshowM] = useState(false);
+    const [opened, setOpen] = useState(false);
+
+    const popover = (element) => (
+      <Popover id="popover-basic">
+        <Popover.Body>
+          {" "}
+          <i
+            className="fal fa-pen m-2"
+            onClick={() => modifyExplorer(element, "rename")}
+          />
+          <i
+            className="fal fa-trash m-2"
+            style={{ color: "red" }}
+            onClick={() => modifyExplorer(element, "delete")}
+          />
+        </Popover.Body>
+      </Popover>
+    );
+
     return Object.values(data).map((a, i) => {
       if (a.isDirectory) {
         //folder
         return (
-          <div className="mt-3">
-            <FontAwesomeIcon icon={faFolderOpen} /> {a.name}
-            <FontAwesomeIcon
-              icon={faTrash}
-              onClick={() => modifyExplorer(a, "delete")}
-            />
-            <FontAwesomeIcon
-              icon={faPenSquare}
-              onClick={() => modifyExplorer(a, "rename")}
-            />
-            <FontAwesomeIcon
-              icon={faPlusCircle}
-              onClick={() => modifyExplorer(a, "create")}
-            />
-            <FontAwesomeIcon
-              icon={faFile}
-              onClick={() => modifyExplorer(a, "upload")}
-            />
-            {a.content ? (
-              <ul>
-                <FileTree data={a.content}></FileTree>
-              </ul>
-            ) : null}
-          </div>
+          <Col className="folder">
+            <Card className="card_folder">
+              <Card.Header>
+                {a.name}
+                {showM === a.fullname ? (
+                  <ModifyDisplay
+                    element={a}
+                    dir={a.isDirectory}
+                  ></ModifyDisplay>
+                ) : null}
+                <FontAwesomeIcon
+                  icon={faEllipsisV}
+                  onClick={() => setshowM(showM ? false : a.fullname)}
+                />
+              </Card.Header>
+              <Card.Body onClick={() => setOpen(a.fullname)}>
+                {" "}
+                {a.fullname === opened ? null : (
+                  <i className="fad fa-folder folder_icon"></i>
+                )}
+                {opened === a.fullname && a.content ? (
+                  <Row>
+                    <FileTree data={a.content}></FileTree>
+                  </Row>
+                ) : null}
+              </Card.Body>
+            </Card>
+          </Col>
         );
       } else {
         //file
         return (
-          <li>
-            {a.name}
-
-            <FontAwesomeIcon
-              icon={faTrash}
-              onClick={() => modifyExplorer(a, "delete")}
-            />
-            <FontAwesomeIcon
-              icon={faPenSquare}
-              onClick={() => modifyExplorer(a, "rename")}
-            />
-          </li>
+          <OverlayTrigger
+            show={a.fullname === showM}
+            trigger="click"
+            placement="right"
+            overlay={popover(a)}
+          >
+            <Card.Text onClick={() => setshowM(a.fullname)}>
+              <i className="fal fa-file-image m-2" /> {a.name}
+            </Card.Text>
+          </OverlayTrigger>
         );
       }
     });
@@ -204,9 +255,9 @@ const ExplorerPage = ({ data }) => {
         type={type}
       ></AlertValidation>
 
-      <Row className="no-upper tree">
+      <Col className="no-upper tree">
         <FileTree data={data}></FileTree>
-      </Row>
+      </Col>
       <Modal show={show} onHide={() => setShow(false)}>
         <ModalBody>
           {op === "rename" ? (
