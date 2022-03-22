@@ -11,7 +11,6 @@ export default async (req, res) => {
 
     read.list(dir0, { mode: read.TREE }).then(function (tree) {
       res.status(200).json(tree);
-      console.log(tree);
     });
   } catch (err) {
     console.log(err);

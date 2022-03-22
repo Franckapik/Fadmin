@@ -4,10 +4,12 @@ import path from "path";
 
 export default async (req, res) => {
   return new Promise((resolve) => {
-    const oldFile =
-      "." + req.body.old.substring(req.body.old.indexOf("/public/"));
+    const file = req.body.file;
+    const isDir = file.isDirectory;
 
-    console.log(oldFile);
+    const oldFile =
+      "." + file.fullname.substring(file.fullname.indexOf("/public/"));
+
     const deleteFolderRecursive = function (directoryPath) {
       if (fs.existsSync(directoryPath)) {
         fs.readdirSync(directoryPath).forEach((file, index) => {
@@ -24,15 +26,13 @@ export default async (req, res) => {
       }
     }; //response?
 
-    const isDirectory = fs.lstatSync(oldFile).isDirectory();
-
-    if (isDirectory) {
+    if (isDir) {
       deleteFolderRecursive(oldFile);
     } else {
       try {
         fs.unlinkSync(oldFile);
         console.log(oldFile + " deleted");
-        res.status(200).json({ deleted: oldFile });
+        res.status(200).json({ deleted: file.name });
         //file removed
       } catch (err) {
         console.error(err);

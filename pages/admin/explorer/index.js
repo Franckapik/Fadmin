@@ -44,7 +44,6 @@ const ExplorerPage = ({ data }) => {
 
   const onSubmit = async (data) => {
     data.file = selected;
-    console.log(data);
     switch (op) {
       case "rename":
         await axios
@@ -78,13 +77,28 @@ const ExplorerPage = ({ data }) => {
           });
         break;
 
+      case "create":
+        await axios
+          .post("/api/explorer/create", data)
+          .then((response) => {
+            console.log(response);
+            setShow(false);
+            router.push(
+              "/admin/explorer?operation=créé&type=élément&value=" +
+                response.data.created
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        break;
+
       default:
         break;
     }
   };
 
   const FileTree = ({ data, folders }) => {
-    console.log(data);
     if (!folders) {
       folders = Object.keys(data); //first
     }
@@ -102,7 +116,10 @@ const ExplorerPage = ({ data }) => {
               icon={faPenSquare}
               onClick={() => modifyExplorer(a, "rename")}
             />
-            <FontAwesomeIcon icon={faPlusCircle} />
+            <FontAwesomeIcon
+              icon={faPlusCircle}
+              onClick={() => modifyExplorer(a, "create")}
+            />
             <ul>
               <FileTree data={a.content}></FileTree>
             </ul>
@@ -128,49 +145,6 @@ const ExplorerPage = ({ data }) => {
     });
   };
 
-  /* const FileTree = ({ data, folders }) => {
-    console.log(data);
-    if (!folders) {
-      folders = Object.keys(data);
-    }
-    return Object.values(data).map((a, i) => {
-      if (a.isDirectory) {
-        //folder
-        return (
-          <div className="mt-3">
-            <FontAwesomeIcon icon={faFolderOpen} /> {folders?.[i]} [
-            {Object.keys(a).length + " fichiers"}]{" "}
-            <FontAwesomeIcon
-              icon={faTrash}
-              onClick={() => modifyExplorer(a.path, "delete")}
-            />
-            <FontAwesomeIcon
-              icon={faPenSquare}
-              onClick={() => modifyExplorer(path.dirname(a[0].path), "rename")}
-            />
-            <FontAwesomeIcon icon={faPlusCircle} />
-            <ul>
-              <FileTree data={a} folders={Object.keys(a)}></FileTree>
-            </ul>
-          </div>
-        );
-      } else {
-        //file
-        return (
-          <li>
-            {" "}
-            <FontAwesomeIcon icon={faFile} /> {a.path.split("/").pop()} -
-            {Math.ceil(a.stat.size / 1000) + "ko"}{" "}
-            <FontAwesomeIcon
-              icon={faTrash}
-              onClick={() => console.log(a.path)}
-            />
-            <FontAwesomeIcon icon={faPenSquare} />
-          </li>
-        );
-      }
-    });
-  }; */
   return (
     <Layout_Admin title={"Medias"}>
       <AlertValidation
@@ -231,21 +205,62 @@ const ExplorerPage = ({ data }) => {
               </Form.Group>
             </Form>
           ) : null}
+          {op === "create" ? (
+            <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
+              <Form.Group className="mb-3" controlId="created">
+                <Form.Label>
+                  Creer un nouveau dossier dans {selected.name} :
+                </Form.Label>
+                <InputGroup>
+                  <Controller
+                    control={control}
+                    rules={{
+                      maxLength: {
+                        value: 30,
+                        message: "Ce champ contient trop de caractères",
+                      },
+                    }}
+                    name="created"
+                    defaultValue=""
+                    render={({ field: { onChange, value, ref } }) => (
+                      <Form.Control
+                        onChange={onChange}
+                        value={value}
+                        ref={ref}
+                        isInvalid={errors.renamed}
+                      />
+                    )}
+                  />
+                  <Button type="submit">Créer</Button>
+                </InputGroup>
+
+                <Form.Control.Feedback type="invalid">
+                  {errors.author_name?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Form>
+          ) : null}
 
           {op === "delete" ? (
             <>
-              {" "}
-              <Form.Label> Supprimer {selected} ?</Form.Label>
-              <Button type="submit" onClick={() => onSubmit({ data: "essai" })}>
-                Supprimer
-              </Button>{" "}
-              <Button
-                type="submit"
-                variant="danger"
-                onClick={() => setShow(!show)}
-              >
-                Annuler
-              </Button>
+              <Form>
+                <Form.Label> Supprimer {selected.name} ?</Form.Label>
+                <Form.Group className="mb-3" controlId="deleted">
+                  <Button
+                    type="submit"
+                    onClick={() => onSubmit({ data: "essai" })}
+                  >
+                    Supprimer
+                  </Button>{" "}
+                  <Button
+                    type="submit"
+                    variant="danger"
+                    onClick={() => setShow(!show)}
+                  >
+                    Annuler
+                  </Button>
+                </Form.Group>
+              </Form>
             </>
           ) : null}
         </ModalBody>

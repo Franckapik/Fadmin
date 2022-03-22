@@ -2,27 +2,31 @@ import fs from "fs";
 
 export default async (req, res) => {
   return new Promise((resolve) => {
-    console.log("Create directory inside " + req.body.folderpath);
-    let nodes = req.body.folderpath.split("/");
-    const dir = "./public" + req.body.folderpath + "/" + "new folder";
+    console.log("Create directory inside " + req.body.file.fullname);
+    const file = req.body.file;
+    const created = req.body.created;
+    const isDir = file.isDirectory;
+    const pathNewDir =
+      "." +
+      file.fullname.substring(file.fullname.indexOf("/public/")) +
+      "/" +
+      created;
+
+    console.log("Création du nouveau dossier : " + pathNewDir);
 
     //rename on server
 
-    if (nodes.length > 3) {
-      try {
-        if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir);
-          res.status(200).json(dir);
-        } else {
-          console.log("Existing folder");
-          res.status(403).json({ err: "Existing folder" });
-        }
-      } catch (err) {
-        console.error(err);
-        res.status(403).json({ err: err });
+    try {
+      if (!fs.existsSync(pathNewDir)) {
+        fs.mkdirSync(pathNewDir);
+        res.status(200).json({ created: created });
+      } else {
+        console.log("Existing folder");
+        res.status(403).json({ err: "Existing folder" });
       }
-    } else {
-      console.log("The created folder is too high in the tree");
+    } catch (err) {
+      console.error(err);
+      res.status(403).json({ err: err });
     }
   });
 };
