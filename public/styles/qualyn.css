@@ -353,17 +353,16 @@ max-width : 80vw;
 
 .sidebar_container {
   background-color: rgb(30, 32, 53);
-  height: 100vh;
   color: aliceblue;
+  position: fixed;
+  border-radius: 30px;
+  left: 2vw;
+  top : 10%;
 
 }
 
 .sidebar_container .nav-item {
 padding: 1em;
-}
-
-.s-icon {
-  margin-right: 1em !important;
 }
 
 .card { 

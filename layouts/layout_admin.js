@@ -8,10 +8,10 @@ export default function Layout_Admin({ children, title }) {
     <Container fluid style={{ paddingLeft: "0" }} className="admin">
       <>
         <Row>
-          <Col xs={2}>
+          <Col xs={1}>
             <Sidebar></Sidebar>
           </Col>
-          <Col xs={10}>
+          <Col xs={11}>
             <header>
               <Nav className="justify-content-center align-items-center mt-2">
                 <Nav.Item className="m-3">
@@ -21,7 +21,9 @@ export default function Layout_Admin({ children, title }) {
               </Nav>
             </header>
             {publicMetadata.isAdmin ? (
-              <main className="p-5">{children}</main>
+              <main style={{ marginLeft: "4em", paddingRight: "2em" }}>
+                {children}
+              </main>
             ) : (
               "No authorized"
             )}
