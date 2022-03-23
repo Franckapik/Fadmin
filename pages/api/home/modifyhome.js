@@ -8,12 +8,11 @@ export default async (req, res) => {
       where: {
         home_id: 1,
       },
-      data: {
-        home_video_url: data.home_video_url,
-      },
+      data: data,
     });
     res.status(200).json(result);
   } catch (err) {
+    console.log(err);
     res
       .status(403)
       .json({ err: "Error occured while modifying home url video" + err });

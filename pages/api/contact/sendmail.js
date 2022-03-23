@@ -1,7 +1,7 @@
 let nodemailer = require("nodemailer");
 import prisma from "../../../prisma/prisma";
 
-export default function (req, res) {
+export default async function (req, res) {
   const db_home = await prisma.home.findUnique({
     where: {
       home_id: 1,

@@ -16,6 +16,7 @@ export default function Home({
   db_category,
   db_author,
   db_medias,
+  db_home,
 }) {
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
@@ -28,6 +29,7 @@ export default function Home({
       contact
       comment
       overview
+      db_home={db_home}
     >
       <Medias db_medias={db_medias} setShow={setShow} show={show}></Medias>
       <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
@@ -107,6 +109,12 @@ export async function getServerSideProps({ params, query }) {
     })
   );
 
+  const db_home = await prisma.home.findUnique({
+    where: {
+      home_id: 1,
+    },
+  });
+
   const db_category = await prisma.category.findMany({
     where: {
       category_author: Number(params?.author) || -1,
@@ -115,6 +123,13 @@ export async function getServerSideProps({ params, query }) {
   });
 
   return {
-    props: { db_authors, mediasFiles, db_category, db_author, db_medias },
+    props: {
+      db_authors,
+      mediasFiles,
+      db_category,
+      db_author,
+      db_medias,
+      db_home,
+    },
   };
 }

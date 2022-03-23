@@ -5,7 +5,7 @@ import prisma from "../prisma/prisma";
 
 export default function Home({ db_authors, mediasFiles, db_home }) {
   return (
-    <Layout_Home authors={db_authors} home={db_home}>
+    <Layout_Home authors={db_authors} db_home={db_home}>
       <Row>
         <Col className="mx-auto">
           <MediasHome mediasFiles={mediasFiles} db_home={db_home}></MediasHome>
@@ -26,6 +26,7 @@ export async function getServerSideProps({ params, query }) {
       home_id: 1,
     },
   });
+
   const mediasFiles = await prisma.media.findMany({
     where: {
       media_home: true,

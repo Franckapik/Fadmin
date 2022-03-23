@@ -5,7 +5,7 @@ import prisma from "../../prisma/prisma";
 
 export default function Comment({ db_authors, db_home }) {
   return (
-    <Layout_Home authors={db_authors} home={db_home}>
+    <Layout_Home authors={db_authors} db_home={db_home}>
       <ContactForm db_authors={db_authors}></ContactForm>
     </Layout_Home>
   );

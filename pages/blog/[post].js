@@ -33,7 +33,7 @@ const Post = ({ db_post, post_length, db_author, db_home }) => {
   };
 
   return (
-    <Layout_Home authors={db_author}>
+    <Layout_Home authors={db_author} db_home={db_home}>
       <Row>
         <h4 className="text-center">
           <Link href="/blog">Blog</Link>
@@ -73,6 +73,7 @@ const Post = ({ db_post, post_length, db_author, db_home }) => {
           </Moment>
         </p>
         <p className="mt-5">
+          {console.log(process.env.DOMAIN)}
           <FacebookShareButton
             url={`${process.env.DOMAIN}/blog/${router.query.post}`}
             quote={`Un article intéressant sur le blog de ${db_home.home_name}!`}

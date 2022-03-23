@@ -1,33 +1,22 @@
-import {
-  Image,
-  Nav,
-  NavItem,
-  NavLink,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDesktop,
-  faFile,
-  faFileSignature,
   faFolderPlus,
   faHouseUser,
-  faSpider,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { faPhotoVideo } from "@fortawesome/free-solid-svg-icons";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 
 const Sidebar = () => (
   <Nav className="sidebar_container flex-column" activeKey="/home">
     <OverlayTrigger
       placement="right"
       key={"home"}
-      overlay={<Tooltip id="button-tooltip-2">Adminstration</Tooltip>}
+      overlay={<Tooltip id="button-tooltip-2">Administration</Tooltip>}
     >
       <Nav.Item>
         <Nav.Link href="/admin/" className="d-flex align-items-center ">

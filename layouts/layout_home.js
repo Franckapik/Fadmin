@@ -19,10 +19,9 @@ export default function Layout_Home({
   overview,
   contact,
   comment,
-  home,
+  db_home,
 }) {
   const router = useRouter();
-
   const [isOpen, setOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -76,10 +75,10 @@ export default function Layout_Home({
           </Row>
           <div className="menu-contact ">
             {" "}
-            <a href={home.home_fb} className="m-4" target="_blank">
+            <a href={db_home.home_fb} className="m-4" target="_blank">
               <FontAwesomeIcon icon={faFacebookSquare} width="2em" />{" "}
             </a>
-            <a href={home.home_insta} className="m-4" target="_blank">
+            <a href={db_home.home_insta} className="m-4" target="_blank">
               <FontAwesomeIcon icon={faInstagram} width="2em" />{" "}
             </a>
           </div>
@@ -88,7 +87,7 @@ export default function Layout_Home({
 
       <Container fluid className="container_main">
         <Head>
-          <title>{home.home_name}</title>
+          <title>{db_home.home_name}</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
@@ -104,19 +103,19 @@ export default function Layout_Home({
 
         <div className="paper"></div>
         <div className="shapes"></div>
-        <div className="title_bg">{home.home_name}</div>
+        <div className="title_bg">{db_home.home_name}</div>
         <div className="sticker d-none d-lg-flex">
           <div>
-            {home.home_name}
+            {db_home.home_name}
             <a
-              href={home?.home_insta || author?.author_insta}
+              href={db_home?.home_insta || author?.author_insta}
               className="m-2 cursor"
               target="_blank"
             >
               <FontAwesomeIcon icon={faInstagram} width="1em" />{" "}
             </a>
             <a
-              href={home?.home_fb || author?.author_fb}
+              href={db_home?.home_fb || author?.author_fb}
               className="m-2 cursor"
               target="_blank"
             >
@@ -130,7 +129,7 @@ export default function Layout_Home({
               <Link href="/" passHref>
                 <h1 className="cursor title">
                   <img
-                    src={home.home_logo}
+                    src={db_home.home_logo}
                     alt="title"
                     className={"cursor title"}
                   ></img>

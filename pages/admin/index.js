@@ -5,6 +5,7 @@ import Layout_Admin from "../../layouts/layout_admin";
 import prisma from "../../prisma/prisma";
 import axios from "axios";
 import { useState } from "react";
+import { AlertValidation } from "../../components/alertValidation";
 
 export default function Page({
   db_medias,
@@ -14,25 +15,26 @@ export default function Page({
   db_home,
 }) {
   const {
-    setError,
     handleSubmit,
     control,
     reset,
     formState: { errors },
-    getValues,
   } = useForm({
     defaultValues: {
       home_video_url: db_home.home_video_url,
+      home_name: db_home.home_name,
+      home_mail: db_home.home_mail,
+      home_logo: db_home.home_logo,
+      home_insta: db_home.home_insta,
+      home_fb: db_home.home_fb,
     },
   });
 
   const [success, setSuccess] = useState(false);
 
-  const router = useRouter();
-
   const onSubmit = async (data) => {
     console.log(data);
-    await axios.post("/api/home/modifyVideo", data).then(
+    await axios.post("/api/home/modifyhome", data).then(
       (response) => {
         console.log(response);
         setSuccess(true);
@@ -50,6 +52,13 @@ export default function Page({
           <main>
             <h2>{db_home.home_name} Dashboard</h2>
             <Row>
+              {success ? (
+                <AlertValidation
+                  operation={"pris en compte"}
+                  value={"de l'organisation"}
+                  type={"changement"}
+                ></AlertValidation>
+              ) : null}
               <Table striped borderless hover className="mt-5">
                 <thead>
                   <tr>
@@ -58,54 +67,199 @@ export default function Page({
                 </thead>
                 <tbody>
                   <tr key={"db_home"}>
-                    <td key={"video_url"}>
+                    <td key={"home_form"}>
                       {" "}
                       <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="db_home_home_name"
+                        >
+                          <Form.Label>Nom</Form.Label>
+                          <Controller
+                            control={control}
+                            rules={{
+                              required: "Ce champ est manquant",
+                              maxLength: {
+                                value: 200,
+                                message: "Ce champ contient trop de caractères",
+                              },
+                            }}
+                            name="home_name"
+                            render={({ field: { onChange, value, ref } }) => (
+                              <Form.Control
+                                onChange={onChange}
+                                value={value}
+                                ref={ref}
+                                isInvalid={errors.home_name}
+                                placeholder="Nom du site internet"
+                              />
+                            )}
+                          />
+
+                          <Form.Control.Feedback type="invalid">
+                            {errors.home_name?.message}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+
                         <Form.Group
                           className="mb-3"
                           controlId="db_home_home_video_url"
                         >
                           <Form.Label>Lien vidéo</Form.Label>
-                          <InputGroup>
-                            <Controller
-                              control={control}
-                              rules={{
-                                required: "Ce champ est manquant",
-                                maxLength: {
-                                  value: 200,
-                                  message:
-                                    "Ce champ contient trop de caractères",
-                                },
-                              }}
-                              name="home_video_url"
-                              render={({
-                                field: { onChange, onBlur, value, ref },
-                              }) => (
-                                <Form.Control
-                                  onChange={onChange}
-                                  value={value}
-                                  ref={ref}
-                                  isInvalid={errors.home_video_url}
-                                  placeholder="Url of media home"
-                                />
-                              )}
-                            />
-                            <Button
-                              variant={success ? "success" : "primary"}
-                              type="submit"
-                            >
-                              Valider
-                            </Button>
-                          </InputGroup>
+                          <Controller
+                            control={control}
+                            rules={{
+                              required: "Ce champ est manquant",
+                              maxLength: {
+                                value: 200,
+                                message: "Ce champ contient trop de caractères",
+                              },
+                            }}
+                            name="home_video_url"
+                            render={({ field: { onChange, value, ref } }) => (
+                              <Form.Control
+                                onChange={onChange}
+                                value={value}
+                                ref={ref}
+                                isInvalid={errors.home_video_url}
+                                placeholder="Url of media home"
+                              />
+                            )}
+                          />
+
                           <Form.Control.Feedback type="invalid">
                             {errors.home_video_url?.message}
                           </Form.Control.Feedback>
-                          {success ? (
-                            <div className="pt-2">
-                              Le nouveau lien à bien été pris en compte !
-                            </div>
-                          ) : null}
                         </Form.Group>
+
+                        <Form.Group
+                          className="mb-3"
+                          controlId="db_home_home_mail"
+                        >
+                          <Form.Label>Mail</Form.Label>
+                          <Controller
+                            control={control}
+                            rules={{
+                              required: "Ce champ est manquant",
+                              maxLength: {
+                                value: 200,
+                                message: "Ce champ contient trop de caractères",
+                              },
+                            }}
+                            name="home_mail"
+                            render={({ field: { onChange, value, ref } }) => (
+                              <Form.Control
+                                onChange={onChange}
+                                value={value}
+                                ref={ref}
+                                isInvalid={errors.home_mail}
+                                placeholder="Adresse mail"
+                              />
+                            )}
+                          />
+
+                          <Form.Control.Feedback type="invalid">
+                            {errors.home_mail?.message}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group
+                          className="mb-3"
+                          controlId="db_home_home_logo"
+                        >
+                          <Form.Label>Logo de titre</Form.Label>
+                          <Controller
+                            control={control}
+                            rules={{
+                              required: "Ce champ est manquant",
+                              maxLength: {
+                                value: 200,
+                                message: "Ce champ contient trop de caractères",
+                              },
+                            }}
+                            name="home_logo"
+                            render={({ field: { onChange, value, ref } }) => (
+                              <Form.Control
+                                onChange={onChange}
+                                value={value}
+                                ref={ref}
+                                isInvalid={errors.home_logo}
+                                placeholder="Url of media home"
+                              />
+                            )}
+                          />
+
+                          <Form.Control.Feedback type="invalid">
+                            {errors.home_logo?.message}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="db_home_home_fb"
+                        >
+                          <Form.Label>Lien Facebook</Form.Label>
+                          <Controller
+                            control={control}
+                            rules={{
+                              required: "Ce champ est manquant",
+                              maxLength: {
+                                value: 200,
+                                message: "Ce champ contient trop de caractères",
+                              },
+                            }}
+                            name="home_fb"
+                            render={({ field: { onChange, value, ref } }) => (
+                              <Form.Control
+                                onChange={onChange}
+                                value={value}
+                                ref={ref}
+                                isInvalid={errors.home_fb}
+                                placeholder="Url de la page facebook"
+                              />
+                            )}
+                          />
+
+                          <Form.Control.Feedback type="invalid">
+                            {errors.home_fb?.message}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group
+                          className="mb-3"
+                          controlId="db_home_home_insta"
+                        >
+                          <Form.Label>Lien Instagram</Form.Label>
+                          <Controller
+                            control={control}
+                            rules={{
+                              required: "Ce champ est manquant",
+                              maxLength: {
+                                value: 200,
+                                message: "Ce champ contient trop de caractères",
+                              },
+                            }}
+                            name="home_insta"
+                            render={({ field: { onChange, value, ref } }) => (
+                              <Form.Control
+                                onChange={onChange}
+                                value={value}
+                                ref={ref}
+                                isInvalid={errors.home_insta}
+                                placeholder="Url du profil Instagram"
+                              />
+                            )}
+                          />
+
+                          <Form.Control.Feedback type="invalid">
+                            {errors.home_insta?.message}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                        <Button
+                          variant={success ? "success" : "primary"}
+                          type="submit"
+                        >
+                          Valider
+                        </Button>
                       </Form>
                     </td>
                   </tr>
@@ -215,7 +369,7 @@ export default function Page({
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const db_medias = await prisma.media.findMany({
     include: {
       category: true,
