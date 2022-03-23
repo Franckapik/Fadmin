@@ -85,4 +85,6 @@ model home {
   home_id        Int     @id @db.SmallInt
   home_insta     String? @db.VarChar(200)
   home_fb        String? @db.VarChar(200)
+  home_name      String  @db.VarChar(200)
+  home_logo      String? @db.VarChar(500)
 }
