@@ -76,18 +76,10 @@ export default function Layout_Home({
           </Row>
           <div className="menu-contact ">
             {" "}
-            <a
-              href={"https://www.facebook.com/qualynofficial"}
-              className="m-4"
-              target="_blank"
-            >
+            <a href={home.home_fb} className="m-4" target="_blank">
               <FontAwesomeIcon icon={faFacebookSquare} width="2em" />{" "}
             </a>
-            <a
-              href={"https://www.instagram.com/qualyn_official"}
-              className="m-4"
-              target="_blank"
-            >
+            <a href={home.home_insta} className="m-4" target="_blank">
               <FontAwesomeIcon icon={faInstagram} width="2em" />{" "}
             </a>
           </div>
@@ -96,7 +88,7 @@ export default function Layout_Home({
 
       <Container fluid className="container_main">
         <Head>
-          <title>Qualyn</title>
+          <title>{home.home_name}</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
@@ -112,10 +104,10 @@ export default function Layout_Home({
 
         <div className="paper"></div>
         <div className="shapes"></div>
-        <div className="title_bg">Qualyn</div>
+        <div className="title_bg">{home.home_name}</div>
         <div className="sticker d-none d-lg-flex">
           <div>
-            Qualyn
+            {home.home_name}
             <a
               href={home?.home_insta || author?.author_insta}
               className="m-2 cursor"
@@ -138,8 +130,8 @@ export default function Layout_Home({
               <Link href="/" passHref>
                 <h1 className="cursor title">
                   <img
-                    src={"/title.svg"}
-                    alt="qualyn title"
+                    src={home.home_logo}
+                    alt="title"
                     className={"cursor title"}
                   ></img>
                 </h1>

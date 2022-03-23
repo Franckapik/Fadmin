@@ -24,10 +24,6 @@ import Link from "next/link";
 
 const Sidebar = () => (
   <Nav className="sidebar_container flex-column" activeKey="/home">
-    {/*     <h2 className="p-5">
-      <Link href="/admin/">Qualyn Admin</Link>
-    </h2> */}
-
     <OverlayTrigger
       placement="right"
       key={"home"}

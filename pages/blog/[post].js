@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import prisma from "../../prisma/prisma";
 
-const Post = ({ db_post, post_length, db_author }) => {
+const Post = ({ db_post, post_length, db_author, db_home }) => {
   const [html, setHTML] = useState();
 
   const router = useRouter();
@@ -74,21 +74,21 @@ const Post = ({ db_post, post_length, db_author }) => {
         </p>
         <p className="mt-5">
           <FacebookShareButton
-            url={`https://www.qualyn.fr/blog/${router.query.post}`}
-            quote={"Un article intéressant sur le blog de Qualyn!"}
-            hashtag={"#qualyn"}
+            url={`${process.env.DOMAIN}/blog/${router.query.post}`}
+            quote={`Un article intéressant sur le blog de ${db_home.home_name}!`}
+            hashtag={"#" + db_home.home_name}
           >
             <FacebookIcon size={32} round className="m-2" />
           </FacebookShareButton>
           <TwitterShareButton
-            url={`https://www.qualyn.fr/blog/${router.query.post}`}
-            title={"Un article intéressant sur le blog de Qualyn!"}
+            url={`${process.env.DOMAIN}/blog/${router.query.post}`}
+            title={`Un article intéressant sur le blog de ${db_home.home_name}!`}
           >
             <TwitterIcon size={32} round className="m-2" />
           </TwitterShareButton>
           <PinterestShareButton
-            url={`https://www.qualyn.fr/blog/${router.query.post}`}
-            media={"Un article intéressant sur le blog de Qualyn!"}
+            url={`${process.env.DOMAIN}/blog/${router.query.post}`}
+            media={`Un article intéressant sur le blog de ${db_home.home_name}!`}
           >
             <PinterestIcon size={32} round className="m-2" />
           </PinterestShareButton>
@@ -150,7 +150,13 @@ export async function getServerSideProps({ params }) {
 
   const db_author = await prisma.author.findMany();
 
+  const db_home = await prisma.home.findUnique({
+    where: {
+      home_id: 1,
+    },
+  });
+
   return {
-    props: { db_post, db_author, post_length },
+    props: { db_post, db_author, post_length, db_home },
   };
 }

@@ -48,7 +48,7 @@ export default function Page({
       <Row>
         <Col id="page-content-wrapper">
           <main>
-            <h2>Qualyn Dashboard</h2>
+            <h2>{db_home.home_name} Dashboard</h2>
             <Row>
               <Table striped borderless hover className="mt-5">
                 <thead>

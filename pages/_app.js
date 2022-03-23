@@ -1,7 +1,7 @@
 // add bootstrap css
 
 import "bootstrap/dist/css/bootstrap.css";
-import "../public/styles/qualyn.css";
+import "../public/styles/main.css";
 import "../public/styles/all.min.css"; //font awesome pro
 
 import Head from "next/head";

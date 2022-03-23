@@ -1,15 +1,11 @@
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
-import Moment from "react-moment";
 
 export const ContactForm = ({ db_authors }) => {
   const {
-    setError,
     handleSubmit,
     control,
     reset,
@@ -17,7 +13,6 @@ export const ContactForm = ({ db_authors }) => {
   } = useForm();
 
   const [success, setSuccess] = useState(false);
-  const router = useRouter();
 
   const onSubmit = async (data) => {
     await axios.post("/api/contact/sendmail", data);
@@ -36,7 +31,7 @@ export const ContactForm = ({ db_authors }) => {
                   control={control}
                   name="author_email"
                   defaultValue={db_authors[0].author_email}
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, value, ref } }) => (
                     <Form.Select
                       onChange={onChange}
                       value={value}
@@ -70,7 +65,7 @@ export const ContactForm = ({ db_authors }) => {
                   }}
                   name="mail_author"
                   defaultValue=""
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, value, ref } }) => (
                     <Form.Control
                       onChange={onChange}
                       value={value}
@@ -97,7 +92,7 @@ export const ContactForm = ({ db_authors }) => {
                   }}
                   name="mail_email"
                   defaultValue=""
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, value, ref } }) => (
                     <Form.Control
                       type="email"
                       onChange={onChange}
@@ -125,7 +120,7 @@ export const ContactForm = ({ db_authors }) => {
                   }}
                   name="mail_content"
                   defaultValue=""
-                  render={({ field: { onChange, onBlur, value, ref } }) => (
+                  render={({ field: { onChange, value, ref } }) => (
                     <Form.Control
                       as="textarea"
                       style={{ height: "100px" }}

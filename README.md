@@ -1,4 +1,4 @@
-Qualyn Website
+Medias Website
 
 Start with npm run dev
 

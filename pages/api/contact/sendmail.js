@@ -1,17 +1,24 @@
 let nodemailer = require("nodemailer");
+import prisma from "../../../prisma/prisma";
 
 export default function (req, res) {
+  const db_home = await prisma.home.findUnique({
+    where: {
+      home_id: 1,
+    },
+  });
+
   const transporter = nodemailer.createTransport({
     port: 465,
     host: "smtp.gmail.com",
     auth: {
-      user: "qualyn.sender@gmail.com",
+      user: db_home.home_mail,
       pass: process.env.MAIL_PASSWORD,
     },
     secure: true,
   });
 
-  const mailList = `${req.body.author_email}, qualyn.sender@gmail.com`;
+  const mailList = `${req.body.author_email}, ${db_home.home_mail}`;
 
   const mailData = {
     from: req.body.mail_email,
