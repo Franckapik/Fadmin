@@ -37,6 +37,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
       media_author_id: db_media.media_author_id,
       media_home: db_media.media_home,
       media_draft: db_media.media_draft,
+      media_preview: db_media.media_preview,
       media_path: db_media.media_path,
     },
   });
@@ -148,10 +149,11 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
                 }}
                 name="media_video"
                 defaultValue=""
-                render={({ field: { onChange, ref } }) => (
+                render={({ field: { onChange, ref, value } }) => (
                   <Form.Control
                     onChange={onChange}
                     ref={ref}
+                    value={value}
                     isInvalid={errors.media_video}
                     placeholder="Enter the url of the video/sound"
                   />
@@ -349,7 +351,29 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
                 )}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.author_draft?.message}
+                {errors.media_draft?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="author_preview_id">
+              <Form.Label>Preview video</Form.Label>
+              <Controller
+                control={control}
+                name="media_preview"
+                defaultValue={false}
+                render={({ field: { onChange, value, ref } }) => (
+                  <Form.Check
+                    type={"checkbox"}
+                    onChange={onChange}
+                    value={value}
+                    defaultChecked={db_media.media_preview}
+                    ref={ref}
+                    isInvalid={errors.media_preview}
+                  />
+                )}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.media_preview?.message}
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="author_draft_id">
@@ -371,7 +395,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
                 )}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.author_draft?.message}
+                {errors.media_large?.message}
               </Form.Control.Feedback>
             </Form.Group>
 
