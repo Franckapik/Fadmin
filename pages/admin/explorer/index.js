@@ -144,7 +144,7 @@ const ExplorerPage = ({ data }) => {
                 <Form.Label>Renommer l élément {selected.name}</Form.Label>
                 {selected.isDirectory ? null : (
                   <Alert variant={"danger"}>
-                    Ne pas oublier l'extension du fichier
+                    Ne pas oublier l extension du fichier
                   </Alert>
                 )}
 
