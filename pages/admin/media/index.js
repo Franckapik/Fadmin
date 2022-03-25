@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
-import { Button, Modal, Row } from "react-bootstrap";
+import { Button, Container, Modal, Nav, Navbar, Row } from "react-bootstrap";
 import { AlertValidation } from "../../../components/alertValidation";
 import { CardAdmin } from "../../../components/cardadmin";
 import Layout_Admin from "../../../layouts/layout_admin";
@@ -14,6 +14,8 @@ const MediaPage = ({ db_media }) => {
 
   const { operation, type, value } = router.query;
   const [alert, setAlert] = useState(true);
+
+  const [artist, setArtist] = useState(false);
 
   const onDelete = async (data) => {
     await axios
@@ -29,8 +31,26 @@ const MediaPage = ({ db_media }) => {
       .catch((err) => console.log(err));
   };
 
+  const med = [...new Set(db_media.map((a, i) => a.author.author_name))].sort(
+    (a, b) => a - b
+  );
   return (
     <Layout_Admin title={"Medias"}>
+      <Navbar className="mb-2" bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand onClick={() => setArtist(false)}>Artistes</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Nav className="me-auto">
+            {med.map((a, i) => {
+              return (
+                <Nav.Link key={i} onClick={() => setArtist(a)}>
+                  {a}
+                </Nav.Link>
+              );
+            })}
+          </Nav>
+        </Container>
+      </Navbar>
       <Row>
         <AlertValidation
           operation={operation}
@@ -48,22 +68,25 @@ const MediaPage = ({ db_media }) => {
           add
         ></CardAdmin>
         {db_media && db_media.length
-          ? db_media.map((a, i) => {
-              return (
-                <CardAdmin
-                  key={i}
-                  all={a}
-                  setSelected={setSelected}
-                  title={a.media_title}
-                  text={a.media_subtitle}
-                  category={a.category.category_name}
-                  edit_link={`/admin/media/${a.media_id}`}
-                  position={a.media_position}
-                  setShow={setShow}
-                  show={show}
-                ></CardAdmin>
-              );
-            })
+          ? db_media
+              .filter((a) => (artist ? a.author.author_name === artist : true))
+              .map((a, i) => {
+                return (
+                  <CardAdmin
+                    key={i}
+                    all={a}
+                    setSelected={setSelected}
+                    title={a.media_title}
+                    text={a.media_subtitle}
+                    category={a.category.category_name}
+                    edit_link={`/admin/media/${a.media_id}`}
+                    position={a.media_position}
+                    setShow={setShow}
+                    show={show}
+                    preview={a.media_path.replace("./public", "")}
+                  ></CardAdmin>
+                );
+              })
           : null}
       </Row>
       <Modal show={show} onHide={() => setShow(false)}>
@@ -102,6 +125,7 @@ export async function getServerSideProps(ctx) {
   const db_media = await prisma.media.findMany({
     include: {
       category: true,
+      author: true,
     },
   });
 

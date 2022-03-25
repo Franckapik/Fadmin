@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { Card, Container, Figure } from "react-bootstrap";
 
-import React from "react";
+import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import Image from "next/image";
 
@@ -32,7 +32,7 @@ export const Medias = ({ db_medias, setShow, show }) => {
                   key={i}
                 >
                   <Card.Body
-                    className="fade_short no_hover card_media "
+                    className="fade_short no_hover card_media"
                     style={{
                       padding: 0,
                       margin: "auto",

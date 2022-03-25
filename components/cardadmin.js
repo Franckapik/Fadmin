@@ -16,6 +16,7 @@ export const CardAdmin = ({
   category,
   add,
   setSelected,
+  preview,
 }) => (
   <Col>
     <Card className={add ? "card-admin-add" : "card-admin"}>
@@ -24,6 +25,13 @@ export const CardAdmin = ({
           <Card.Title className="mt-4">
             <h2>{title || category}</h2>
           </Card.Title>
+          <Card.Text>
+            {preview ? (
+              <div className="card_preview">
+                <img src={preview} alt="preview du media" />
+              </div>
+            ) : null}
+          </Card.Text>{" "}
           <Card.Text>
             <h6>{text}</h6>
           </Card.Text>{" "}
