@@ -13,7 +13,7 @@ export default async (req, res) => {
     const newFile =
       "." + file.path.substring(file.path.indexOf("/public/")) + "/" + renamed;
 
-    console.log("renaming " + oldFile + " to " + newFile);
+    console.log("Renaming " + oldFile + " to " + newFile);
 
     fs.rename(oldFile, newFile, async function (err) {
       if (err) {
@@ -38,7 +38,7 @@ export default async (req, res) => {
           } else {
             //folder
 
-            const search = await prisma.media.findMany({
+            const mediasToRename = await prisma.media.findMany({
               where: {
                 media_path: {
                   contains: oldFile,
@@ -46,21 +46,22 @@ export default async (req, res) => {
               },
             });
 
+            console.log(mediasToRename);
+
             console.log(
-              search.length
-                ? search.length + " media(s) finded with folder to rename"
-                : "no media finded with the new folder"
+              mediasToRename.length
+                ? mediasToRename.length +
+                    " media(s) finded with folder to rename"
+                : "no media folder to rename in the database"
             );
 
             //create new medias by replacing path
-            const newMedias = search.map((media) => {
+            const newMedias = mediasToRename.map((media) => {
               return Object.assign({}, media, {
-                media_path: media.media_path.replace(
-                  req.body.old.replace("public", ""),
-                  req.body.new.replace("public", "")
-                ),
+                media_path: media.media_path.replace(oldFile, newFile),
               });
             });
+            console.log(newMedias);
 
             //update db with new medias
             const updateFolders = newMedias.map((newMedia, i) =>
