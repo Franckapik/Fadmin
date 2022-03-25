@@ -35,7 +35,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
       media_category_id: db_media.media_category_id,
       media_subtitle: db_media.media_subtitle,
       media_author_id: db_media.media_author_id,
-      media_home: db_media.media_home,
       media_draft: db_media.media_draft,
       media_preview: db_media.media_preview,
       media_path: db_media.media_path,

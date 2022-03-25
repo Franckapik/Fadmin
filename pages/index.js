@@ -8,7 +8,7 @@ export default function Home({ db_authors, mediasFiles, db_home }) {
     <Layout_Home authors={db_authors} db_home={db_home}>
       <Row>
         <Col className="mx-auto">
-          <MediasHome mediasFiles={mediasFiles} db_home={db_home}></MediasHome>
+          <MediasHome db_home={db_home}></MediasHome>
         </Col>
       </Row>
     </Layout_Home>
@@ -27,15 +27,7 @@ export async function getServerSideProps({ params, query }) {
     },
   });
 
-  const mediasFiles = await prisma.media.findMany({
-    where: {
-      media_home: true,
-    },
-    include: {
-      author: true,
-    },
-  });
   return {
-    props: { db_authors, mediasFiles, db_home },
+    props: { db_authors, db_home },
   };
 }

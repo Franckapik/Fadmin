@@ -47,7 +47,6 @@ model media {
   media_subtitle    String    @db.VarChar(50)
   media_author_id   Int?      @db.SmallInt
   media_draft       Boolean
-  media_home        Boolean
   media_large       Boolean
   media_path        String?   @db.VarChar(200)
   media_position    Int?      @db.SmallInt
