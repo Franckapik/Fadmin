@@ -106,7 +106,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
               <Controller
                 control={control}
                 rules={{
-                  required: "Ce champ est manquant",
                   maxLength: {
                     value: 200,
                     message: "Ce champ contient trop de caractères",
@@ -168,7 +167,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
               <Controller
                 control={control}
                 rules={{
-                  required: "Ce champ est manquant",
                   maxLength: {
                     value: 200,
                     message: "Ce champ contient trop de caractères",
@@ -196,7 +194,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
               <Controller
                 control={control}
                 rules={{
-                  required: "Ce champ est manquant",
                   maxLength: {
                     value: 200,
                     message: "Ce champ contient trop de caractères",
@@ -281,7 +278,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
               <Controller
                 control={control}
                 rules={{
-                  required: "Ce champ est manquant",
                   maxLength: {
                     value: 100,
                     message: "Ce champ contient trop de caractères",
@@ -333,28 +329,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
                 {errors.media_author_id?.message}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="author_draft_id">
-              <Form.Label>Visible sur l&apos;accueil</Form.Label>
-              <Controller
-                control={control}
-                name="media_home"
-                defaultValue={false}
-                render={({ field: { onChange, value, ref } }) => (
-                  <Form.Check
-                    type={"checkbox"}
-                    onChange={onChange}
-                    value={value}
-                    defaultChecked={db_media.media_home}
-                    ref={ref}
-                    isInvalid={errors.media_home}
-                    placeholder="home media"
-                  />
-                )}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.author_draft?.message}
-              </Form.Control.Feedback>
-            </Form.Group>
+
             <Form.Group className="mb-3" controlId="author_draft_id">
               <Form.Label>Brouillon</Form.Label>
               <Controller
