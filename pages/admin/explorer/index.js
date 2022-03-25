@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import {
+  Alert,
   Button,
   Col,
   Form,
@@ -16,7 +17,7 @@ import FileTree from "../../../components/filetree";
 
 const ExplorerPage = ({ data }) => {
   const router = useRouter();
-  const { operation, type, value } = router.query;
+  const { operation, type, value, count } = router.query;
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState();
   const [filesSelected, setfilesSelected] = useState(false);
@@ -57,8 +58,8 @@ const ExplorerPage = ({ data }) => {
           .then((response) => {
             setShow(false);
             router.push(
-              "/admin/explorer?operation=renommé&type=élément&value=" +
-                response.data.renamed
+              "/admin/explorer?operation=renommé(s)&type=élément(s)&count=" +
+                response.data.modified
             );
           })
           .catch((error) => {
@@ -126,6 +127,7 @@ const ExplorerPage = ({ data }) => {
   return (
     <Layout_Admin title={"Medias"}>
       <AlertValidation
+        count={count}
         operation={operation}
         value={value}
         type={type}
@@ -140,14 +142,19 @@ const ExplorerPage = ({ data }) => {
             <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
               <Form.Group className="mb-3" controlId="renamed">
                 <Form.Label>Renommer l élément {selected.name}</Form.Label>
+                {selected.isDirectory ? null : (
+                  <Alert variant={"danger"}>
+                    Ne pas oublier l'extension du fichier
+                  </Alert>
+                )}
+
                 <Controller
                   control={control}
                   rules={{
-                    validate: {
-                      condition: (v) =>
-                        selected.isDirectory
-                          ? v.length < 100
-                          : v.match(/[^\\]*\.(\w+)$/) && v.length < 100,
+                    required: "Ce champ est manquant",
+                    maxLength: {
+                      value: 100,
+                      message: "Ce champ contient trop de caractères",
                     },
                   }}
                   name="renamed"
