@@ -24,6 +24,7 @@ const ExplorerPage = ({ data }) => {
   const [op, setOp] = useState();
 
   const modifyOp = (file, operation) => {
+    console.log(file.isDirectory);
     setOp(operation);
     setSelected(file);
     setShow(true);
@@ -139,47 +140,35 @@ const ExplorerPage = ({ data }) => {
             <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
               <Form.Group className="mb-3" controlId="renamed">
                 <Form.Label>Renommer l élément {selected.name}</Form.Label>
-                <InputGroup>
-                  <Controller
-                    control={control}
-                    rules={
-                      !selected.isDirectory
-                        ? {
-                            required: "Ce champ est manquant",
-                            pattern: {
-                              value: /[^\\]*\.(\w+)$/,
-                              message: "extension du fichier manquante",
-                            },
-                            maxLength: {
-                              value: 100,
-                              message: "Ce champ contient trop de caractères",
-                            },
-                          }
-                        : {
-                            maxLength: {
-                              value: 100,
-                              message: "Ce champ contient trop de caractères",
-                            },
-                          }
-                    }
-                    name="renamed"
-                    defaultValue=""
-                    render={({ field: { onChange, value, ref } }) => (
-                      <Form.Control
-                        onChange={onChange}
-                        value={value}
-                        ref={ref}
-                        isInvalid={errors.renamed}
-                      />
-                    )}
-                  />
-                  <Button type="submit">Renommer</Button>
-                </InputGroup>
+                <Controller
+                  control={control}
+                  rules={{
+                    validate: {
+                      condition: (v) =>
+                        selected.isDirectory
+                          ? v.length < 100
+                          : v.match(/[^\\]*\.(\w+)$/) && v.length < 100,
+                    },
+                  }}
+                  name="renamed"
+                  defaultValue=""
+                  render={({ field: { onChange, value, ref } }) => (
+                    <Form.Control
+                      onChange={onChange}
+                      value={value}
+                      ref={ref}
+                      isInvalid={errors.renamed}
+                    />
+                  )}
+                />
 
                 <Form.Control.Feedback type="invalid">
-                  {errors.author_name?.message}
+                  {errors.renamed?.message}
                 </Form.Control.Feedback>
               </Form.Group>
+              <div className="text-center">
+                <Button type="submit">Renommer</Button>
+              </div>
             </Form>
           ) : null}
 
