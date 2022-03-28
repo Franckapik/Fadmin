@@ -36,6 +36,7 @@ const ExplorerPage = ({ data }) => {
     const e = event.target.files;
     if (e && e[0]) {
       setfilesSelected(event.target.files);
+      console.log(e);
     } else {
       console.log("No file selected");
       setfilesSelected(false);
