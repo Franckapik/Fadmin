@@ -1,46 +1,42 @@
+import { faPauseCircle, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Button,
+  Card,
   Col,
   Container,
-  ListGroup,
-  Row,
-  ProgressBar,
   Form,
-  Card,
+  ListGroup,
+  ProgressBar,
+  Row,
 } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
-import { faPlayCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { faPauseCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import ReactPlayer from "react-player";
-import Image from "next/image";
-import { useRef } from "react";
 
-//RCfT93M4biAV6sjNiab6pMV1eYEgatjk
-
-export default function CarouselComp({ mediasFiles, mediaSel, db_medias }) {
+export default function CarouselComp({ db_medias }) {
   const [index, setIndex] = useState(0);
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
-
-  const [mediaSelected, setmediaSelected] = useState([]);
-  const [album, setalbum] = useState([]);
+  const [album, setAlbum] = useState(false);
 
   const router = useRouter();
 
+  const [mediaSelected, setmediaSelected] = useState(
+    db_medias.filter((a, i) => a.media_id === router.query.media)[0]
+  );
+
   useEffect(() => {
-    setmediaSelected(db_medias.filter((a, i) => a.media_id === mediaSel)[0]);
-    if (/* mediaSelected.album */ true) {
-      fetch();
+    if (mediaSelected && mediaSelected.media_album) {
+      axios
+        .post("/api/media/listAlbum", { public_id: mediaSelected.media_photo })
+        .then((response) => {
+          setAlbum(response.data.list.resources);
+        });
     }
-    return () => {
-      //do nothing
-    };
-  }, [mediaSel, db_medias]);
+  }, [mediaSelected]);
 
   const [playing, setPlay] = useState(false);
   const [played, setPlayed] = useState(0);
@@ -49,7 +45,7 @@ export default function CarouselComp({ mediasFiles, mediaSel, db_medias }) {
 
   return (
     <Container fluid className="text-center ">
-      {mediaSelected?.media_video ? (
+      {mediaSelected && mediaSelected.media_video ? (
         <>
           <Row>
             <ListGroup horizontal className="legend justify-content-center">
@@ -66,7 +62,7 @@ export default function CarouselComp({ mediasFiles, mediaSel, db_medias }) {
             </ListGroup>
           </Row>
 
-          {mediaSelected.media_video?.includes("soundcloud") ? (
+          {mediaSelected && mediaSelected.media_video.includes("soundcloud") ? (
             <Row className="justify-content-center">
               {" "}
               <Card className="p-2 d-flex flex-row flex-nowrap justify-content-center align-items-center card-audio">
@@ -143,61 +139,71 @@ export default function CarouselComp({ mediasFiles, mediaSel, db_medias }) {
           )}
         </>
       ) : (
+        // no video
         <>
-          <Row>
-            <Col className="mx-auto">
-              <Carousel
-                variant="dark"
-                activeIndex={index}
-                onSelect={handleSelect}
-                className="carousel-media"
-                controls={mediaSelected.files.length - 1}
-                indicators={mediaSelected.files.length - 1 || null}
-              >
-                {mediaSelected &&
-                  mediaSelected.files.map((a, i) => {
-                    const path_client_img =
-                      mediaSelected.folder_path.substr(7) + "/" + a;
-
-                    return (
-                      <Carousel.Item key={i}>
-                        <div className="d-flex justify-content-center">
-                          <a target="_blank" href={mediaSelected.media_link}>
+          {album ? (
+            <>
+              <Row>
+                <Col className="mx-auto">
+                  <Carousel
+                    variant="dark"
+                    activeIndex={index}
+                    onSelect={handleSelect}
+                    className="carousel-media"
+                    controls={album.length - 1}
+                    indicators={album.length - 1 || null}
+                  >
+                    {album.map((a, i) => {
+                      return (
+                        <Carousel.Item key={i}>
+                          <div className="d-flex justify-content-center">
                             <img
                               className="d-block media-view"
-                              src={path_client_img}
+                              src={a.url}
                               alt="slider image"
                             />
-                          </a>
-                        </div>
-                      </Carousel.Item>
-                    );
-                  })}
-              </Carousel>
-            </Col>
-          </Row>
-          <Row>
-            <ListGroup horizontal className="legend justify-content-center ">
-              <ListGroup.Item>{mediaSelected.media_subtitle} </ListGroup.Item>
-              <ListGroup.Item>
-                {" "}
-                <strong>{mediaSelected.author.author_name}</strong>
-              </ListGroup.Item>
-              {mediaSelected.files.length === 1 ? (
-                <ListGroup.Item>{mediaSelected.media_title}</ListGroup.Item>
-              ) : (
-                <ListGroup.Item>
-                  {" "}
-                  {String(index).padStart(2, "0") +
-                    "/" +
-                    String(mediaSelected?.files.length - 1).padStart(2, "0")}
-                </ListGroup.Item>
-              )}
-              {mediaSelected.media_content ? (
-                <ListGroup.Item>{mediaSelected.media_content}</ListGroup.Item>
-              ) : null}
-            </ListGroup>
-          </Row>
+                          </div>
+                        </Carousel.Item>
+                      );
+                    })}
+                  </Carousel>
+                </Col>
+              </Row>
+              <Row>
+                <ListGroup
+                  horizontal
+                  className="legend justify-content-center "
+                >
+                  <ListGroup.Item>
+                    {mediaSelected?.media_subtitle}{" "}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    {" "}
+                    <strong>{mediaSelected?.author?.author_name}</strong>
+                  </ListGroup.Item>
+                  {album.length === 0 ? (
+                    <ListGroup.Item>
+                      {mediaSelected?.media_title}
+                    </ListGroup.Item>
+                  ) : (
+                    <ListGroup.Item>
+                      {" "}
+                      {String(index).padStart(2, "0") +
+                        "/" +
+                        String(album?.length - 1).padStart(2, "0")}
+                    </ListGroup.Item>
+                  )}
+                  {mediaSelected?.media_content ? (
+                    <ListGroup.Item>
+                      {mediaSelected.media_content}
+                    </ListGroup.Item>
+                  ) : null}
+                </ListGroup>
+              </Row>
+            </>
+          ) : (
+            "Chargement..."
+          )}
         </>
       )}
     </Container>
