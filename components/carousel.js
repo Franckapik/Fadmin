@@ -21,17 +21,27 @@ import { useRef } from "react";
 
 //RCfT93M4biAV6sjNiab6pMV1eYEgatjk
 
-export default function CarouselComp({ mediasFiles }) {
+export default function CarouselComp({ mediasFiles, mediaSel, db_medias }) {
   const [index, setIndex] = useState(0);
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
 
+  const [mediaSelected, setmediaSelected] = useState([]);
+  const [album, setalbum] = useState([]);
+
   const router = useRouter();
 
-  const mediaSelected = mediasFiles.filter(
-    (a) => a.media_id == router.query.media
-  );
+  useEffect(() => {
+    setmediaSelected(db_medias.filter((a, i) => a.media_id === mediaSel)[0]);
+    if (/* mediaSelected.album */ true) {
+      fetch();
+    }
+    return () => {
+      //do nothing
+    };
+  }, [mediaSel, db_medias]);
+
   const [playing, setPlay] = useState(false);
   const [played, setPlayed] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -39,24 +49,24 @@ export default function CarouselComp({ mediasFiles }) {
 
   return (
     <Container fluid className="text-center ">
-      {mediaSelected && mediaSelected[0]?.media_video ? (
+      {mediaSelected?.media_video ? (
         <>
           <Row>
             <ListGroup horizontal className="legend justify-content-center">
               <ListGroup.Item>
-                <small>{mediaSelected[0].media_content}</small> /{" "}
-                <small>{mediaSelected[0].media_subtitle}</small>
+                <small>{mediaSelected.media_content}</small> /{" "}
+                <small>{mediaSelected.media_subtitle}</small>
               </ListGroup.Item>
               <ListGroup.Item>
-                <strong>{mediaSelected[0].author.author_name}</strong>
+                <strong>{mediaSelected.author.author_name}</strong>
               </ListGroup.Item>
               <ListGroup.Item>
-                <small>{mediaSelected[0].media_title}</small>
+                <small>{mediaSelected.media_title}</small>
               </ListGroup.Item>
             </ListGroup>
           </Row>
 
-          {mediaSelected[0].media_video?.includes("soundcloud") ? (
+          {mediaSelected.media_video?.includes("soundcloud") ? (
             <Row className="justify-content-center">
               {" "}
               <Card className="p-2 d-flex flex-row flex-nowrap justify-content-center align-items-center card-audio">
@@ -109,7 +119,7 @@ export default function CarouselComp({ mediasFiles }) {
                   ref={player}
                   playing={playing}
                   controls
-                  url={mediaSelected[0].media_video}
+                  url={mediaSelected.media_video}
                   onProgress={(p) => {
                     setPlayed(p.playedSeconds.toFixed(0));
                   }}
@@ -127,7 +137,7 @@ export default function CarouselComp({ mediasFiles }) {
                 width="100%"
                 height="100%"
                 controls
-                url={mediaSelected[0].media_video}
+                url={mediaSelected.media_video}
               />
             </Col>
           )}
@@ -141,18 +151,18 @@ export default function CarouselComp({ mediasFiles }) {
                 activeIndex={index}
                 onSelect={handleSelect}
                 className="carousel-media"
-                controls={mediaSelected[0].files.length - 1}
-                indicators={mediaSelected[0].files.length - 1 || null}
+                controls={mediaSelected.files.length - 1}
+                indicators={mediaSelected.files.length - 1 || null}
               >
                 {mediaSelected &&
-                  mediaSelected[0].files.map((a, i) => {
+                  mediaSelected.files.map((a, i) => {
                     const path_client_img =
-                      mediaSelected[0].folder_path.substr(7) + "/" + a;
+                      mediaSelected.folder_path.substr(7) + "/" + a;
 
                     return (
                       <Carousel.Item key={i}>
                         <div className="d-flex justify-content-center">
-                          <a target="_blank" href={mediaSelected[0].media_link}>
+                          <a target="_blank" href={mediaSelected.media_link}>
                             <img
                               className="d-block media-view"
                               src={path_client_img}
@@ -168,27 +178,23 @@ export default function CarouselComp({ mediasFiles }) {
           </Row>
           <Row>
             <ListGroup horizontal className="legend justify-content-center ">
-              <ListGroup.Item>
-                {mediaSelected[0].media_subtitle}{" "}
-              </ListGroup.Item>
+              <ListGroup.Item>{mediaSelected.media_subtitle} </ListGroup.Item>
               <ListGroup.Item>
                 {" "}
-                <strong>{mediaSelected[0].author.author_name}</strong>
+                <strong>{mediaSelected.author.author_name}</strong>
               </ListGroup.Item>
-              {mediaSelected[0].files.length === 1 ? (
-                <ListGroup.Item>{mediaSelected[0].media_title}</ListGroup.Item>
+              {mediaSelected.files.length === 1 ? (
+                <ListGroup.Item>{mediaSelected.media_title}</ListGroup.Item>
               ) : (
                 <ListGroup.Item>
                   {" "}
                   {String(index).padStart(2, "0") +
                     "/" +
-                    String(mediaSelected[0]?.files.length - 1).padStart(2, "0")}
+                    String(mediaSelected?.files.length - 1).padStart(2, "0")}
                 </ListGroup.Item>
               )}
-              {mediaSelected[0].media_content ? (
-                <ListGroup.Item>
-                  {mediaSelected[0].media_content}
-                </ListGroup.Item>
+              {mediaSelected.media_content ? (
+                <ListGroup.Item>{mediaSelected.media_content}</ListGroup.Item>
               ) : null}
             </ListGroup>
           </Row>
