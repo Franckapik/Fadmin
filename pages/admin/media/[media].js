@@ -36,6 +36,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
       media_draft: db_media.media_draft,
       media_preview: db_media.media_preview,
       media_path: db_media.media_path,
+      media_album: db_media.media_album,
     },
   });
 
@@ -128,6 +129,29 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
                 onClick={() => setShow(true)}
                 placeholder={filesSelected[0]?.public_id || db_media.media_path}
               />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="media_album_id">
+              <Form.Label>Album Photo </Form.Label>
+              <Controller
+                control={control}
+                name="media_album"
+                defaultValue={false}
+                render={({ field: { onChange, value, ref } }) => (
+                  <Form.Check
+                    type={"checkbox"}
+                    onChange={onChange}
+                    value={value}
+                    defaultChecked={db_media.media_album}
+                    ref={ref}
+                    isInvalid={errors.media_album}
+                    placeholder="media album"
+                  />
+                )}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.media_large?.message}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="media_video_id">
