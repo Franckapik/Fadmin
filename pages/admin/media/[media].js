@@ -1,5 +1,4 @@
 import axios from "axios";
-import { traverse } from "fs-tree-utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import {
@@ -7,17 +6,16 @@ import {
   Card,
   Col,
   Form,
-  InputGroup,
   Modal,
   ModalBody,
   Row,
 } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
+import Cloud from "../../../components/cloud";
 import Layout_Admin from "../../../layouts/layout_admin";
 import prisma from "../../../prisma/prisma";
-import FileTree from "../../../components/filetree";
 
-const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
+const MediaAdmin = ({ db_media, db_category, db_author }) => {
   const {
     handleSubmit,
     control,
@@ -51,11 +49,6 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
 
   const chooseFile = (element) => {
     console.log(element);
-    const pathFile =
-      "." + element.fullname.substring(element.fullname.indexOf("/public/"));
-
-    element.pathFile = pathFile;
-
     setfilesSelected(element);
     setShow(false);
   };
@@ -67,11 +60,11 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
     data.media_author_id = parseInt(data.media_author_id); //integer issue
 
     filesSelected
-      ? (data.media_path = filesSelected.pathFile)
+      ? (data.media_path = filesSelected[0].url)
       : (data.media_path = db_media.media_path || 0);
 
     filesSelected
-      ? (data.media_photo = filesSelected.name)
+      ? (data.media_photo = filesSelected[0].public_id)
       : (data.media_photo = db_media.media_photo || 0);
 
     await axios
@@ -132,7 +125,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
               <Form.Label>Photographie(s)</Form.Label>
               <Form.Control
                 onClick={() => setShow(true)}
-                placeholder={filesSelected.fullname || db_media.media_path}
+                placeholder={filesSelected[0]?.public_id || db_media.media_path}
               />
             </Form.Group>
 
@@ -411,7 +404,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
                 className="mx-auto"
                 src={
                   allFields.media_path?.replace("./public", "") ||
-                  filesSelected.pathFile?.replace("./public", "")
+                  filesSelected[0]?.url
                 }
               ></Card.Img>
 
@@ -421,7 +414,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
                 </Card.Title>
               ) : null}
               <Card.Text>
-                <h8> {filesSelected.pathFile || allFields.media_path}</h8>
+                <h8> {filesSelected[0]?.url || allFields.media_path}</h8>
                 <h6>{allFields.media_subtitle}</h6>
                 <hr></hr>
                 <h6>{allFields.media_content}</h6>
@@ -431,9 +424,14 @@ const MediaAdmin = ({ db_media, db_category, db_author, folders, files }) => {
         </Col>
       </Row>
       <div className="modal_media">
-        <Modal show={show} onHide={() => setShow(false)}>
+        <Modal
+          dialogClassName={"MediaModal"}
+          centered
+          show={show}
+          onHide={() => setShow(false)}
+        >
           <ModalBody>
-            <FileTree data={files} readOnly chooseFile={chooseFile}></FileTree>
+            <Cloud chooseFile={chooseFile}></Cloud>
           </ModalBody>
         </Modal>
       </div>
@@ -458,18 +456,7 @@ export async function getServerSideProps({ params }) {
   const db_author = await prisma.author.findMany();
   const db_medias = await prisma.media.findMany();
 
-  const deep = ({ item }) => item !== "Old";
-  const files0 = await traverse("." + process.env.medias_folder, { deep });
-  const containers = files0.map((a) =>
-    a.container.slice(a.container.lastIndexOf("/medias"))
-  );
-  const folders = [...new Set(containers)];
-
-  const { data: files } = await axios.get(
-    process.env.DOMAIN + `/api/explorer/list`
-  );
-
   return {
-    props: { db_media, db_category, db_author, db_medias, folders, files },
+    props: { db_media, db_category, db_author, db_medias },
   };
 }

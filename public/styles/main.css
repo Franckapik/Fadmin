@@ -430,6 +430,10 @@ padding-top: 2em;
 
 }
 
+#widget_container {
+  height: 800px;
+}
+
 .media_position {
   position: absolute;
   bottom: 10px;
@@ -640,8 +644,9 @@ z-index: -6;
  margin-left: -8em;
 }
 
-.modal_media .modal-dialog {
-  max-width : 800px;
+.MediaModal {
+  width: 90%;
+max-width: none!important;
 }
 
 .folder .card_folder {

@@ -1,6 +1,7 @@
 import fs from "fs";
 import fsFileTree from "fs-file-tree";
 import * as read from "recursive-readdir-async";
+import path from "path";
 
 const cloudinary = require("cloudinary");
 
@@ -14,21 +15,26 @@ export default async function (req, res) {
   return new Promise((resolve, reject) => {
     const dir0 = "./public/medias/";
 
+    const tree = [];
+
     cloudinary.v2.api.resources(function (error, result) {
       const d = result.resources;
       d.forEach((e) => {
         e.public_id.split("/").reduce((acc, cur, i, a) => {
-          if (acc[cur]) {
+          if (tree[cur]) {
             //do nothing
-            console.log(acc[cur]);
+            console.log("deja la");
+            console.log(tree[cur]["children"]);
+            tree[cur]["children"] = e;
           } else {
-            /*             console.log(acc);
-             */ acc[cur] = [];
-            return acc;
+            tree[cur] = [{ name: path.basename(e.public_id), children: [] }];
+            tree[cur].name = path.basename(e.public_id);
+            tree[cur].children = [];
           }
         }, []);
-        console.log(qqchose);
       });
+
+      console.log(tree);
 
       /*  const f = d.reduce((acc, obj, i, a) => {
         var path = obj["public_id"];
