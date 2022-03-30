@@ -20,6 +20,7 @@ export default function Home({
 }) {
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
+  const [mediaSelected, setmediaSelected] = useState();
 
   return (
     <Layout_Home
@@ -31,14 +32,29 @@ export default function Home({
       overview
       db_home={db_home}
     >
-      <Medias db_medias={db_medias} setShow={setShow} show={show}></Medias>
-      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+      <Medias
+        db_medias={db_medias}
+        setShow={setShow}
+        show={show}
+        setmediaSelected={setmediaSelected}
+      ></Medias>
+      {/*only one modal*/}
+      <Modal
+        show={show}
+        fullscreen={fullscreen}
+        onHide={() => setShow(false)}
+        mediaSelected={mediaSelected}
+      >
         <Modal.Header closeButton className="cursor">
           <span onClick={() => setShow(!show)}>Back</span>
         </Modal.Header>
         <Modal.Body>
           {" "}
-          <CarouselComp mediasFiles={mediasFiles}></CarouselComp>
+          <CarouselComp
+            db_medias={db_medias}
+            mediasFiles={mediasFiles}
+            mediaSel={mediaSelected}
+          ></CarouselComp>
         </Modal.Body>
       </Modal>
     </Layout_Home>

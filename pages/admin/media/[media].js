@@ -50,6 +50,7 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
   const chooseFile = (element) => {
     console.log(element);
     setfilesSelected(element);
+
     setShow(false);
   };
 

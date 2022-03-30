@@ -5,10 +5,11 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import Image from "next/image";
 
-export const Medias = ({ db_medias, setShow, show }) => {
+export const Medias = ({ db_medias, setShow, show, setmediaSelected }) => {
   const router = useRouter();
 
   const addQuery = (key, value) => {
+    setmediaSelected(value);
     router.query[key] = value;
     router.replace(router);
   };
