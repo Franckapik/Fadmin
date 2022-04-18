@@ -32,7 +32,6 @@ const Cloud = ({ chooseFile }) => {
           timestamp: timestamp,
           username: "fanch44@hotmail.com",
           signature: signature,
-          //cloud_name=quadratik-fr&timestamp=1649800265&username=fanch44@hotmail.com7O58YlaYxIgZ95eFL6okVNSmIkc
         },
         {
           insertHandler: function (data) {
@@ -48,7 +47,7 @@ const Cloud = ({ chooseFile }) => {
     }
 
     return;
-  }, [scriptLoaded, chooseFile, signature, timestamp]);
+  }, [scriptLoaded]);
 
   return (
     <>
