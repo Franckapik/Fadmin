@@ -15,7 +15,7 @@ const Sidebar = () => (
   <Nav className="sidebar_container flex-column" activeKey="/home">
     <OverlayTrigger
       placement="right"
-      key={"home"}
+      key={"admin"}
       overlay={<Tooltip id="button-tooltip-2">Administration</Tooltip>}
     >
       <Nav.Item>
@@ -32,7 +32,7 @@ const Sidebar = () => (
 
     <OverlayTrigger
       placement="right"
-      key={"home"}
+      key={"artist"}
       overlay={<Tooltip id="button-tooltip-2">Artistes</Tooltip>}
     >
       <Nav.Item>
@@ -49,7 +49,7 @@ const Sidebar = () => (
 
     <OverlayTrigger
       placement="right"
-      key={"home"}
+      key={"categ"}
       overlay={<Tooltip id="button-tooltip-2">Catégories</Tooltip>}
     >
       <Nav.Item>
@@ -65,7 +65,7 @@ const Sidebar = () => (
     </OverlayTrigger>
     <OverlayTrigger
       placement="right"
-      key={"home"}
+      key={"gallery"}
       overlay={<Tooltip id="button-tooltip-2">Gallerie</Tooltip>}
     >
       <Nav.Item>
@@ -82,7 +82,7 @@ const Sidebar = () => (
 
     <OverlayTrigger
       placement="right"
-      key={"home"}
+      key={"explorer"}
       overlay={<Tooltip id="button-tooltip-2">Explorer</Tooltip>}
     >
       <Nav.Item>
@@ -98,7 +98,7 @@ const Sidebar = () => (
     </OverlayTrigger>
     <OverlayTrigger
       placement="right"
-      key={"home"}
+      key={"blog"}
       overlay={<Tooltip id="button-tooltip-2">Blog</Tooltip>}
     >
       <Nav.Item>
@@ -115,7 +115,7 @@ const Sidebar = () => (
 
     <OverlayTrigger
       placement="right"
-      key={"home"}
+      key={"com"}
       overlay={<Tooltip id="button-tooltip-2">Commentaires</Tooltip>}
     >
       <Nav.Item>
@@ -132,7 +132,7 @@ const Sidebar = () => (
 
     <OverlayTrigger
       placement="right"
-      key={"home"}
+      key={"website"}
       overlay={<Tooltip id="button-tooltip-2">Website</Tooltip>}
     >
       <Nav.Item>
