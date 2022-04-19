@@ -370,7 +370,7 @@ padding: 1em;
   background-color: inherit;
 }
 
-.card-body {
+.container_main .card-body {
   box-shadow: 5px 5px 5px rgba(27, 28, 46, 0.2);
 }
 
@@ -396,11 +396,14 @@ padding: 1em;
   margin: 0 1rem 1rem 0;
 }
 
+.card_admin .card-body {
+  box-shadow: 0!important;
+}
+
 .card-wrapper {
   display: flex;
   flex-direction: row;
  flex-wrap: wrap;
-  background: #eee;
   padding: 2rem ;
   height: 100%;
 }

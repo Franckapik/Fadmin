@@ -20,18 +20,22 @@ import { CSS } from "@dnd-kit/utilities";
 import people from "./people";
 import prisma from "../../../prisma/prisma";
 import { Card } from "react-bootstrap";
+import { CardAdmin } from "../../../components/cardadmin";
 
 const Carte = (props) => {
+  const a = props.media.filter((a) => a.media_id == props.name)[0];
+  console.log(a);
   return (
-    <div>
-      <Card className="card-admin">
-        <Card.Body className="text-center">
-          <Card.Title>{props.media.media_title}</Card.Title>
-
-          <Card.Text>{props.index}</Card.Text>
-        </Card.Body>
-      </Card>
-    </div>
+    <CardAdmin
+      key={a.media_id}
+      all={a}
+      title={a.media_title}
+      text={a.media_subtitle}
+      category={a.category.category_name}
+      edit_link={`/admin/media/${a.media_id}`}
+      position={a.media_position}
+      preview={a.media_path.replace("./public", "")}
+    ></CardAdmin>
   );
 };
 
@@ -43,7 +47,7 @@ const SortableCard = (props) => {
     setNodeRef,
     transform,
     transition,
-  } = useSortable({ id: props.media });
+  } = useSortable({ id: props.name });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -69,7 +73,10 @@ const CardsWrapper = ({ children }) => {
 };
 
 const Grid = ({ db_media }) => {
-  const medias = db_media.map((a, i) => a);
+  console.log(db_media);
+  const medias = db_media.map((a, i) => a.media_id.toString());
+  console.log(medias);
+  console.log(people);
 
   const [items, setItems] = useState(medias);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
@@ -83,8 +90,13 @@ const Grid = ({ db_media }) => {
     >
       <SortableContext items={items} strategy={horizontalListSortingStrategy}>
         <CardsWrapper>
-          {items.map((a, i) => (
-            <SortableCard key={a.media_id} media={a} index={i} />
+          {items.map((name, index) => (
+            <SortableCard
+              key={name}
+              name={name}
+              index={index}
+              media={db_media}
+            />
           ))}
         </CardsWrapper>
       </SortableContext>
