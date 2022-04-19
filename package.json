@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^2.9.1",
+    "@dnd-kit/core": "^5.0.3",
+    "@dnd-kit/sortable": "^6.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",

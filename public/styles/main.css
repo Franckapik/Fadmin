@@ -389,7 +389,20 @@ padding: 1em;
 }
 
 .card-admin {
+  background-color: white;
+  padding: 1rem;
+  width: 20vw;
   height: 400px;
+  margin: 0 1rem 1rem 0;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: row;
+ flex-wrap: wrap;
+  background: #eee;
+  padding: 2rem ;
+  height: 100%;
 }
 
 .card-admin .card-footer {
