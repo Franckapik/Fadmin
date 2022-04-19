@@ -1,7 +1,6 @@
-import React, { useState } from "react";
 import {
-  DndContext,
   closestCenter,
+  DndContext,
   MouseSensor,
   TouchSensor,
   useSensor,
@@ -12,19 +11,15 @@ import {
   horizontalListSortingStrategy,
   SortableContext,
   useSortable,
-  verticalListSortingStrategy, // <== doesn't break if this is rectSortingStrategy
 } from "@dnd-kit/sortable";
-
 import { CSS } from "@dnd-kit/utilities";
-
-import people from "./people";
-import prisma from "../../../prisma/prisma";
-import { Card } from "react-bootstrap";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { CardAdmin } from "../../../components/cardadmin";
+import prisma from "../../../prisma/prisma";
 
 const Carte = (props) => {
   const a = props.media.filter((a) => a.media_id == props.name)[0];
-  console.log(a);
   return (
     <CardAdmin
       key={a.media_id}
@@ -72,14 +67,22 @@ const CardsWrapper = ({ children }) => {
   return <div className="card-wrapper">{children}</div>;
 };
 
-const Grid = ({ db_media }) => {
-  console.log(db_media);
-  const medias = db_media.map((a, i) => a.media_id.toString());
-  console.log(medias);
-  console.log(people);
-
-  const [items, setItems] = useState(medias);
+const Grid = ({ db_media, db_home }) => {
+  const medias = db_media.map((a, i) => a.media_id.toString()); //if no items saved
+  const [items, setItems] = useState(
+    db_home.home_media_position.split(",") || medias
+  );
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
+  useEffect(() => {
+    axios
+      .post("/api/media/position", {
+        items: items,
+      })
+      .then((response) => {
+        console.log(response);
+      });
+  }, [items]);
 
   return (
     <DndContext
@@ -113,6 +116,7 @@ const Grid = ({ db_media }) => {
 
         return arrayMove(items, oldIndex, newIndex);
       });
+      console.log(items);
     }
   }
 };
@@ -127,7 +131,13 @@ export async function getServerSideProps(ctx) {
     },
   });
 
+  const db_home = await prisma.home.findUnique({
+    where: {
+      home_id: 1,
+    },
+  });
+
   return {
-    props: { db_media },
+    props: { db_media, db_home },
   };
 }

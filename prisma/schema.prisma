@@ -80,11 +80,12 @@ model comment {
 }
 
 model home {
-  home_video_url String? @db.VarChar(500)
-  home_mail      String? @db.VarChar(200)
-  home_id        Int     @id @db.SmallInt
-  home_insta     String? @db.VarChar(200)
-  home_fb        String? @db.VarChar(200)
-  home_name      String  @db.VarChar(200)
-  home_logo      String? @db.VarChar(500)
+  home_video_url      String? @db.VarChar(500)
+  home_mail           String? @db.VarChar(200)
+  home_id             Int     @id @db.SmallInt
+  home_insta          String? @db.VarChar(200)
+  home_fb             String? @db.VarChar(200)
+  home_name           String  @db.VarChar(200)
+  home_logo           String? @db.VarChar(500)
+  home_media_position String? @db.VarChar
 }
