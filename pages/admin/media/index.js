@@ -23,7 +23,6 @@ import { Nav } from "react-bootstrap";
 import Layout_Admin from "../../../layouts/layout_admin";
 
 const SortableCard = (props) => {
-  console.log(props.show);
   const {
     attributes,
     isDragging,
@@ -45,7 +44,6 @@ const SortableCard = (props) => {
       ref={setNodeRef}
       style={style}
       faded={isDragging}
-      {...props}
       {...attributes}
       {...listeners}
     >
@@ -61,6 +59,7 @@ const SortableCard = (props) => {
           preview={a.media_path.replace("./public", "")}
           setShow={props.setShow}
           show={props.show}
+          setSelected={props.setSelected}
         ></CardAdmin>
       ) : null}
     </div>
@@ -73,7 +72,15 @@ const Grid = ({ db_media, db_home }) => {
     db_home.home_media_position.split(",") || medias
   );
   const [artist, setArtist] = useState("all");
-  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      // Require the mouse to move by 10 pixels before activating
+      activationConstraint: {
+        distance: 10,
+      },
+    }),
+    useSensor(TouchSensor)
+  );
 
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -150,6 +157,7 @@ const Grid = ({ db_media, db_home }) => {
                 artist={artist}
                 setShow={setShow}
                 show={show}
+                setSelected={setSelected}
               />
             ))}
           </div>
