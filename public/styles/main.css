@@ -391,13 +391,19 @@ padding: 1em;
 .card-admin {
   background-color: white;
   padding: 1rem;
-  width: 20vw;
+  width: 18vw;
   height: 400px;
   margin: 0 1rem 1rem 0;
 }
 
 .card_admin .card-body {
   box-shadow: 0!important;
+}
+
+.card_add_hor {
+  height: 150px!important;
+  margin: 10px;
+
 }
 
 .card-wrapper {

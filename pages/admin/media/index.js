@@ -13,7 +13,6 @@ const MediaPage = ({ db_media }) => {
   const router = useRouter();
 
   const { operation, type, value } = router.query;
-  const [alert, setAlert] = useState(true);
 
   const [artist, setArtist] = useState(false);
 

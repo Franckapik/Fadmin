@@ -17,24 +17,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CardAdmin } from "../../../components/cardadmin";
 import prisma from "../../../prisma/prisma";
-
-const Carte = (props) => {
-  const a = props.media.filter((a) => a.media_id == props.name)[0];
-  return (
-    <CardAdmin
-      key={a.media_id}
-      all={a}
-      title={a.media_title}
-      text={a.media_subtitle}
-      category={a.category.category_name}
-      edit_link={`/admin/media/${a.media_id}`}
-      position={a.media_position}
-      preview={a.media_path.replace("./public", "")}
-    ></CardAdmin>
-  );
-};
+import { Button, Modal, Navbar } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
+import Layout_Admin from "../../../layouts/layout_admin";
 
 const SortableCard = (props) => {
+  console.log(props.show);
   const {
     attributes,
     isDragging,
@@ -49,6 +38,8 @@ const SortableCard = (props) => {
     transition,
   };
 
+  const a = props.media.filter((a) => a.media_id == props.name)[0];
+
   return (
     <div
       ref={setNodeRef}
@@ -58,13 +49,22 @@ const SortableCard = (props) => {
       {...attributes}
       {...listeners}
     >
-      <Carte {...props} />
+      {props.artist === a.author.author_name || props.artist === "all" ? (
+        <CardAdmin
+          key={a.media_id}
+          all={a}
+          title={a.media_title}
+          text={a.media_subtitle}
+          category={a.category.category_name}
+          edit_link={`/admin/media/${a.media_id}`}
+          position={a.media_position}
+          preview={a.media_path.replace("./public", "")}
+          setShow={props.setShow}
+          show={props.show}
+        ></CardAdmin>
+      ) : null}
     </div>
   );
-};
-
-const CardsWrapper = ({ children }) => {
-  return <div className="card-wrapper">{children}</div>;
 };
 
 const Grid = ({ db_media, db_home }) => {
@@ -72,7 +72,25 @@ const Grid = ({ db_media, db_home }) => {
   const [items, setItems] = useState(
     db_home.home_media_position.split(",") || medias
   );
+  const [artist, setArtist] = useState("all");
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
+  const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState(false);
+
+  const onDelete = async (data) => {
+    await axios
+      .post("/api/media/deleteMedia", { id: data })
+      .then((response) => {
+        console.log(response);
+        setShow(!show);
+        router.push(
+          "/admin/media?operation=supprimé&type=media&value=" +
+            response.data.media_title
+        );
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     axios
@@ -84,26 +102,86 @@ const Grid = ({ db_media, db_home }) => {
       });
   }, [items]);
 
+  const authors = [
+    ...new Set(db_media.map((a, i) => a.author.author_name)),
+  ].sort((a, b) => a - b);
+
   return (
-    <DndContext
-      autoScroll={false}
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext items={items} strategy={horizontalListSortingStrategy}>
-        <CardsWrapper>
-          {items.map((name, index) => (
-            <SortableCard
-              key={name}
-              name={name}
-              index={index}
-              media={db_media}
-            />
-          ))}
-        </CardsWrapper>
-      </SortableContext>
-    </DndContext>
+    <Layout_Admin title={"Medias"}>
+      <CardAdmin
+        title={"Ajouter un média"}
+        text={"____"}
+        edit_link={"/admin/media/create"}
+        add
+        hor
+      ></CardAdmin>
+      <Navbar className="mb-2" bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand className={"cursor"} onClick={() => setArtist("all")}>
+            Artistes
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Nav className="me-auto">
+            {authors.map((a, i) => {
+              return (
+                <Nav.Link key={i} onClick={() => setArtist(a)}>
+                  {a}
+                </Nav.Link>
+              );
+            })}
+          </Nav>
+        </Container>
+      </Navbar>
+
+      <DndContext
+        autoScroll={false}
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={items} strategy={horizontalListSortingStrategy}>
+          <div className="card-wrapper">
+            {items.map((name, index) => (
+              <SortableCard
+                key={name}
+                name={name}
+                index={index}
+                media={db_media}
+                artist={artist}
+                setShow={setShow}
+                show={show}
+              />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton className="cursor"></Modal.Header>
+        <Modal.Body className="text-center">
+          {" "}
+          <p>
+            Etes vous certain de vouloir supprimer le media{" "}
+            {selected.media_title || selected.category?.category_name} ?
+          </p>
+          <Button
+            variant="danger"
+            className="m-3 mb-3"
+            onClick={() => onDelete(selected.media_id)}
+          >
+            {" "}
+            CONFIRMER
+          </Button>
+          <Button
+            variant="primary"
+            className="m-3 mb-3"
+            onClick={() => setShow(!show)}
+          >
+            {" "}
+            ANNULER
+          </Button>
+        </Modal.Body>
+      </Modal>
+    </Layout_Admin>
   );
 
   function handleDragEnd(event) {
