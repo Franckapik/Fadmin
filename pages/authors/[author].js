@@ -37,6 +37,7 @@ export default function Home({
         setShow={setShow}
         show={show}
         setmediaSelected={setmediaSelected}
+        db_home={db_home}
       ></Medias>
       {/*only one modal*/}
       <Modal
