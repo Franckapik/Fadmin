@@ -17,7 +17,7 @@ export const PostList = ({ postList }) => {
                   <Card.Body
                     className="fade-short rounded no-hover blog_card"
                     style={{
-                      backgroundImage: `url("/blog/${a.post_image}")`,
+                      backgroundImage: `url("${a.post_image}")`,
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center center",
                       backgroundSize: "cover",

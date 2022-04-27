@@ -41,12 +41,12 @@ const Post = ({ db_post, post_length, db_author, db_home }) => {
       </Row>
       <Row className="post_row ">
         {db_post && db_post.post_html ? (
-          <>
+          <Row className="p-5">
             {" "}
             <Col
-              md={3}
+              md={4}
               style={{
-                backgroundImage: `url("/blog/${db_post.post_image}")`,
+                backgroundImage: `url("${db_post.post_image}")`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center center",
                 backgroundSize: "cover",
@@ -55,22 +55,28 @@ const Post = ({ db_post, post_length, db_author, db_home }) => {
               }}
               className="mb-5"
             ></Col>
-            <Col md={7} className="text-center">
+            <Col md={8} className="text-center">
               <h4 className="text-center">{db_post.post_title}</h4>
               <hr></hr>
               <Card border="0" className="p-4 no-upper">
                 <div dangerouslySetInnerHTML={{ __html: html }} />
               </Card>
             </Col>
-          </>
+          </Row>
         ) : null}
       </Row>
       <Row className="text-center">
         <p className="mt-5">
-          Par {db_post?.author.author_name} le{" "}
-          <Moment format="DD/MM/YYYY">
-            {db_post?.post_update || db_post?.post_create}
-          </Moment>
+          Par {db_post?.author.author_name}
+          {db_post?.post_create ? (
+            <div>
+              le
+              <Moment format="DD/MM/YYYY">
+                {db_post?.post_update || db_post?.post_create}
+              </Moment>
+              )
+            </div>
+          ) : null}
         </p>
         <p className="mt-5">
           <FacebookShareButton

@@ -1,5 +1,13 @@
 import { useRouter } from "next/router";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Modal,
+  ModalBody,
+  Row,
+} from "react-bootstrap";
 import Layout_Admin from "../../../layouts/layout_admin";
 import prisma from "../../../prisma/prisma";
 import { useForm, Controller } from "react-hook-form";
@@ -7,6 +15,7 @@ import axios from "axios";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
+import Cloud from "../../../components/cloud";
 
 const PostAdmin = ({ db_post, db_author }) => {
   const {
@@ -31,11 +40,27 @@ const PostAdmin = ({ db_post, db_author }) => {
   const router = useRouter();
   const { post } = router.query;
 
+  const [show, setShow] = useState(false);
+
+  const [filesSelected, setfilesSelected] = useState(false);
+
+  const chooseFile = (element) => {
+    console.log(element);
+    setfilesSelected(element);
+
+    setShow(false);
+  };
+  const allFields = watch();
+
   const onSubmit = async (data) => {
     post !== "create" ? (data.post_id = db_post.post_id) : null;
     data.post_author_id = parseInt(data.post_author_id); //integer issue
     data.post_content = quill.getContents();
     data.post_html = innerHTML;
+
+    filesSelected
+      ? (data.post_image = filesSelected[0].url)
+      : (data.post_image = db_post.post_image || 0);
 
     await axios
       .post("/api/blog/addPost", data)
@@ -51,7 +76,6 @@ const PostAdmin = ({ db_post, db_author }) => {
       });
   };
 
-  const allFields = watch();
   const { quill, quillRef } = useQuill();
 
   useEffect(() => {
@@ -78,7 +102,7 @@ const PostAdmin = ({ db_post, db_author }) => {
   return (
     <Layout_Admin>
       <Row>
-        <Col>
+        <Col md={6}>
           {db_post ? (
             <h2 className="mb-4 text-center">
               {" "}
@@ -116,25 +140,12 @@ const PostAdmin = ({ db_post, db_author }) => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="post_image_id">
+            <Form.Group className="mb-3" controlId="media_photo_id">
               <Form.Label>Photographie(s)</Form.Label>
-              <Controller
-                control={control}
-                name="post_image"
-                defaultValue="photo"
-                render={({ field: { onChange, ref } }) => (
-                  <Form.Control
-                    type="file"
-                    onChange={onChange}
-                    ref={ref}
-                    isInvalid={errors.post_image}
-                    placeholder="Enter photography"
-                  />
-                )}
+              <Form.Control
+                onClick={() => setShow(true)}
+                placeholder={filesSelected[0]?.public_id || db_post.post_image}
               />
-              <Form.Control.Feedback type="invalid">
-                {errors.post_image?.message}
-              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="post_content_id">
@@ -210,32 +221,36 @@ const PostAdmin = ({ db_post, db_author }) => {
             </Button>
           </Form>
         </Col>
-        <Col>
+        <Col md={6}>
           <Card>
-            <Row>
-              <Col>
-                <Card.Img
-                  variant="top"
-                  className="mx-auto"
-                  src={`/medias/${allFields.post_author_id}/${allFields.post_folder}/${allFields.post_image}`}
-                ></Card.Img>
-              </Col>
-              <Col>
-                <Card.Body className="text-center">
-                  <Card.Title className="mt-4">
-                    <h2>{allFields.post_title}</h2>
-                  </Card.Title>
-                  <Card.Text>
-                    <h6>{allFields.post_subtitle}</h6>
-                    <hr></hr>
-                    <h6>{text}</h6>
-                  </Card.Text>
-                </Card.Body>
-              </Col>
-            </Row>
+            <Card.Img
+              src={allFields.post_image || filesSelected[0]?.url}
+            ></Card.Img>
+
+            <Card.Body className="text-center">
+              <Card.Title className="mt-4">
+                <h2>{allFields.post_title}</h2>
+              </Card.Title>
+              <Card.Text>
+                <hr></hr>
+                <h6>{text}</h6>
+              </Card.Text>
+            </Card.Body>
           </Card>
         </Col>
       </Row>
+      <div className="modal_media">
+        <Modal
+          dialogClassName={"MediaModal"}
+          centered
+          show={show}
+          onHide={() => setShow(false)}
+        >
+          <ModalBody>
+            <Cloud chooseFile={chooseFile}></Cloud>
+          </ModalBody>
+        </Modal>
+      </div>
     </Layout_Admin>
   );
 };
