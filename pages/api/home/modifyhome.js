@@ -10,6 +10,7 @@ export default async (req, res) => {
       },
       data: data,
     });
+    console.log("Admin Home changed", result);
     res.status(200).json(result);
   } catch (err) {
     console.log(err);

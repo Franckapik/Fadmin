@@ -12,6 +12,7 @@ export default async (req, res) => {
         home_media_position: data.toString(),
       },
     });
+    console.info("Media position changed", result.home_media_position);
     res.status(200).json(result);
   } catch (err) {
     console.log(err);

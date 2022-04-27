@@ -15,6 +15,12 @@ export default async (req, res) => {
         ...data,
       },
     });
+    console.info(
+      data.post_id ? "Modified post" : "Added post",
+      result.post_title,
+      result.post_id
+    );
+
     res.status(200).json(result);
   } catch (err) {
     console.log(err);

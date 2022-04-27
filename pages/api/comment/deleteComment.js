@@ -8,6 +8,8 @@ export default async (req, res) => {
         comment_id: data.id,
       },
     });
+    console.info("Deleted comment", deleteComment);
+
     res.status(200).json(deleteComment);
   } catch (err) {
     console.log(err);

@@ -8,6 +8,7 @@ export default async (req, res) => {
         media_id: data.id,
       },
     });
+    console.info("Deleted media", deleteMedia);
     res.status(200).json(deleteMedia);
   } catch (err) {
     console.log(err);

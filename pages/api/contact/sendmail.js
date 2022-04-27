@@ -33,6 +33,7 @@ export default async function (req, res) {
         .status(403)
         .json({ err: "Error occured while sending a message :" + err });
     } else {
+      console.info("Mail sended", info);
       res.status(200).json(info);
     }
   });

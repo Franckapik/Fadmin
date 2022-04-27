@@ -74,13 +74,15 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_home }) => {
 
       .then((response) => {
         console.log(response);
-        const items = db_home.home_media_position.split(",");
-        items.unshift(response.data.media_id);
-        console.log(items);
-        axios.post("/api/media/position", {
-          items: items,
-        });
-        console.log(items);
+
+        if (media === "create") {
+          //add position in db_home_media_position
+          const items = db_home.home_media_position.split(",");
+          items.unshift(response.data.media_id);
+          axios.post("/api/media/position", {
+            items: items,
+          });
+        }
 
         router.push(
           "/admin/media?operation=ajouté&type=media&value=" +

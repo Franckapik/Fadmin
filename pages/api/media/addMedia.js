@@ -23,6 +23,11 @@ export default async (req, res) => {
         ...data,
       },
     });
+    console.info(
+      data.media_id === lastId + 1 ? "Added media" : "Modified media",
+      result
+    );
+
     res.status(200).json(result);
   } catch (err) {
     console.log(err);

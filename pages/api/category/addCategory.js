@@ -15,6 +15,10 @@ export default async (req, res) => {
         ...data,
       },
     });
+    console.info(
+      data.category_id ? "Modified category" : "Added category",
+      result
+    );
     res.status(200).json(result);
   } catch (err) {
     console.log(err);

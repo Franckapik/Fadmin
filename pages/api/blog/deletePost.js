@@ -8,6 +8,8 @@ export default async (req, res) => {
         post_id: data.id,
       },
     });
+    console.info("Deleted post", deletePost.post_title, deletePost.post_id);
+
     res.status(200).json(deletePost);
   } catch (err) {
     console.log(err);

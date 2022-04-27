@@ -15,6 +15,11 @@ export default async (req, res) => {
         ...data,
       },
     });
+    console.info(
+      data.comment_id ? "Modified comment" : "Added comment",
+      result
+    );
+
     res.status(200).json(result);
   } catch (err) {
     console.log(data);

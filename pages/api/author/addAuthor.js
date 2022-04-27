@@ -15,6 +15,7 @@ export default async (req, res) => {
         ...data,
       },
     });
+    console.info(data.author_id ? "Modified artist" : "Added artist", result);
     res.status(200).json(result);
   } catch (err) {
     console.log(err);
