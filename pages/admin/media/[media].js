@@ -15,7 +15,7 @@ import Cloud from "../../../components/cloud";
 import Layout_Admin from "../../../layouts/layout_admin";
 import prisma from "../../../prisma/prisma";
 
-const MediaAdmin = ({ db_media, db_category, db_author }) => {
+const MediaAdmin = ({ db_media, db_category, db_author, db_home }) => {
   const {
     handleSubmit,
     control,
@@ -71,8 +71,17 @@ const MediaAdmin = ({ db_media, db_category, db_author }) => {
 
     await axios
       .post("/api/media/addMedia", data)
+
       .then((response) => {
         console.log(response);
+        const items = db_home.home_media_position.split(",");
+        items.unshift(response.data.media_id);
+        console.log(items);
+        axios.post("/api/media/position", {
+          items: items,
+        });
+        console.log(items);
+
         router.push(
           "/admin/media?operation=ajouté&type=media&value=" +
             response.data.media_title
@@ -476,12 +485,16 @@ export async function getServerSideProps({ params }) {
       },
     });
   }
-
+  const db_home = await prisma.home.findUnique({
+    where: {
+      home_id: 1,
+    },
+  });
   const db_category = await prisma.category.findMany();
   const db_author = await prisma.author.findMany();
   const db_medias = await prisma.media.findMany();
 
   return {
-    props: { db_media, db_category, db_author, db_medias },
+    props: { db_media, db_category, db_author, db_medias, db_home },
   };
 }

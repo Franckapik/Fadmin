@@ -21,6 +21,7 @@ import { Button, Modal, Navbar } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import Layout_Admin from "../../../layouts/layout_admin";
+import { useRouter } from "next/router";
 
 const SortableCard = (props) => {
   const {
@@ -37,7 +38,7 @@ const SortableCard = (props) => {
     transition,
   };
 
-  const a = props.media.filter((a) => a.media_id == props.name)[0];
+  const a = props.media.filter((a) => a.media_id == props.name)[0]; //find the medias according to the index
 
   return (
     <div
@@ -47,29 +48,33 @@ const SortableCard = (props) => {
       {...attributes}
       {...listeners}
     >
-      {props.artist === a.author.author_name || props.artist === "all" ? (
-        <CardAdmin
-          key={a.media_id}
-          all={a}
-          title={a.media_title}
-          text={a.media_subtitle}
-          category={a.category.category_name}
-          edit_link={`/admin/media/${a.media_id}`}
-          position={a.media_position}
-          preview={a.media_path.replace("./public", "")}
-          setShow={props.setShow}
-          show={props.show}
-          setSelected={props.setSelected}
-        ></CardAdmin>
+      {typeof a != "undefined" ? (
+        props.artist === a.author.author_name || props.artist === "all" ? (
+          <CardAdmin
+            key={a.media_id}
+            all={a}
+            title={a.media_title}
+            text={a.media_subtitle}
+            category={a.category.category_name}
+            edit_link={`/admin/media/${a.media_id}`}
+            position={a.media_position}
+            preview={a.media_path.replace("./public", "")}
+            setShow={props.setShow}
+            show={props.show}
+            setSelected={props.setSelected}
+          ></CardAdmin>
+        ) : null
       ) : null}
     </div>
   );
 };
 
 const Grid = ({ db_media, db_home }) => {
+  const router = useRouter();
+
   const medias = db_media.map((a, i) => a.media_id.toString()); //if no items saved
   const [items, setItems] = useState(
-    db_home.home_media_position.split(",") || medias
+    db_home.home_media_position?.split(",") || medias
   );
   const [artist, setArtist] = useState("all");
   const sensors = useSensors(
@@ -91,6 +96,11 @@ const Grid = ({ db_media, db_home }) => {
       .then((response) => {
         console.log(response);
         setShow(!show);
+        console.log(data);
+        const itemToDelete = items.indexOf(data.toString());
+        console.log(itemToDelete);
+        setItems(items.filter((item) => item !== data.toString()));
+
         router.push(
           "/admin/media?operation=supprimé&type=media&value=" +
             response.data.media_title
@@ -100,13 +110,9 @@ const Grid = ({ db_media, db_home }) => {
   };
 
   useEffect(() => {
-    axios
-      .post("/api/media/position", {
-        items: items,
-      })
-      .then((response) => {
-        console.log(response);
-      });
+    axios.post("/api/media/position", {
+      items: items,
+    });
   }, [items]);
 
   const authors = [
