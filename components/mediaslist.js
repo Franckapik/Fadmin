@@ -5,7 +5,13 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import Image from "next/image";
 
-export const Medias = ({ db_medias, setShow, show, setmediaSelected }) => {
+export const Medias = ({
+  db_medias,
+  setShow,
+  show,
+  setmediaSelected,
+  db_home,
+}) => {
   const router = useRouter();
 
   const addQuery = (key, value) => {
@@ -14,13 +20,20 @@ export const Medias = ({ db_medias, setShow, show, setmediaSelected }) => {
     router.replace(router);
   };
 
+  const media_pos = db_home.home_media_position
+    .split(",")
+    .map((a, i) => parseInt(a));
+
   return (
     <Container fluid className="d-flex justify-content-center flex-wrap ">
       {" "}
       {/*justify-content-between */}
       {db_medias && db_medias != 0
         ? db_medias
-            .sort((a, b) => a.media_position - b.media_position)
+            .sort(
+              (a, b) =>
+                media_pos.indexOf(a.media_id) - media_pos.indexOf(b.media_id)
+            )
             .map((a, i) => {
               return (
                 <Card

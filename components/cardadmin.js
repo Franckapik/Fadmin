@@ -15,11 +15,16 @@ export const CardAdmin = ({
   position,
   category,
   add,
+  hor,
   setSelected,
   preview,
 }) => (
   <Col>
-    <Card className={add ? "card-admin-add" : "card-admin"}>
+    <Card
+      className={`${add ? "card-admin-add" : "card-admin"} ${
+        hor ? "card_add_hor" : null
+      }`}
+    >
       <Card.Body className="text-center">
         <a href={edit_link}>
           <Card.Title className="mt-4">
@@ -38,7 +43,7 @@ export const CardAdmin = ({
         </a>
         <Card.Footer>
           {" "}
-          {add ? (
+          {add && !hor ? (
             <Link href={edit_link} passHref>
               <FontAwesomeIcon
                 icon={faPlusCircle}
