@@ -46,11 +46,15 @@ Then, you can automatically add prototypes tables on your database with prisma p
 npx prisma db push
 ```
 
-## 3. Sign-in a Clerk account to use Authentification services
+## 3. Sign-in a Clerk account to use authentification services
 
 [Sign a free account here](https://clerk.dev/)
 
-## 4. Set environnement variables
+## 4. Sign-in a Cloudinary to host images/video for medias
+
+[Sign a free account here](https://cloudinary.com/)
+
+## 5. Set environnement variables
 
 Duplicate the file .env.example to a new file named .env and complete env variables according to your new database, clerk api key and the name/domain of your website.
 
@@ -66,13 +70,13 @@ DOMAIN =
 NEXTAUTH_URL=
 ```
 
-## 5. Start your new admin dashboard in developpment mode.
+## 6. Start your new admin dashboard in developpment mode.
 
 ```
 npm run dev
 ```
 
-## 6. Build your project after development to use it on your production server
+## 7. Build your project after development to use it on your production server
 
 Build command Used to generate the final result of compiling src files into build folder. This can be achieved by running the following command:
 
@@ -96,10 +100,16 @@ prisma db push
 
 # Dependencies
 
+- React
 - Nextjs
 - Bootstrap
+- Prisma
 - Moment
 - Fontawesome
+- Nodemailer
+- Quill
+- Cloudinary
+- Dnd-kit
 
 # License
 
