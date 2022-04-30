@@ -10,79 +10,97 @@
 
 # Preview
 
-Screenshot
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Franckapik/Fadmin/main/public/screenshot.png" />
+</p>
 
-image
+# Getting started
 
-Getting started
+In order to run F.admin on your local machine all what you need to do is to have the prerequisites stated below installed on your machine and follow the installation steps down below.
 
-In order to run F;admin on your local machine all what you need to do is to have the prerequisites stated below installed on your machine and follow the installation steps down below.
+## Prerequisites
 
-Prerequisites
-Node.js
-NPM
-PostgreSQL
-Clerk auth
-Git
+- Node.js
+- NPM
+- PostgreSQL
+- Clerk auth
+- Git
 
-Installing & Local Development
-Start by typing the following commands in your terminal in order to get Adminator full package on your machine and starting a local development server with live reload feature.
+## 1. Installing & Local Development
 
-> git clone https://github.com/Franckapik/Fadmin.git fadmin
-> cd fadmin
-> npm install
+Start by typing the following commands in your terminal in order to get F.admin full package on your machine and starting a local development server with live reload feature.
 
-Environnement variable
-1- Install Postgresql database
-_ npm install psql
-_ npx prisma db push => adding schema to database according to schema.prisma
+```js
+ git clone https://github.com/Franckapik/Fadmin.git fadmin
+ cd fadmin
+ npm install
+```
 
-2- Sign-in a Cleck free account
+## 2. Install Postgresql database
 
-You have to duplicate the file .env.example to a new file named .env and complete env variables.
+First install a local psql database on your machine.
 
-> npm run dev
+Then, you can automatically add prototypes tables on your database with prisma push.
 
-Files/Folders Structure
-Here is a brief explanation of the template folder structure and some of its main files usage:
+```
+npx prisma db push
+```
 
-Deployment
-In deployment process, you have two commands:
+## 3. Sign-in a Clerk account to use Authentification services
+
+[Sign a free account here](https://clerk.dev/)
+
+## 4. Set environnement variables
+
+Duplicate the file .env.example to a new file named .env and complete env variables according to your new database, clerk api key and the name/domain of your website.
+
+```
+DATABASE_URL=
+MAIL_PASSWORD =
+CLOUDINARY_USERNAME=
+CLOUDINARY_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+NEXT_PUBLIC_CLERK_FRONTEND_API=
+DOMAIN =
+NEXTAUTH_URL=
+```
+
+## 5. Start your new admin dashboard in developpment mode.
+
+```
+npm run dev
+```
+
+## 6. Build your project after development to use it on your production server
 
 Build command Used to generate the final result of compiling src files into build folder. This can be achieved by running the following command:
 
-> npm run build
+```
+npm run build
+```
 
-Built With
-Babel
-Webpack
-Eslint
-Bootstrap
-Moment
-Fontawesome
-
-License
-Adminator is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the final products. But you always need to state that Colorlib is the original author of this template.
-
-Setup a new Prisma project
-$ prisma init
-
-Generate artifacts (e.g. Prisma Client)
-$ prisma generate
-
-Browse your data
-$ prisma studio
-
-Create migrations from your Prisma schema, apply them to the database, generate artifacts (e.g. Prisma Client)
-$ prisma migrate dev
+# Modify PSQL database
 
 Pull the schema from an existing database, updating the Prisma schema
-$ prisma db pull
+
+```
+prisma db pull
+```
 
 Push the Prisma schema state to the database
-$ prisma db push
 
-After modifying tables in pgadmin, i should :
+```
+prisma db push
+```
 
-- prisma db pull
-- prisma generate
+# Dependencies
+
+- Nextjs
+- Bootstrap
+- Moment
+- Fontawesome
+
+# License
+
+F.admin is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the final products. But you always need to state that Colorlib is the original author of this template.
