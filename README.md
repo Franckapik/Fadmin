@@ -1,10 +1,14 @@
-[logo]: logo.png "Logo Title Text 2"
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Franckapik/Fadmin/main/public/logo.png" />
+</p>
 
-F.admin - Admin dashboard for Medias (NextJS CMS)
+# F.admin
 
-F.admin is a Bootstrap Admin Template. It provides you with a ready to use code to manage medias.
+## Admin dashboard for Medias (NextJS CMS)
 
-Preview
+### F.admin is a Bootstrap Admin Template. It provides you with a ready to use code to manage medias.
+
+# Preview
 
 Screenshot
 
