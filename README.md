@@ -1,3 +1,5 @@
+[logo]: logo.png "Logo Title Text 2"
+
 F.admin - Admin dashboard for Medias (NextJS CMS)
 
 F.admin is a Bootstrap Admin Template. It provides you with a ready to use code to manage medias.
@@ -28,6 +30,9 @@ Start by typing the following commands in your terminal in order to get Adminato
 
 Environnement variable
 1- Install Postgresql database
+_ npm install psql
+_ npx prisma db push => adding schema to database according to schema.prisma
+
 2- Sign-in a Cleck free account
 
 You have to duplicate the file .env.example to a new file named .env and complete env variables.

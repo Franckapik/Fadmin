@@ -33,7 +33,7 @@
 
 
 body {
-   background-color: rgb(252, 246, 240); 
+   background-color: rgb(201, 255, 246); 
 color: #02021a;
  font-family: "futura-light", sans-serif;
  font-weight: 400;
@@ -85,6 +85,10 @@ body::-webkit-scrollbar-thumb {
   height: 120px;
   width : 50vw;
   
+}
+
+.card-w {
+  background-color: white!important;
 }
 
 .tree svg { /* font awesome icons*/

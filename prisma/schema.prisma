@@ -36,20 +36,16 @@ model category {
 model media {
   media_id          Int       @id @default(autoincrement())
   media_title       String?   @db.VarChar(80)
-  media_photo       String?   @db.VarChar(100)
-  media_video       String?   @db.VarChar(100)
   media_content     String?
   media_link        String?   @db.VarChar(100)
   media_share       String?   @db.VarChar(100)
-  media_created     DateTime? @db.Timestamp(6)
-  media_number      Int?      @db.SmallInt
+  media_created     String?   @db.VarChar(50)
   media_category_id Int?
   media_subtitle    String    @db.VarChar(50)
   media_author_id   Int?      @db.SmallInt
   media_draft       Boolean
   media_large       Boolean
   media_path        String?   @db.VarChar(200)
-  media_position    Int?      @db.SmallInt
   media_preview     Boolean?
   media_album       Boolean?
   author            author?   @relation(fields: [media_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "author_id_fkey")
@@ -57,26 +53,26 @@ model media {
 }
 
 model post {
-  post_id        Int       @id @default(autoincrement())
-  post_title     String    @db.VarChar(200)
+  post_id        Int      @id @default(autoincrement())
+  post_title     String   @db.VarChar(200)
   post_draft     Boolean?
   post_author_id Int?
-  post_content   Json?     @db.Json
+  post_content   Json?    @db.Json
   post_html      String?
-  post_create    DateTime? @db.Date
-  post_update    DateTime? @db.Date
-  post_image     String?   @db.VarChar(400)
-  author         author?   @relation(fields: [post_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "post_author_id_fk")
+  post_create    String?  @db.VarChar(50)
+  post_update    String?  @db.VarChar(50)
+  post_image     String?  @db.VarChar(400)
+  author         author?  @relation(fields: [post_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "post_author_id_fk")
 }
 
 model comment {
-  comment_id        Int       @id @default(autoincrement())
-  comment_msg       String?   @db.VarChar(1000)
-  comment_create    DateTime? @db.Date
-  comment_author    String?   @db.VarChar(100)
+  comment_id        Int      @id @default(autoincrement())
+  comment_msg       String?  @db.VarChar(1000)
+  comment_create    String?  @db.VarChar(50)
+  comment_author    String?  @db.VarChar(100)
   comment_draft     Boolean?
   comment_author_id Int?
-  author            author?   @relation(fields: [comment_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "comment_author_id_fk")
+  author            author?  @relation(fields: [comment_author_id], references: [author_id], onDelete: NoAction, onUpdate: NoAction, map: "comment_author_id_fk")
 }
 
 model home {
