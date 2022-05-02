@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber/native";
+import { Canvas, useFrame } from "@react-three/fiber";
 import axios from "axios";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import prisma from "../prisma/prisma";
