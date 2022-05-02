@@ -72,7 +72,6 @@ export default function Home({ author, home, category, media, post, comment }) {
                   <ul>
                     {" "}
                     <li>
-                      <i className="fad fa-toolbox"></i>
                       <i className="fas fa-envelope p-3"></i>
                       {author[0].author_email}
                     </li>
