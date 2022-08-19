@@ -1,6 +1,7 @@
 Faire qqchose après le prefill sur la vue => proposer ensuite l'admin (mais pas avant sinon erreur)
 Lien facebook et instagram uniquement sur demande dans l'accueil (case a cocher)
 DOmaine artistique trop court => changer dans le schema/db
+Asterisques pour les forms obligatoires
 
 //fort awesome fonctionne avec width mais entrouré d'une div
 //ajouter les méthodes console.log(), console.info(), console.warn(), et console.error().
