@@ -39,6 +39,9 @@ Start by typing the following commands in your terminal in order to get F.admin 
 ## 2. Install Postgresql database
 
 First install a local psql database on your machine.
+By example, using Pgadmin 4, create new database named "myproject"
+
+Next, fill env variable from.env DATABASE_URL= with your new database url.
 
 Then, you can automatically add prototypes tables on your database with prisma push.
 
