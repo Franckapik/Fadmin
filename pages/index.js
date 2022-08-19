@@ -19,7 +19,10 @@ export default function Home({ author, home, category, media, post, comment }) {
     <Container>
       <Col md={12} className="mx-auto">
         <Row className="m-5 ">
-          <Button href="/admin/">Admin Dashboard</Button>
+          <Col>Page de présentation</Col>
+          <Col>
+            <Button href="/admin/">Admin Dashboard</Button>
+          </Col>
         </Row>
         <Row>
           {home && home.length ? (
