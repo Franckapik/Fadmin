@@ -22,15 +22,15 @@ const Cloud = ({ chooseFile }) => {
     if (scriptLoaded) {
       window.ml = cloudinary.openMediaLibrary(
         {
-          cloud_name: "quadratik-fr",
-          api_key: "857781879738936",
+          cloud_name: "fanchcavellec-fr",
+          api_key: "932315387574987",
           remove_header: true,
           max_files: "1",
           insert_caption: "Choisir",
           inline_container: "#widget_container",
           default_transformations: [[]],
           timestamp: timestamp,
-          username: "fanch44@hotmail.com",
+          username: "fanchcavellec@gmail.com",
           signature: signature,
         },
         {

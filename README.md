@@ -39,6 +39,9 @@ Start by typing the following commands in your terminal in order to get F.admin 
 ## 2. Install Postgresql database
 
 First install a local psql database on your machine.
+By example, using Pgadmin 4, create new database named "myproject"
+
+Next, fill env variable from.env DATABASE_URL= with your new database url.
 
 Then, you can automatically add prototypes tables on your database with prisma push.
 
@@ -75,6 +78,9 @@ NEXTAUTH_URL=
 ```
 npm run dev
 ```
+
+Go to localhost:3000 to visit the website.
+In a way to access admin page, you should pre-fill database with random informations. To do this, click Pre-Fill Database button.
 
 ## 7. Build your project after development to use it on your production server
 
