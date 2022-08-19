@@ -79,6 +79,9 @@ NEXTAUTH_URL=
 npm run dev
 ```
 
+Go to localhost:3000 to visit the website.
+In a way to access admin page, you should pre-fill database with random informations. To do this, click Pre-Fill Database button.
+
 ## 7. Build your project after development to use it on your production server
 
 Build command Used to generate the final result of compiling src files into build folder. This can be achieved by running the following command:
