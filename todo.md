@@ -2,6 +2,7 @@ Faire qqchose après le prefill sur la vue => proposer ensuite l'admin (mais pas
 Lien facebook et instagram uniquement sur demande dans l'accueil (case a cocher)
 DOmaine artistique trop court => changer dans le schema/db
 Asterisques pour les forms obligatoires
+cloudjs => mdp en clair => mettre en lien avec le .env!
 
 //fort awesome fonctionne avec width mais entrouré d'une div
 //ajouter les méthodes console.log(), console.info(), console.warn(), et console.error().
