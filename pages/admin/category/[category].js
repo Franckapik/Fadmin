@@ -52,7 +52,7 @@ const CategoryAdmin = ({ db_category, db_author }) => {
       )}
       <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
         <Form.Group className="mb-3" controlId="category_name_id">
-          <Form.Label>Nom de categorie</Form.Label>
+          <Form.Label>Nom de categorie*</Form.Label>
           <Controller
             control={control}
             rules={{
@@ -80,7 +80,7 @@ const CategoryAdmin = ({ db_category, db_author }) => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="category_description_id">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>Description*</Form.Label>
           <Controller
             control={control}
             rules={{
@@ -130,7 +130,7 @@ const CategoryAdmin = ({ db_category, db_author }) => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="media_author_id_id">
-          <Form.Label>Auteur</Form.Label>
+          <Form.Label>Auteur*</Form.Label>
           <Controller
             control={control}
             name="category_author"

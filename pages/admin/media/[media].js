@@ -135,7 +135,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_home }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="media_photo_id">
-              <Form.Label>Photographie(s)</Form.Label>
+              <Form.Label>Photographie(s)*</Form.Label>
               <Form.Control
                 onClick={() => setShow(true)}
                 placeholder={filesSelected[0]?.public_id || db_media.media_path}
@@ -304,7 +304,7 @@ const MediaAdmin = ({ db_media, db_category, db_author, db_home }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="media_subtitle_id">
-              <Form.Label>Sous-titres</Form.Label>
+              <Form.Label>Sous-titres*</Form.Label>
               <Controller
                 control={control}
                 rules={{
