@@ -39,6 +39,8 @@ model media {
   media_content     String?
   media_link        String?   @db.VarChar(100)
   media_share       String?   @db.VarChar(100)
+  media_photo       String?   @db.VarChar(200)
+  media_video       String?   @db.VarChar(200)
   media_created     String?   @db.VarChar(50)
   media_category_id Int?
   media_subtitle    String    @db.VarChar(50)
