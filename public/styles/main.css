@@ -33,7 +33,7 @@
 
 
 body {
-   background-color: rgb(182, 200, 231); 
+   background-color: rgb(36, 83, 165); 
 color: #02021a;
  font-family: "futura-light", sans-serif;
  font-weight: 400;
@@ -41,6 +41,7 @@ color: #02021a;
  letter-spacing: 0.2em;
   text-transform: uppercase;
   column-span: all;
+
 }
 
 .no-upper {
@@ -69,6 +70,12 @@ body::-webkit-scrollbar-thumb {
   margin: auto;
   height: 20vw;
   width: 20vw;
+}
+
+.canvas {
+  height: 100vh;
+  overflow-y: hidden!important;
+  overflow-x: hidden!important;
 }
 
 
