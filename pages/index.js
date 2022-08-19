@@ -122,7 +122,7 @@ export default function Home({ author, home, category, media, post, comment }) {
                     alt="my favorite animal"
                     width={"200px"}
                   ></img>{" "}
-                  <div>{post[0].post_content}</div>
+                  <div>{post[0].post_html}</div>
                   <div>Mis à jour le {post[0].post_update}</div>
                 </Card.Body>
               </Card>
