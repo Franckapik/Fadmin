@@ -9,8 +9,8 @@ datasource db {
 
 model author {
   author_id           Int        @id @default(autoincrement()) @db.SmallInt
-  author_name         String     @db.VarChar(20)
-  author_art          String?    @db.VarChar(20)
+  author_name         String     @db.VarChar(30)
+  author_art          String?    @db.VarChar(100)
   author_draft        Boolean
   author_email        String?    @db.VarChar(70)
   author_biography_en String?
