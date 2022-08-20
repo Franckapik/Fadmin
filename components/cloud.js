@@ -22,15 +22,15 @@ const Cloud = ({ chooseFile }) => {
     if (scriptLoaded) {
       window.ml = cloudinary.openMediaLibrary(
         {
-          cloud_name: "fanchcavellec-fr",
-          api_key: "932315387574987",
+          cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_NAME,
+          api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
           remove_header: true,
           max_files: "1",
           insert_caption: "Choisir",
           inline_container: "#widget_container",
           default_transformations: [[]],
           timestamp: timestamp,
-          username: "fanchcavellec@gmail.com",
+          username: process.env.NEXT_PUBLIC_CLOUDINARY_USERNAME,
           signature: signature,
         },
         {
