@@ -74,7 +74,7 @@ export default function Page({
                           className="mb-3"
                           controlId="db_home_home_name"
                         >
-                          <Form.Label>Nom</Form.Label>
+                          <Form.Label>Nom*</Form.Label>
                           <Controller
                             control={control}
                             rules={{
@@ -109,7 +109,6 @@ export default function Page({
                           <Controller
                             control={control}
                             rules={{
-                              required: "Ce champ est manquant",
                               maxLength: {
                                 value: 200,
                                 message: "Ce champ contient trop de caractères",
@@ -136,7 +135,7 @@ export default function Page({
                           className="mb-3"
                           controlId="db_home_home_mail"
                         >
-                          <Form.Label>Mail</Form.Label>
+                          <Form.Label>Mail*</Form.Label>
                           <Controller
                             control={control}
                             rules={{
@@ -167,7 +166,7 @@ export default function Page({
                           className="mb-3"
                           controlId="db_home_home_logo"
                         >
-                          <Form.Label>Logo de titre</Form.Label>
+                          <Form.Label>Logo de titre*</Form.Label>
                           <Controller
                             control={control}
                             rules={{
@@ -201,7 +200,6 @@ export default function Page({
                           <Controller
                             control={control}
                             rules={{
-                              required: "Ce champ est manquant",
                               maxLength: {
                                 value: 200,
                                 message: "Ce champ contient trop de caractères",
@@ -232,7 +230,6 @@ export default function Page({
                           <Controller
                             control={control}
                             rules={{
-                              required: "Ce champ est manquant",
                               maxLength: {
                                 value: 200,
                                 message: "Ce champ contient trop de caractères",
