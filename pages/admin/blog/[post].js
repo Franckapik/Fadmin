@@ -113,7 +113,7 @@ const PostAdmin = ({ db_post, db_author }) => {
           )}
           <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
             <Form.Group className="mb-3" controlId="post_title_id">
-              <Form.Label>Titre de l&apos;article</Form.Label>
+              <Form.Label>Titre de l&apos;article*</Form.Label>
               <Controller
                 control={control}
                 rules={{
@@ -161,7 +161,7 @@ const PostAdmin = ({ db_post, db_author }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="post_author_id_id">
-              <Form.Label>Auteur</Form.Label>
+              <Form.Label>Auteur*</Form.Label>
               <Controller
                 control={control}
                 rules={{

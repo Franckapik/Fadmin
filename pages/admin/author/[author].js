@@ -55,7 +55,7 @@ const AuthorAdmin = ({ db_author }) => {
       )}
       <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
         <Form.Group className="mb-3" controlId="author_name_id">
-          <Form.Label>Nom de l&apos;artiste</Form.Label>
+          <Form.Label>Nom de l&apos;artiste*</Form.Label>
           <Controller
             control={control}
             rules={{
@@ -83,7 +83,7 @@ const AuthorAdmin = ({ db_author }) => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="author_art_id">
-          <Form.Label>Domaine artistique</Form.Label>
+          <Form.Label>Domaine artistique*</Form.Label>
           <Controller
             control={control}
             rules={{
@@ -111,7 +111,7 @@ const AuthorAdmin = ({ db_author }) => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="author_biography_fr_id">
-          <Form.Label>Biographie (FR)</Form.Label>
+          <Form.Label>Biographie (FR)*</Form.Label>
           <Controller
             control={control}
             rules={{
@@ -141,7 +141,7 @@ const AuthorAdmin = ({ db_author }) => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="author_biography_en_id">
-          <Form.Label>Biography (EN)</Form.Label>
+          <Form.Label>Biography (EN)*</Form.Label>
           <Controller
             control={control}
             rules={{
@@ -235,7 +235,7 @@ const AuthorAdmin = ({ db_author }) => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="author_email_id">
-          <Form.Label>E-mail</Form.Label>
+          <Form.Label>E-mail*</Form.Label>
           <Controller
             control={control}
             rules={{

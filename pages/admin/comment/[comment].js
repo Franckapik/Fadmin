@@ -91,7 +91,7 @@ const CommentAdmin = ({ db_comment, db_author }) => {
           )}
           <Form onSubmit={handleSubmit(onSubmit)} onReset={reset}>
             <Form.Group className="mb-3" controlId="comment_author_id">
-              <Form.Label>Auteur du commentaire</Form.Label>
+              <Form.Label>Auteur du commentaire*</Form.Label>
               <Controller
                 control={control}
                 rules={{
@@ -129,7 +129,7 @@ const CommentAdmin = ({ db_comment, db_author }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="comment_author_id_id">
-              <Form.Label>Artiste commenté</Form.Label>
+              <Form.Label>Artiste commenté*</Form.Label>
               <Controller
                 control={control}
                 name="comment_author_id"

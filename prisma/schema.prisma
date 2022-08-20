@@ -9,8 +9,8 @@ datasource db {
 
 model author {
   author_id           Int        @id @default(autoincrement()) @db.SmallInt
-  author_name         String     @db.VarChar(20)
-  author_art          String?    @db.VarChar(20)
+  author_name         String     @db.VarChar(30)
+  author_art          String?    @db.VarChar(100)
   author_draft        Boolean
   author_email        String?    @db.VarChar(70)
   author_biography_en String?
@@ -39,6 +39,8 @@ model media {
   media_content     String?
   media_link        String?   @db.VarChar(100)
   media_share       String?   @db.VarChar(100)
+  media_photo       String?   @db.VarChar(200)
+  media_video       String?   @db.VarChar(200)
   media_created     String?   @db.VarChar(50)
   media_category_id Int?
   media_subtitle    String    @db.VarChar(50)
